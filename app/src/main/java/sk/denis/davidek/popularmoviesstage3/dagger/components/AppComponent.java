@@ -1,7 +1,7 @@
 package sk.denis.davidek.popularmoviesstage3.dagger.components;
 
 import dagger.Component;
-import sk.denis.davidek.popularmoviesstage3.MainActivity;
+import sk.denis.davidek.popularmoviesstage3.main.MainActivity;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 
 /**

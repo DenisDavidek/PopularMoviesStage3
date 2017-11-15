@@ -1,5 +1,6 @@
-package sk.denis.davidek.popularmoviesstage3;
+package sk.denis.davidek.popularmoviesstage3.main;
 
+import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,9 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.denis.davidek.popularmoviesstage3.R;
 
 
 /**
@@ -23,7 +28,7 @@ import butterknife.ButterKnife;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MainContract.View {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,19 +38,22 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     private OnFragmentInteractionListener mListener;
 
+    private MainContract.Presenter mainPresenter;
+
     @BindView(R.id.rv_movies)
-    private RecyclerView moviesRecyclerView;
+    RecyclerView moviesRecyclerView;
 
     @BindView(R.id.tv_error_no_internet_connection)
-    private TextView errorInternetConnectionTextView;
+    TextView errorInternetConnectionTextView;
 
     @BindView(R.id.tv_no_favorite_movies)
-    private TextView noFavoriteMoviesTextView;
+    TextView noFavoriteMoviesTextView;
 
     @BindView(R.id.progressBar)
-    private ProgressBar loadingProgressBar;
+    ProgressBar loadingProgressBar;
 
 
     public MainFragment() {
@@ -87,6 +95,7 @@ public class MainFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, fragmentView);
 
+        mainPresenter = new MainPresenter(this);
         return fragmentView;
     }
 
@@ -102,9 +111,6 @@ public class MainFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -113,6 +119,46 @@ public class MainFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainPresenter.start();
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        //TODO CHECK IF PRESENER JE NULOVY
+        mainPresenter = presenter;
+    }
+
+
+    @Override
+    public void test() {
+        Toast.makeText(getContext(), "MVP basic working", Toast.LENGTH_SHORT).show();
+
+        mainPresenter.checkInternetConnection(getContext());
+    }
+
+    @Override
+    public void prepareRecyclerView() {
+
+    }
+
+    @Override
+    public void setMovieFilter() {
+
+    }
+
+    @Override
+    public void spracujInternetConnection(boolean hasInternetConnection) {
+        if (hasInternetConnection) {
+            Toast.makeText(getContext(), "MVP has Internet Connection", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "MVP has NOT Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

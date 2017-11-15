@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recipe_detail_fragment"
-    android:name="sk.denis.davidek.popularmoviesstage3.MainFragment"
+    android:name="sk.denis.davidek.popularmoviesstage3.main.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
