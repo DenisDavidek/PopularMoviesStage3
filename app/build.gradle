@@ -32,4 +32,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.13' // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.13'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+
+    //Butterknife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
