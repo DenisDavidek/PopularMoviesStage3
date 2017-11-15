@@ -3,6 +3,8 @@ package sk.denis.davidek.popularmoviesstage3;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
