@@ -8,7 +8,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.Movie;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
+import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
 
 /**
@@ -63,6 +63,10 @@ public class MainFragment extends Fragment implements MainContract.View,
     private MoviesAdapter moviesAdapter;
 
 
+    private static final String MOVIES_POPULAR = "/movie/popular";
+    private static final String QUERY_MOVIE_FILTER = "movie_filter";
+    private int MOVIE_GET_LOADER = 22;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -94,8 +98,6 @@ public class MainFragment extends Fragment implements MainContract.View,
         }
     }
 
-    private static final String MOVIES_POPULAR = "/movie/popular";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,20 +111,13 @@ public class MainFragment extends Fragment implements MainContract.View,
 
 
         moviesRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
         moviesRecyclerView.setLayoutManager(layoutManager);
         return fragmentView;
     }
 
-    public static int calculateNoOfColumns(Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        int noOfColumns = (int) (dpWidth / 180);
-        return noOfColumns;
-    }
 
-    private static final String QUERY_MOVIE_FILTER = "movie_filter";
-    private int MOVIE_GET_LOADER = 22;
+
 
     private void getMoviesData(String movieFilter) {
 
