@@ -1,9 +1,8 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.R;
 

@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 import javax.inject.Inject;
 
+import sk.denis.davidek.popularmoviesstage3.Movie;
+
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
@@ -31,18 +33,25 @@ public class MainPresenter implements MainContract.Presenter {
 
     }
 
-    @Override @Inject
+    @Override
+    @Inject
     public void checkInternetConnection(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        mainView.spracujInternetConnection(networkInfo != null && networkInfo.isConnectedOrConnecting());
+        mainView.workWithInternetConnection(networkInfo != null && networkInfo.isConnectedOrConnecting());
 
 
     }
 
     @Override
+    public void onItemInteraction(Movie movie) {
+        mainView.showItemClickData(movie);
+    }
+
+
+    @Override
     public void start() {
-mainView.test();
+        mainView.test();
     }
 }

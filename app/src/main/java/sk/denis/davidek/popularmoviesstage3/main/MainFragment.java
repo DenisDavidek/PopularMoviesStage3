@@ -1,11 +1,14 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.denis.davidek.popularmoviesstage3.Movie;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 
 
 /**
@@ -28,7 +33,8 @@ import sk.denis.davidek.popularmoviesstage3.R;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment implements MainContract.View {
+public class MainFragment extends Fragment implements MainContract.View,
+        LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,6 +60,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @BindView(R.id.progressBar)
     ProgressBar loadingProgressBar;
+    private MoviesAdapter moviesAdapter;
 
 
     public MainFragment() {
@@ -87,6 +94,8 @@ public class MainFragment extends Fragment implements MainContract.View {
         }
     }
 
+    private static final String MOVIES_POPULAR = "/movie/popular";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,8 +105,40 @@ public class MainFragment extends Fragment implements MainContract.View {
         ButterKnife.bind(this, fragmentView);
 
         mainPresenter = new MainPresenter(this);
+        getMoviesData(MOVIES_POPULAR);
+
+
+        moviesRecyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(getContext()));
+        moviesRecyclerView.setLayoutManager(layoutManager);
         return fragmentView;
     }
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int noOfColumns = (int) (dpWidth / 180);
+        return noOfColumns;
+    }
+
+    private static final String QUERY_MOVIE_FILTER = "movie_filter";
+    private int MOVIE_GET_LOADER = 22;
+
+    private void getMoviesData(String movieFilter) {
+
+        Bundle argsBundle = new Bundle();
+        argsBundle.putString(QUERY_MOVIE_FILTER, movieFilter);
+
+        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        Loader<ArrayList<Movie>> getMoviesLoader = loaderManager.getLoader(MOVIE_GET_LOADER);
+
+        if (getMoviesLoader == null) {
+            loaderManager.initLoader(MOVIE_GET_LOADER, argsBundle, this);
+        } else
+            loaderManager.restartLoader(MOVIE_GET_LOADER, argsBundle, this);
+
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -151,12 +192,37 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public void spracujInternetConnection(boolean hasInternetConnection) {
+    public void workWithInternetConnection(boolean hasInternetConnection) {
         if (hasInternetConnection) {
             Toast.makeText(getContext(), "MVP has Internet Connection", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "MVP has NOT Internet Connection", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void showItemClickData(Movie movie) {
+        Toast.makeText(getContext(), "Movie title: " + movie.getOriginalTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
+        return new MainLoader(getContext(), args);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
+        if (!data.isEmpty()) {
+            Toast.makeText(getContext(), "I got some movies - has data", Toast.LENGTH_SHORT).show();
+            moviesAdapter = new MoviesAdapter(getContext(), data, (MainPresenter) mainPresenter);
+            moviesRecyclerView.setAdapter(moviesAdapter);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+
     }
 
 
