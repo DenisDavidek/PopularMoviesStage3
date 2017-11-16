@@ -55,7 +55,8 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
     public ArrayList<Movie> loadInBackground() {
         String movieFilter = bundle.getString(QUERY_MOVIE_FILTER);
 
-        final String apiKey = BuildConfig.API_KEY;
+        final String apiKey = "testr";
+      /*  final String apiKey = BuildConfig.API_KEY;*/
         URL moviesRequestUrl = NetworkUtils.buildUrl(apiKey, movieFilter);
 
         String responseJSONString = NetworkUtils.getResponseFromHttp(moviesRequestUrl);
