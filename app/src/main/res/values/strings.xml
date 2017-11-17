@@ -8,7 +8,6 @@
     <string name="action_settings">Settings</string>
 
 
-
     <!--menu action items-->
     <string name="action_show_top_rated_movies">Top Rated Movies</string>
     <string name="action_show_popular_movies">Popular Movies</string>

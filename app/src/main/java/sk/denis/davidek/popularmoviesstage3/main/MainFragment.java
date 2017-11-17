@@ -29,9 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.Movie;
-import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
 

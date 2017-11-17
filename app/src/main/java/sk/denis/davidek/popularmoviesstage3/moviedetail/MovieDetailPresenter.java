@@ -1,5 +1,9 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import sk.denis.davidek.popularmoviesstage3.Movie;
 
 /**
@@ -23,5 +27,24 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     @Override
     public void distributeMovieDetails(Movie movie) {
         movieDetailView.displayMovieTitle(movie.getOriginalTitle());
+        movieDetailView.displayMoviePlotSynopsis(movie.getPlotSynopsis());
+        movieDetailView.displayUserRating(movie.getUserRating());
+        movieDetailView.displayMoviePoster(movie.getPosterUrl());
+        formatReleaseDate(movie.getReleaseDate());
+    }
+
+    @Override
+    public void formatReleaseDate(String releaseDate) {
+        SimpleDateFormat simpleDateFormatInput = new SimpleDateFormat("yyy-MM-dd");
+        SimpleDateFormat simpleDateFormatOutput = new SimpleDateFormat("dd.MM.yyyy");
+
+        Date date;
+        try {
+            date = simpleDateFormatInput.parse(releaseDate);
+            movieDetailView.displayReleaseDate(simpleDateFormatOutput.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

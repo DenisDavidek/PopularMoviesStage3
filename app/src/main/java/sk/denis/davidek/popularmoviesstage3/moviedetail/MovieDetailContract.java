@@ -3,7 +3,6 @@ package sk.denis.davidek.popularmoviesstage3.moviedetail;
 import sk.denis.davidek.popularmoviesstage3.Movie;
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
-import sk.denis.davidek.popularmoviesstage3.main.MainContract;
 
 /**
  * Created by denis on 17.11.2017.
@@ -12,15 +11,24 @@ import sk.denis.davidek.popularmoviesstage3.main.MainContract;
 public interface MovieDetailContract {
 
 
+    interface View extends BaseView<MovieDetailContract.Presenter> {
 
-        interface View extends BaseView<MovieDetailContract.Presenter> {
+        void displayMovieTitle(String movieTitle);
 
-            void displayMovieTitle(String movieTitle);
+        void displayMoviePlotSynopsis(String plotSynopsis);
 
+        void displayUserRating(double userRating);
+
+        void displayReleaseDate(String releaseDate);
+
+        void displayMoviePoster(String posterUrl);
     }
 
     interface Presenter extends BasePresenter {
 
-         void distributeMovieDetails(Movie movie);
+        void distributeMovieDetails(Movie movie);
+
+        void formatReleaseDate(String releaseDate);
+
     }
 }
