@@ -30,9 +30,9 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
 
     @BindView(R.id.tv_movie_title)
     TextView movieTitleTextView;
-/*
-    @BindView(R.id.tv_no_favorite_movies)
-    TextView movieTitleTextaView;*/
+
+    @BindView(R.id.tv_movie_plot_synopsis)
+    TextView moviePlotSynopsisTextView;
 
     @BindView(R.id.tv_movie_user_rating)
     TextView movieUserRatingTextView;
@@ -88,7 +88,7 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
 
     @Override
     public void displayMoviePlotSynopsis(String plotSynopsis) {
-
+        moviePlotSynopsisTextView.setText(plotSynopsis);
     }
 
     @Override

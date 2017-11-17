@@ -69,6 +69,25 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/tv_movie_plot_synopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_movie_title"
+            android:layout_toRightOf="@+id/tv_movie_user_rating"
+            android:text="@string/user_rating_max_rank"
+            android:textSize="20sp"
+            android:padding="16dp"
+            tools:text="It continues after 1 movie entry ......"/>
+
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
