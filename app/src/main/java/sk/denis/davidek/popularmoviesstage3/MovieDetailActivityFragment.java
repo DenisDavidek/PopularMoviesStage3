@@ -11,11 +11,14 @@ import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailContract;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailPresenter;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MovieDetailActivityFragment extends Fragment {
+public class MovieDetailActivityFragment extends Fragment implements MovieDetailContract.View {
 
     @BindString(R.string.movie_key)
     String selectedMovieKey;
@@ -24,6 +27,7 @@ public class MovieDetailActivityFragment extends Fragment {
     TextView movieTitleTextView;
 
     private Movie movie;
+    private MovieDetailContract.Presenter movieDetailPresenter;
 
     public MovieDetailActivityFragment() {
     }
@@ -33,14 +37,31 @@ public class MovieDetailActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this,fragmentView);
+        movieDetailPresenter = new MovieDetailPresenter(this);
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
             movie = intent.getParcelableExtra(selectedMovieKey);
-movieTitleTextView.setText(movie.getOriginalTitle());
+            movieDetailPresenter.distributeMovieDetails(movie);
+
 
         }
         return fragmentView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        movieDetailPresenter.start();
+    }
 
+    @Override
+    public void setPresenter(MovieDetailContract.Presenter presenter) {
+        movieDetailPresenter = presenter;
+
+    }
+
+    @Override
+    public void displayMovieTitle(String movieTitle) {
+        movieTitleTextView.setText(movieTitle);
+    }
 }
