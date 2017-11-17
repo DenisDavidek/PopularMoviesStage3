@@ -8,15 +8,68 @@
     tools:showIn="@layout/activity_movie_detail"
     android:orientation="vertical">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="100sp"
-    android:text="
-Co je Lorem Ipsum?
 
-Lorem Ipsum je demonstrativní výplňový text používaný v tiskařském a knihařském průmyslu. Lorem Ipsum je považováno za standard v této oblasti už od začátku 16. století, kdy dnes neznámý tiskař vzal kusy textu a na jejich základě vytvořil speciální vzorovou knihu. Jeho odkaz nevydržel pouze pět století, on přežil i nástup elektronické sazby v podstatě beze změny. Nejvíce popularizováno bylo Lorem Ipsum v šedesátých letech 20. století, kdy byly vydávány speciální vzorníky s jeho pasážemi a později pak díky počítačovým DTP programům jako Aldus PageMaker.
-"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_movie_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/tv_marginLeft"
+                android:layout_toRightOf="@+id/iv_movie_poster"
+                android:textSize="26sp"
+                tools:text="John Wick 2" />
+
+            <TextView
+                android:id="@+id/tv_movie_user_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_movie_title"
+                android:layout_marginLeft="@dimen/tv_marginLeft"
+                android:layout_toRightOf="@+id/iv_movie_poster"
+                android:textSize="20sp"
+                tools:text="9.0" />
+
+            <TextView
+                android:id="@+id/tv_movie_user_rating_max_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_movie_title"
+                android:layout_toRightOf="@+id/tv_movie_user_rating"
+                android:text="@string/user_rating_max_rank"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_movie_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_movie_user_rating"
+                android:layout_marginLeft="@dimen/tv_marginLeft"
+                android:layout_toRightOf="@+id/iv_movie_poster"
+                android:textSize="20sp"
+                tools:text="10.2.2017" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:layout_width="match_parent"

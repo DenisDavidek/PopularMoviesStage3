@@ -81,6 +81,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     @BindString(R.string.pref_current_movies_filter)
     String moviesCurrentFilterKey;
 
+    @BindString(R.string.movie_key)
+    String selectedMovieKey;
 
     private static final String QUERY_MOVIE_FILTER = "movie_filter";
     private int MOVIE_GET_LOADER = 22;
@@ -242,6 +244,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void showItemClickData(Movie movie) {
         Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        intent.putExtra(selectedMovieKey, movie);
         startActivity(intent);
     }
 
