@@ -25,13 +25,10 @@ public class AppModule {
     Application providesApplication() {
         return application;
     }
-/*
-@Provides
-    @Singleton
-    SharedPreferences providesSharedPreferences() {
-    return PreferenceManager.getDefaultSharedPreferences(application);
-}
 
+
+
+/*
 @Provides
     @Singleton
     SharedPreferences.Editor providesSharedPreferencesEditor(){

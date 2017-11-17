@@ -4,6 +4,7 @@ package sk.denis.davidek.popularmoviesstage3.main;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,7 @@ import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
     private Bundle bundle;
     ArrayList<Movie> movies = new ArrayList<>();
+    private MainFragment mainFragmentView;
 
     /**
      * Stores away the application context associated with context.
@@ -34,9 +36,10 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
      *
      * @param context used to retrieve the application context.
      */
-    public MainLoader(Context context, Bundle bundle) {
+    public MainLoader(Context context, Bundle bundle, MainFragment view) {
         super(context);
         this.bundle = bundle;
+        this.mainFragmentView = view;
     }
 
     private static final String QUERY_MOVIE_FILTER = "movie_filter";
@@ -44,6 +47,7 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
+        mainFragmentView.showLoadingProgressBar(View.VISIBLE);
         forceLoad();
     }
 
@@ -55,8 +59,8 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
     public ArrayList<Movie> loadInBackground() {
         String movieFilter = bundle.getString(QUERY_MOVIE_FILTER);
 
-        final String apiKey = "testr";
-      /*  final String apiKey = BuildConfig.API_KEY;*/
+        // final String apiKey = "testr";
+        final String apiKey = BuildConfig.API_KEY;
         URL moviesRequestUrl = NetworkUtils.buildUrl(apiKey, movieFilter);
 
         String responseJSONString = NetworkUtils.getResponseFromHttp(moviesRequestUrl);

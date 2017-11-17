@@ -1,6 +1,7 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -47,6 +48,23 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onItemInteraction(Movie movie) {
         mainView.showItemClickData(movie);
+    }
+
+    @Override
+    public void setCurrentMovieFilterSetting(SharedPreferences preferences, String key, String value) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    @Override
+    public void prepareErrorLoadingMessage() {
+        mainView.showErrorLoadingMessage();
+    }
+
+    @Override
+    public void prepareMovieDataView() {
+        mainView.showMoviewDataView();
     }
 
 

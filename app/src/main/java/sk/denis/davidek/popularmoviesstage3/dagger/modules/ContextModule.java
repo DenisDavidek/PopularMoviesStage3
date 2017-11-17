@@ -1,6 +1,8 @@
 package sk.denis.davidek.popularmoviesstage3.dagger.modules;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,5 +22,10 @@ public class ContextModule {
     @Provides
     Context providesContext() {
         return context;
+    }
+
+    @Provides
+    SharedPreferences providesSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 }

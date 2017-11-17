@@ -11,8 +11,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.Movie;
@@ -27,9 +25,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
     private ArrayList<Movie> movies;
     private MainPresenter presenter;
-    @Inject
-    Context mContext;
-    // private final OnItemClickListener mClickListener;
+    private Context mContext;
+
 
     public MoviesAdapter(Context context, ArrayList<Movie> movies, MainPresenter presenter) {
         this.mContext = context;

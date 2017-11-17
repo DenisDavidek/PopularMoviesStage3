@@ -21,7 +21,9 @@ public class App extends Application {
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .contextModule(new ContextModule(this))
+                .contextModule(new ContextModule(getApplicationContext()))
+                //.sharedPreferencesModule(new SharedPreferencesModule())
+
                 .build();
 
     }

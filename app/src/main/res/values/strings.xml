@@ -2,5 +2,22 @@
     <string name="app_name">PopularMovies</string>
     <string name="no_internet_connection">There is no internet connection! Please connect your device to the Internet.</string>
     <string name="no_favorite_movies">There are no favorite movies in your movies collection.</string>
+    <string name="title_activity_movie_detail">MovieDetailActivity</string>
+    <string name="action_settings">Settings</string>
 
+
+
+    <!--menu action items-->
+    <string name="action_show_top_rated_movies">Top Rated Movies</string>
+    <string name="action_show_popular_movies">Popular Movies</string>
+    <string name="action_show_favorite_movies">Favorite Movies</string>
+
+
+    <!--shared preferences keys-->
+    <string name="pref_current_movies_filter" translatable="false">current_movie_filter</string>
+
+    <!--SnackBar Messages-->
+    <string name="showing_popular_movies">Showing popular movies</string>
+    <string name="showing_top_rated_movies">Showing top rated movies</string>
+    <string name="showing_favorite_movies">Showing favorite movies</string>
 </resources>

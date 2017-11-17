@@ -1,14 +1,20 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -17,9 +23,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.Movie;
+import sk.denis.davidek.popularmoviesstage3.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
@@ -48,6 +59,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     private OnFragmentInteractionListener mListener;
 
     private MainContract.Presenter mainPresenter;
+    private MoviesAdapter moviesAdapter;
 
     @BindView(R.id.rv_movies)
     RecyclerView moviesRecyclerView;
@@ -60,10 +72,17 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @BindView(R.id.progressBar)
     ProgressBar loadingProgressBar;
-    private MoviesAdapter moviesAdapter;
+
+    @Inject
+    SharedPreferences sharedPreferences;
+
+    @Inject
+    Context mContext;
+
+    @BindString(R.string.pref_current_movies_filter)
+    String moviesCurrentFilterKey;
 
 
-    private static final String MOVIES_POPULAR = "/movie/popular";
     private static final String QUERY_MOVIE_FILTER = "movie_filter";
     private int MOVIE_GET_LOADER = 22;
 
@@ -96,6 +115,8 @@ public class MainFragment extends Fragment implements MainContract.View,
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        this.setHasOptionsMenu(true);
+        App.getAppComponent().inject(this);
     }
 
     @Override
@@ -107,7 +128,6 @@ public class MainFragment extends Fragment implements MainContract.View,
         ButterKnife.bind(this, fragmentView);
 
         mainPresenter = new MainPresenter(this);
-        getMoviesData(MOVIES_POPULAR);
 
 
         moviesRecyclerView.setHasFixedSize(true);
@@ -116,8 +136,32 @@ public class MainFragment extends Fragment implements MainContract.View,
         return fragmentView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private static final String MOVIES_POPULAR = "/movie/popular";
+    private static final String MOVIES_TOP_RATED = "/movie/top_rated";
+    private static final String MOVIES_FAVORITES = "movie_favorites";
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int selectedItemId = item.getItemId();
+        switch (selectedItemId) {
+
+            case R.id.action_show_popular_movies:
+                Snackbar.make(moviesRecyclerView, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Toast.makeText(getContext(), "blabla", Toast.LENGTH_SHORT).show();
+                mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, MOVIES_POPULAR);
+        }
 
 
+        return super.onOptionsItemSelected(item);
+    }
 
     private void getMoviesData(String movieFilter) {
 
@@ -171,7 +215,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void test() {
-        Toast.makeText(getContext(), "MVP basic working", Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(getContext(), "MVP basic working", Toast.LENGTH_SHORT).show();
 
         mainPresenter.checkInternetConnection(getContext());
     }
@@ -189,29 +233,58 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void workWithInternetConnection(boolean hasInternetConnection) {
         if (hasInternetConnection) {
-            Toast.makeText(getContext(), "MVP has Internet Connection", Toast.LENGTH_SHORT).show();
+            //       Toast.makeText(getContext(), "MVP has Internet Connection", Toast.LENGTH_SHORT).show();
+
+            getMoviesData(MOVIES_POPULAR);
         } else {
-            Toast.makeText(getContext(), "MVP has NOT Internet Connection", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getContext(), "MVP has NOT Internet Connection", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void showItemClickData(Movie movie) {
-        Toast.makeText(getContext(), "Movie title: " + movie.getOriginalTitle(), Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(getContext(), "Movie title: " + movie.getOriginalTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showLoadingProgressBar(int load) {
+
+        loadingProgressBar.setVisibility(load);
+
+    }
+
+    @Override
+    public void showErrorLoadingMessage() {
+        moviesRecyclerView.setVisibility(View.INVISIBLE);
+        errorInternetConnectionTextView.setVisibility(View.VISIBLE);
+        if (noFavoriteMoviesTextView.getVisibility() == View.VISIBLE) {
+            noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void showMoviewDataView() {
+
+        moviesRecyclerView.setVisibility(View.VISIBLE);
+        errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
     }
 
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-        return new MainLoader(getContext(), args);
+        return new MainLoader(getContext(), args, this);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
+        loadingProgressBar.setVisibility(View.INVISIBLE);
         if (!data.isEmpty()) {
-            Toast.makeText(getContext(), "I got some movies - has data", Toast.LENGTH_SHORT).show();
-            moviesAdapter = new MoviesAdapter(getContext(), data, (MainPresenter) mainPresenter);
+            moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
+        } else {
+            mainPresenter.prepareErrorLoadingMessage();
         }
     }
 
