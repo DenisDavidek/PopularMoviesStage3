@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -85,6 +84,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private static final String QUERY_MOVIE_FILTER = "movie_filter";
     private int MOVIE_GET_LOADER = 22;
+    private boolean isConnectedToInternet;
 
     public MainFragment() {
         // Required empty public constructor
@@ -126,13 +126,8 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         View fragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, fragmentView);
-
         mainPresenter = new MainPresenter(this);
 
-
-        moviesRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
-        moviesRecyclerView.setLayoutManager(layoutManager);
         return fragmentView;
     }
 
@@ -153,10 +148,17 @@ public class MainFragment extends Fragment implements MainContract.View,
         switch (selectedItemId) {
 
             case R.id.action_show_popular_movies:
-                Snackbar.make(moviesRecyclerView, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(moviesRecyclerView, getString(R.string.showing_popular_movies), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Toast.makeText(getContext(), "blabla", Toast.LENGTH_SHORT).show();
-                mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, MOVIES_POPULAR);
+                if (isConnectedToInternet) {
+                    isConnectedToInternet = false;
+                    moviesRecyclerView.setAdapter(null);
+                    getMoviesData(MOVIES_POPULAR);
+                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, MOVIES_POPULAR);
+                } else {
+                    mainPresenter.prepareErrorLoadingMessage();
+                }
+
         }
 
 
@@ -214,15 +216,11 @@ public class MainFragment extends Fragment implements MainContract.View,
 
 
     @Override
-    public void test() {
-        //   Toast.makeText(getContext(), "MVP basic working", Toast.LENGTH_SHORT).show();
-
-        mainPresenter.checkInternetConnection(getContext());
-    }
-
-    @Override
     public void prepareRecyclerView() {
 
+        moviesRecyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
+        moviesRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -233,17 +231,16 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void workWithInternetConnection(boolean hasInternetConnection) {
         if (hasInternetConnection) {
-            //       Toast.makeText(getContext(), "MVP has Internet Connection", Toast.LENGTH_SHORT).show();
-
+            isConnectedToInternet = true;
             getMoviesData(MOVIES_POPULAR);
         } else {
-            //    Toast.makeText(getContext(), "MVP has NOT Internet Connection", Toast.LENGTH_SHORT).show();
+            isConnectedToInternet = false;
+            mainPresenter.prepareErrorLoadingMessage();
         }
     }
 
     @Override
     public void showItemClickData(Movie movie) {
-        //  Toast.makeText(getContext(), "Movie title: " + movie.getOriginalTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), MovieDetailActivity.class);
         startActivity(intent);
     }
@@ -265,7 +262,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     @Override
-    public void showMoviewDataView() {
+    public void showMovieDataView() {
 
         moviesRecyclerView.setVisibility(View.VISIBLE);
         errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
@@ -281,6 +278,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         loadingProgressBar.setVisibility(View.INVISIBLE);
         if (!data.isEmpty()) {
+            mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
         } else {

@@ -9,6 +9,7 @@ import dagger.Component;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
+import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
 
 /**
  * Created by denis on 15.11.2017.
@@ -23,4 +24,6 @@ public interface AppComponent {
     SharedPreferences getSharedPreferences();
 
     void inject(MainFragment mainFragment);
+
+    void inject(MainPresenter mainPresenter);
 }
