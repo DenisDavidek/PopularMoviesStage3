@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -88,6 +90,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private int MOVIE_GET_LOADER = 22;
     private boolean isConnectedToInternet;
+    private int lastFirstVisiblePosition;
 
     public MainFragment() {
         // Required empty public constructor
@@ -214,12 +217,12 @@ public class MainFragment extends Fragment implements MainContract.View,
         mainPresenter = presenter;
     }
 
-
+    GridLayoutManager layoutManager;
     @Override
     public void prepareRecyclerView() {
 
         moviesRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
+   layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
         moviesRecyclerView.setLayoutManager(layoutManager);
     }
 
@@ -282,13 +285,38 @@ public class MainFragment extends Fragment implements MainContract.View,
             mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
+            layoutManager.onRestoreInstanceState(state);
         } else {
             mainPresenter.prepareErrorLoadingMessage();
         }
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        if (savedInstanceState != null)
+        state = savedInstanceState.getParcelable("test");
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+
+    }
+
+    Parcelable state;
+    @Override
+    public void onPause() {
+        super.onPause();
+        state = layoutManager.onSaveInstanceState();
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        state = layoutManager.onSaveInstanceState();
+    outState.putParcelable("test",state);
+        super.onSaveInstanceState(outState);
 
     }
 

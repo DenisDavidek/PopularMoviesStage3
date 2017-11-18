@@ -47,4 +47,14 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
         }
 
     }
+
+    @Override
+    public void prepareReviewsDataView() {
+        movieDetailView.showReviewsDataView();
+    }
+
+    @Override
+    public void prepareNoReviewsDataView() {
+        movieDetailView.hideReviewsDataView();
+    }
 }

@@ -19,7 +19,7 @@
     <string name="written_by">Written by</string>
     <string name="reviews">Reviews</string>
 
-    <string name="movie_no_review">There is no reviews for this movie.</string>
+    <string name="movie_no_review">There are no reviews for this movie.</string>
 
 
     <!--shared preferences keys-->

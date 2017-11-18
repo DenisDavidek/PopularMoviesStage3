@@ -78,7 +78,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case android.R.id.home:
-
+                finish();
+return true;
         }
 
         return super.onOptionsItemSelected(item);

@@ -58,6 +58,13 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
 
     @BindView(R.id.rv_movie_reviews)
     RecyclerView movieReviewsRecyclerView;
+
+    @BindView(R.id.tv_no_reviews_text)
+    TextView noMoviewReviewsTextView;
+
+    @BindString(R.string.movie_no_review)
+    String noMovieReviewsMessage;
+
     private Movie movie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
@@ -85,6 +92,8 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
         }
         return fragmentView;
     }
+
+
 
     @Override
     public void onResume() {
@@ -130,6 +139,19 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
         movieReviewsRecyclerView.setHasFixedSize(true);
     }
 
+    @Override
+    public void showReviewsDataView() {
+        movieReviewsRecyclerView.setVisibility(View.VISIBLE);
+        noMoviewReviewsTextView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void hideReviewsDataView() {
+        movieReviewsRecyclerView.setVisibility(View.INVISIBLE);
+        noMoviewReviewsTextView.setVisibility(View.VISIBLE);
+        noMoviewReviewsTextView.setText(noMovieReviewsMessage);
+    }
+
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {
 
@@ -158,10 +180,11 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
         if (!data.isEmpty()) {
 
             ReviewsAdapter reviewsAdapter = new ReviewsAdapter(data);
+            movieDetailPresenter.prepareReviewsDataView();
             movieReviewsRecyclerView.setAdapter(reviewsAdapter);
 
         } else {
-
+            movieDetailPresenter.prepareNoReviewsDataView();
         }
     }
 
