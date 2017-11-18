@@ -8,4 +8,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tv_marginLeft">30dp</dimen>
     <dimen name="tv_margin">16dp</dimen>
+
+    <dimen name="divider_height1dp">1dp</dimen>
 </resources>

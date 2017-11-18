@@ -15,14 +15,12 @@ public class Constants {
     private static final String MOVIES_TOP_RATED = "/movie/top_rated";
     private static final String MOVIES_FAVORITES = "movie_favorites";
 
-//DetailActivity
+    //DetailActivity
     private static final String MOVIE_DEFAULT = "movie_default";
     private static final String MOVIE_VIDEOORREVIEW = "moview_videoorreview";
 
     private static final String MOVIE_QUERY_TEXT = "/movie/";
     private static final String REVIEW_QUERY_TEXT = "/reviews";
-
-
 
 
     public static String getMoviesImageBaseUrl() {

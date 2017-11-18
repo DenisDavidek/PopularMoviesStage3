@@ -1,8 +1,8 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
-import android.support.v4.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.AsyncTaskLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,8 +12,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sk.denis.davidek.popularmoviesstage3.BuildConfig;
-import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 

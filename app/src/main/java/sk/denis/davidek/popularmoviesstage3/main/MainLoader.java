@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sk.denis.davidek.popularmoviesstage3.BuildConfig;
-import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 /**
@@ -53,8 +53,6 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
     }
 
 
-
-
     @Override
     public ArrayList<Movie> loadInBackground() {
         String movieFilter = bundle.getString(QUERY_MOVIE_FILTER);
@@ -74,8 +72,8 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
                 String movieId = childMovieObject.getString("id");
                 String originalTitle = childMovieObject.getString("original_title");
-                String moviePosterUrl = Constants.getMoviesImageBaseUrl() +  Constants.getMoviesImageSize() + childMovieObject.getString("poster_path");
-                String backgroundUrl =  Constants.getMoviesImageBaseUrl() +  Constants.getMoviesImageBackgroundSize() + childMovieObject.getString("backdrop_path");
+                String moviePosterUrl = Constants.getMoviesImageBaseUrl() + Constants.getMoviesImageSize() + childMovieObject.getString("poster_path");
+                String backgroundUrl = Constants.getMoviesImageBaseUrl() + Constants.getMoviesImageBackgroundSize() + childMovieObject.getString("backdrop_path");
                 String plotSynopsis = childMovieObject.getString("overview");
                 double userRating = childMovieObject.getDouble("vote_average");
                 String releaseDate = childMovieObject.getString("release_date");

@@ -15,6 +15,8 @@
 
     <!--Strings for detailIntentActivity-->
     <string name="movie_key" translatable="false">movie</string>
+
+    <string name="written_by">Written by</string>
     <string name="reviews">Reviews</string>
 
     <string name="movie_no_review">There is no reviews for this movie.</string>

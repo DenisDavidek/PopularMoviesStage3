@@ -21,7 +21,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     @Override
     public void start() {
-
+        movieDetailView.prepareRecyclerView();
     }
 
     @Override

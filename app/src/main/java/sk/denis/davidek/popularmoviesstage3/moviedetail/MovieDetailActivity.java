@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
 

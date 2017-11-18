@@ -3,9 +3,9 @@ package sk.denis.davidek.popularmoviesstage3.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 
 /**
  * Created by denis on 15.11.2017.

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,10 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
-import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 
 
@@ -52,6 +55,9 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
     @BindView(R.id.iv_movie_poster)
     ImageView moviePosterImageView;
 
+
+    @BindView(R.id.rv_movie_reviews)
+    RecyclerView movieReviewsRecyclerView;
     private Movie movie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
@@ -74,7 +80,7 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
         if (intent.hasExtra(selectedMovieKey)) {
             movie = intent.getParcelableExtra(selectedMovieKey);
             movieDetailPresenter.distributeMovieDetails(movie);
-            initializeGetReviewsLoader(Constants.getMovieQueryText(),Constants.getReviewQueryText());
+            initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
 
         }
         return fragmentView;
@@ -117,6 +123,13 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
         Picasso.with(context).load(posterUrl).into(moviePosterImageView);
     }
 
+    @Override
+    public void prepareRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        movieReviewsRecyclerView.setLayoutManager(layoutManager);
+        movieReviewsRecyclerView.setHasFixedSize(true);
+    }
+
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {
 
@@ -136,12 +149,20 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
 
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
-      return new ReviewsLoader(getContext(), args, movie);
+        return new ReviewsLoader(getContext(), args, movie);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Review>> loader, ArrayList<Review> data) {
 
+        if (!data.isEmpty()) {
+
+            ReviewsAdapter reviewsAdapter = new ReviewsAdapter(data);
+            movieReviewsRecyclerView.setAdapter(reviewsAdapter);
+
+        } else {
+
+        }
     }
 
     @Override
