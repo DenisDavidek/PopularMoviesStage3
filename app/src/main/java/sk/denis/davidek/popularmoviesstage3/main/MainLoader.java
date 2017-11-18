@@ -54,6 +54,7 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
     private static final String MOVIES_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     private static final String MOVIES_IMAGE_SIZE = "w500/";
+    private static final String MOVIES_IMAGE_BACKGROUND_SIZE = "w780";
 
     @Override
     public ArrayList<Movie> loadInBackground() {
@@ -76,11 +77,12 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
                 String movieId = childMovieObject.getString("id");
                 String originalTitle = childMovieObject.getString("original_title");
                 String moviePosterUrl = MOVIES_IMAGE_BASE_URL + MOVIES_IMAGE_SIZE + childMovieObject.getString("poster_path");
+                String backgroundUrl = MOVIES_IMAGE_BASE_URL + MOVIES_IMAGE_BACKGROUND_SIZE + childMovieObject.getString("backdrop_path");
                 String plotSynopsis = childMovieObject.getString("overview");
                 double userRating = childMovieObject.getDouble("vote_average");
                 String releaseDate = childMovieObject.getString("release_date");
 
-                movies.add(new Movie(movieId, originalTitle, moviePosterUrl, plotSynopsis, userRating, releaseDate));
+                movies.add(new Movie(movieId, originalTitle, moviePosterUrl, backgroundUrl, plotSynopsis, userRating, releaseDate));
             }
         } catch (JSONException e) {
             e.printStackTrace();

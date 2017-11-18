@@ -14,6 +14,7 @@ public class Movie implements Parcelable {
     private String id;
     private String originalTitle;
     private String posterUrl;
+    private String backgroundUrl;
     private String plotSynopsis;
     private double userRating;
     private String releaseDate;
@@ -24,6 +25,7 @@ public class Movie implements Parcelable {
         id = in.readString();
         originalTitle = in.readString();
         posterUrl = in.readString();
+        backgroundUrl = in.readString();
         plotSynopsis = in.readString();
         userRating = in.readDouble();
         releaseDate = in.readString();
@@ -62,6 +64,10 @@ public class Movie implements Parcelable {
         return posterUrl;
     }
 
+    public String getBackgroundUrl() {
+        return backgroundUrl;
+    }
+
     public String getId() {
         return id;
     }
@@ -70,10 +76,11 @@ public class Movie implements Parcelable {
         return reviews;
     }
 
-    public Movie(String id, String originalTitle, String posterUrl, String plotSynopsis, double userRating, String releaseDate) {
+    public Movie(String id, String originalTitle, String posterUrl, String backgroundUrl, String plotSynopsis, double userRating, String releaseDate) {
         this.id = id;
         this.originalTitle = originalTitle;
         this.posterUrl = posterUrl;
+        this.backgroundUrl = backgroundUrl;
         this.plotSynopsis = plotSynopsis;
         this.userRating = userRating;
         this.releaseDate = releaseDate;
@@ -90,6 +97,7 @@ public class Movie implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(originalTitle);
         parcel.writeString(posterUrl);
+        parcel.writeString(backgroundUrl);
         parcel.writeString(plotSynopsis);
         parcel.writeDouble(userRating);
         parcel.writeString(releaseDate);

@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +56,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(getMovieTitle());
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
         setTitle("");
-        backdropImageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.crash_bandicoot_n_sane_trilogy_2));
-
+        Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
     }
 
     private String getMovieTitle() {
