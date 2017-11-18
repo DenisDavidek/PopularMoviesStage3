@@ -31,6 +31,7 @@ import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.Movie;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
+import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
@@ -84,7 +85,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     @BindString(R.string.movie_key)
     String selectedMovieKey;
 
-    private static final String QUERY_MOVIE_FILTER = "movie_filter";
+
     private int MOVIE_GET_LOADER = 22;
     private boolean isConnectedToInternet;
 
@@ -139,9 +140,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private static final String MOVIES_POPULAR = "/movie/popular";
-    private static final String MOVIES_TOP_RATED = "/movie/top_rated";
-    private static final String MOVIES_FAVORITES = "movie_favorites";
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -155,8 +154,8 @@ public class MainFragment extends Fragment implements MainContract.View,
                 if (isConnectedToInternet) {
                     isConnectedToInternet = false;
                     moviesRecyclerView.setAdapter(null);
-                    getMoviesData(MOVIES_POPULAR);
-                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, MOVIES_POPULAR);
+                    getMoviesData(Constants.getMoviesPopular());
+                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
                 } else {
                     mainPresenter.prepareErrorLoadingMessage();
                 }
@@ -170,7 +169,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     private void getMoviesData(String movieFilter) {
 
         Bundle argsBundle = new Bundle();
-        argsBundle.putString(QUERY_MOVIE_FILTER, movieFilter);
+        argsBundle.putString(Constants.getQueryMovieFilter(), movieFilter);
 
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
         Loader<ArrayList<Movie>> getMoviesLoader = loaderManager.getLoader(MOVIE_GET_LOADER);
@@ -234,7 +233,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void workWithInternetConnection(boolean hasInternetConnection) {
         if (hasInternetConnection) {
             isConnectedToInternet = true;
-            getMoviesData(MOVIES_POPULAR);
+            getMoviesData(Constants.getMoviesPopular());
         } else {
             isConnectedToInternet = false;
             mainPresenter.prepareErrorLoadingMessage();
