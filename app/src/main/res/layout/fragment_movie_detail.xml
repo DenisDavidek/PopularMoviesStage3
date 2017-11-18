@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sk.denis.davidek.popularmoviesstage3.MovieDetailActivityFragment"
+    tools:context="sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityFragment"
     tools:showIn="@layout/activity_movie_detail"
     android:orientation="vertical">
 

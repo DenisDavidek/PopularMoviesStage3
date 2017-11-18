@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import sk.denis.davidek.popularmoviesstage3.MovieDetailActivityFragment;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityFragment;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;

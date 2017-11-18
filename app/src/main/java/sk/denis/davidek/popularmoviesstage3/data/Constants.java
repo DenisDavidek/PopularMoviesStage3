@@ -15,6 +15,16 @@ public class Constants {
     private static final String MOVIES_TOP_RATED = "/movie/top_rated";
     private static final String MOVIES_FAVORITES = "movie_favorites";
 
+//DetailActivity
+    private static final String MOVIE_DEFAULT = "movie_default";
+    private static final String MOVIE_VIDEOORREVIEW = "moview_videoorreview";
+
+    private static final String MOVIE_QUERY_TEXT = "/movie/";
+    private static final String REVIEW_QUERY_TEXT = "/reviews";
+
+
+
+
     public static String getMoviesImageBaseUrl() {
         return MOVIES_IMAGE_BASE_URL;
     }
@@ -41,5 +51,21 @@ public class Constants {
 
     public static String getMoviesFavorites() {
         return MOVIES_FAVORITES;
+    }
+
+    public static String getMovieDefault() {
+        return MOVIE_DEFAULT;
+    }
+
+    public static String getMovieVideoOrReview() {
+        return MOVIE_VIDEOORREVIEW;
+    }
+
+    public static String getMovieQueryText() {
+        return MOVIE_QUERY_TEXT;
+    }
+
+    public static String getReviewQueryText() {
+        return REVIEW_QUERY_TEXT;
     }
 }
