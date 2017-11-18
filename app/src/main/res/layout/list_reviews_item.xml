@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/tv_margin"
         android:layout_marginStart="@dimen/tv_margin"
+        android:layout_marginLeft="@dimen/tv_margin"
         android:layout_marginTop="@dimen/tv_margin"
         android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@+id/tv_writtenby"
@@ -34,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tv_margin"
-        android:textSize="18sp"
+
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_writtenby"
         app:layout_constraintTop_toBottomOf="@+id/tv_writtenby"
         tools:text="I love this movie a lot! 10/10" />
