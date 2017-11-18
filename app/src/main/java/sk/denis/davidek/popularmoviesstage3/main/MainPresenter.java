@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import javax.inject.Inject;
 
 import sk.denis.davidek.popularmoviesstage3.App;
-import sk.denis.davidek.popularmoviesstage3.Movie;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 

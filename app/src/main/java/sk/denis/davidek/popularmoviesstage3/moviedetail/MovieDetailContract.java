@@ -1,6 +1,6 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
-import sk.denis.davidek.popularmoviesstage3.Movie;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
 

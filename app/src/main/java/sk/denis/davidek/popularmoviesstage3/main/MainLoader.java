@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sk.denis.davidek.popularmoviesstage3.BuildConfig;
-import sk.denis.davidek.popularmoviesstage3.Movie;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 

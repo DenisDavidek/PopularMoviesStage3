@@ -1,4 +1,4 @@
-package sk.denis.davidek.popularmoviesstage3;
+package sk.denis.davidek.popularmoviesstage3.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
