@@ -21,6 +21,7 @@ public class Constants {
 
     private static final String MOVIE_QUERY_TEXT = "/movie/";
     private static final String REVIEW_QUERY_TEXT = "/reviews";
+    private static final String TRAILER_QUERY_TEXT = "/videos";
 
 
     public static String getMoviesImageBaseUrl() {
@@ -65,5 +66,9 @@ public class Constants {
 
     public static String getReviewQueryText() {
         return REVIEW_QUERY_TEXT;
+    }
+
+    public static String getTrailerQueryText() {
+        return TRAILER_QUERY_TEXT;
     }
 }

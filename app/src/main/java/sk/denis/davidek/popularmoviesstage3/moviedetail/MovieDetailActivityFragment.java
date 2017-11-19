@@ -29,6 +29,7 @@ import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
+import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 
 
 /**
@@ -72,6 +73,7 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
     Context context;
 
     private int REVIEWS_GET_LOADER = 23;
+    private int TRAILERS_GET_LOADER = 24;
 
     public MovieDetailActivityFragment() {
     }
@@ -88,11 +90,10 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
             movie = intent.getParcelableExtra(selectedMovieKey);
             movieDetailPresenter.distributeMovieDetails(movie);
             initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
-
+            initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
         }
         return fragmentView;
     }
-
 
 
     @Override
@@ -168,6 +169,43 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
             loaderManager.restartLoader(REVIEWS_GET_LOADER, argsBundle, this);
 
     }
+
+
+    private void initializeGetTrailersLoader(String movie, String videoOrReview) {
+
+        Bundle argsBundle = new Bundle();
+        argsBundle.putString(Constants.getMovieDefault(), movie);
+        argsBundle.putString(Constants.getMovieVideoOrReview(), videoOrReview);
+
+        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(TRAILERS_GET_LOADER);
+
+        if (getMoviesLoader == null) {
+            loaderManager.initLoader(TRAILERS_GET_LOADER, argsBundle, new CallbackVideos());
+        } else
+            loaderManager.restartLoader(TRAILERS_GET_LOADER, argsBundle, new CallbackVideos());
+
+    }
+
+
+    private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
+
+        @Override
+        public Loader<ArrayList<Trailer>> onCreateLoader(int id, Bundle args) {
+            return new TrailersLoader(context, args, movie);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> data) {
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<ArrayList<Trailer>> loader) {
+
+        }
+    }
+
 
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
