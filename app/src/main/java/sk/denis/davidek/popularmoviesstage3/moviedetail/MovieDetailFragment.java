@@ -35,7 +35,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MovieDetailActivityFragment extends Fragment implements MovieDetailContract.View,
+public class MovieDetailFragment extends Fragment implements MovieDetailContract.View,
         LoaderManager.LoaderCallbacks<ArrayList<Review>> {
 
     @BindString(R.string.movie_key)
@@ -75,7 +75,7 @@ public class MovieDetailActivityFragment extends Fragment implements MovieDetail
     private int REVIEWS_GET_LOADER = 23;
     private int TRAILERS_GET_LOADER = 24;
 
-    public MovieDetailActivityFragment() {
+    public MovieDetailFragment() {
     }
 
     @Override
