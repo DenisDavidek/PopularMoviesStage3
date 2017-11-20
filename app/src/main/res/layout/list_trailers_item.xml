@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="John Wick 2 Trailer"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_small"
         android:visibility="visible" />
 </GridLayout>
