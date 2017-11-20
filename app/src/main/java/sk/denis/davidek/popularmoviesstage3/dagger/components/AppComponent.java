@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
+import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
@@ -32,4 +33,6 @@ public interface AppComponent {
     void inject(MovieDetailFragment movieDetailFragment);
 
     void inject(ReviewsAdapter reviewsAdapter);
+
+    void inject(TrailersAdapter trailersAdapter);
 }
