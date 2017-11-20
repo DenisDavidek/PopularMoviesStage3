@@ -36,6 +36,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
+import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
 /**
@@ -151,17 +152,37 @@ public class MainFragment extends Fragment implements MainContract.View,
         switch (selectedItemId) {
 
             case R.id.action_show_popular_movies:
-                Snackbar.make(moviesRecyclerView, getString(R.string.showing_popular_movies), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                if (isConnectedToInternet) {
-                    isConnectedToInternet = false;
+                Snackbar.make(moviesRecyclerView, getString(R.string.showing_popular_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (NetworkUtils.checkInternetConnection(mContext)) {
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesPopular());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
                 } else {
                     mainPresenter.prepareErrorLoadingMessage();
                 }
+                break;
 
+            case R.id.action_show_top_rated_movies:
+                Snackbar.make(moviesRecyclerView, getString(R.string.showing_top_rated_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (NetworkUtils.checkInternetConnection(mContext)) {
+                    moviesRecyclerView.setAdapter(null);
+                    getMoviesData(Constants.getMoviesTopRated());
+                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesTopRated());
+                } else {
+                    mainPresenter.prepareErrorLoadingMessage();
+                }
+                break;
+
+            case R.id.action_show_favorite_movies:
+                Snackbar.make(moviesRecyclerView, getString(R.string.showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+               // if (NetworkUtils.checkInternetConnection(mContext)) {
+                    moviesRecyclerView.setAdapter(null);
+                  //  getMoviesData(Constants.getMoviesTopRated()); CURSOR SEM PRIDE
+                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
+             //   } else {
+                //    mainPresenter.prepareErrorLoadingMessage();
+             //   }
+                break;
         }
 
 

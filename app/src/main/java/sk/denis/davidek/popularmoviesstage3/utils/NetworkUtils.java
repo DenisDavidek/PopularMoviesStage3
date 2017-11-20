@@ -1,5 +1,8 @@
 package sk.denis.davidek.popularmoviesstage3.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
 
@@ -9,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 
 /**
@@ -96,5 +101,12 @@ public class NetworkUtils {
 
     }
 
+    public static boolean checkInternetConnection(Context context) {
 
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+
+    }
 }
