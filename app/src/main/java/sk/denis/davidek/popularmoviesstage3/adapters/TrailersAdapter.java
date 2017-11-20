@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailContract;
 
 /**
  * Created by denis on 20.11.2017.
@@ -30,19 +31,20 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
     @Inject
     Context mContext;
 
+    private final MovieDetailContract.Presenter presenter;
 
-    public TrailersAdapter(ArrayList<Trailer> trailers) {
+
+    public TrailersAdapter(ArrayList<Trailer> trailers, MovieDetailContract.Presenter presenter) {
         this.trailers = trailers;
+        this.presenter = presenter;
         App.getAppComponent().inject(this);
     }
 
     public class TrailersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.tv_trailer_name)
+        @BindView(R.id.tv_trailer_name)
         TextView trailerNameTextView;
 
-         /*   @BindView(R.id.trailer_divider)
-        View dividerView;*/
 
         @BindView(R.id.iv_movie_poster)
         ImageView buttonPlay;
@@ -50,14 +52,14 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
         public TrailersViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            //itemClickListener.onClick(position);
+            presenter.prepareYoutubeMovieTrailer(trailers.get(position).getKey());
         }
     }
 
@@ -81,7 +83,7 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
         holder.trailerNameTextView.setText(trailerName);
 
         String key = trailers.get(position).getKey();
-String finalUrl = "http://img.youtube.com/vi/" + key + "/0.jpg";
+        String finalUrl = "http://img.youtube.com/vi/" + key + "/0.jpg";
 
         Glide.with(mContext).load(finalUrl).into(holder.buttonPlay);
 

@@ -27,6 +27,8 @@ public interface MovieDetailContract {
 
         void showReviewsDataView();
         void hideReviewsDataView();
+
+        void watchYoutubeMovieTrailer(String movieKey);
     }
 
     interface Presenter extends BasePresenter {
@@ -38,6 +40,8 @@ public interface MovieDetailContract {
         void prepareReviewsDataView();
 
         void prepareNoReviewsDataView();
+
+        void prepareYoutubeMovieTrailer(String movieKey);
 
     }
 }

@@ -57,4 +57,10 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     public void prepareNoReviewsDataView() {
         movieDetailView.hideReviewsDataView();
     }
+
+    @Override
+    public void prepareYoutubeMovieTrailer(String movieKey) {
+        movieDetailView.watchYoutubeMovieTrailer(movieKey);
+
+    }
 }

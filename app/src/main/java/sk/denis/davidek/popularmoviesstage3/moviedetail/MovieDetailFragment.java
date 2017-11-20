@@ -1,7 +1,9 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -160,6 +162,18 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         noMoviewReviewsTextView.setText(noMovieReviewsMessage);
     }
 
+    @Override
+    public void watchYoutubeMovieTrailer(String movieKey) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + movieKey));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + movieKey));
+
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException e) {
+            startActivity(webIntent);
+        }
+    }
+
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {
 
@@ -207,7 +221,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
             if (!data.isEmpty()) {
 
-                TrailersAdapter trailersAdapter  = new TrailersAdapter(data);
+                TrailersAdapter trailersAdapter  = new TrailersAdapter(data,movieDetailPresenter);
 
                 movieTrailersRecyclerView.setHasFixedSize(true);
         GridLayoutManager        layoutManager = new GridLayoutManager(getContext(),LayoutUtils.calculateNoOfColumns(context));
