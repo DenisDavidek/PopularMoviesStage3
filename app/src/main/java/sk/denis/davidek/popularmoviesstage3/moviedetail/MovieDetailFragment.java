@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,10 +27,12 @@ import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
+import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
+import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
 
 /**
@@ -65,6 +68,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @BindString(R.string.movie_no_review)
     String noMovieReviewsMessage;
+
+
+    @BindView(R.id.rv_movie_trailers)
+    RecyclerView movieTrailersRecyclerView;
 
     private Movie movie;
     private MovieDetailContract.Presenter movieDetailPresenter;
@@ -198,6 +205,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         @Override
         public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> data) {
 
+            if (!data.isEmpty()) {
+
+                TrailersAdapter trailersAdapter  = new TrailersAdapter(data);
+
+                movieTrailersRecyclerView.setHasFixedSize(true);
+        GridLayoutManager        layoutManager = new GridLayoutManager(getContext(),LayoutUtils.calculateNoOfColumns(context));
+                movieTrailersRecyclerView.setLayoutManager(layoutManager);
+                movieTrailersRecyclerView.setAdapter(trailersAdapter);
+
+            }
         }
 
         @Override
