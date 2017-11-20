@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -85,13 +85,10 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
         String key = trailers.get(position).getKey();
         String finalUrl = "http://img.youtube.com/vi/" + key + "/0.jpg";
 
-        Glide.with(mContext).load(finalUrl).into(holder.buttonPlay);
-
-        // hide divider when it is the last item.
-  /*      if (trailers.size() - 1 == position) {
-            holder.dividerView.setVisibility(View.INVISIBLE);
-        }*/
-
+        Picasso.with(mContext)
+                .load(finalUrl)
+                .error(R.drawable.movie_error)
+                .into(holder.buttonPlay);
     }
 
     @Override

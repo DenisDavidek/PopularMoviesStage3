@@ -51,8 +51,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
             if (presenter != null) {
                 presenter.onItemInteraction(movies.get(clickedPosition));
             }
-            //  mClickListener.onClick(clickedPosition);
-
         }
     }
 
@@ -75,8 +73,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         String movieImageUrl = movies.get(position).getPosterUrl();
         Picasso.with(mContext)
                 .load(movieImageUrl)
-                // .placeholder(R.drawable.movie_placeholder)
-                //.error(R.drawable.movie_placeholder_error)
+                .error(R.drawable.movie_error)
                 .into(holder.moviePosterImageView);
 
     }
