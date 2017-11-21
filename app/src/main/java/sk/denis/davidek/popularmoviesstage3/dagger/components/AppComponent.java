@@ -35,4 +35,6 @@ public interface AppComponent {
     void inject(ReviewsAdapter reviewsAdapter);
 
     void inject(TrailersAdapter trailersAdapter);
+
+
 }
