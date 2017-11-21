@@ -3,6 +3,7 @@ package sk.denis.davidek.popularmoviesstage3.moviedetail;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
+import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
@@ -87,8 +89,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Inject
     Context context;
 
-    private int REVIEWS_GET_LOADER = 23;
-    private int TRAILERS_GET_LOADER = 24;
+
 
     public MovieDetailFragment() {
     }
@@ -197,12 +198,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         argsBundle.putString(Constants.getMovieVideoOrReview(), videoOrReview);
 
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
-        android.support.v4.content.Loader<ArrayList<Review>> getMoviesLoader = loaderManager.getLoader(REVIEWS_GET_LOADER);
+        android.support.v4.content.Loader<ArrayList<Review>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getReviewsLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(REVIEWS_GET_LOADER, argsBundle, this);
+            loaderManager.initLoader(LoaderConstants.getReviewsLoader(), argsBundle, this);
         } else
-            loaderManager.restartLoader(REVIEWS_GET_LOADER, argsBundle, this);
+            loaderManager.restartLoader(LoaderConstants.getReviewsLoader(), argsBundle, this);
 
     }
 
@@ -214,14 +215,27 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         argsBundle.putString(Constants.getMovieVideoOrReview(), videoOrReview);
 
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
-        android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(TRAILERS_GET_LOADER);
+        android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(TRAILERS_GET_LOADER, argsBundle, new CallbackVideos());
+            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
         } else
-            loaderManager.restartLoader(TRAILERS_GET_LOADER, argsBundle, new CallbackVideos());
+            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
 
     }
+
+
+    public void checkIfMovieIsFavorite() {
+        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
+
+        if (getCusorLoader == null) {
+       //     loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+        } //else
+       //     loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+    }
+
+
 
 
     private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
@@ -278,4 +292,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public void onLoaderReset(Loader<ArrayList<Review>> loader) {
 
     }
+
+
+
+
+
+
 }
