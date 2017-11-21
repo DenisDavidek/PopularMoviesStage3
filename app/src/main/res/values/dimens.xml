@@ -11,7 +11,7 @@
     <dimen name="tv_margin">16dp</dimen>
 
     <dimen name="divider_height1dp">1dp</dimen>
-
+<dimen name="fragment_movie_detail_content_padding_horizontal">0dp</dimen>
 
     <!--Text sizes-->
     <dimen name="text_normal">20sp</dimen>
