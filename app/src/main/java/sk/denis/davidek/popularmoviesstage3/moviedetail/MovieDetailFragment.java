@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +29,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
+import sk.denis.davidek.popularmoviesstage3.LocalMoviesLoader;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
@@ -36,6 +38,7 @@ import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
+import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
 
@@ -88,7 +91,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Inject
     Context context;
-
+    private boolean isFavoriteMovie;
 
 
     public MovieDetailFragment() {
@@ -107,6 +110,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             movieDetailPresenter.distributeMovieDetails(movie);
             initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
             initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+
+     //   checkIfMovieIsFavorite();
         }
         return fragmentView;
     }
@@ -230,9 +235,40 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
 
         if (getCusorLoader == null) {
-       //     loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
-        } //else
-       //     loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+            loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+        } else
+           loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+    }
+
+
+
+    private class CallbackQuery implements LoaderManager.LoaderCallbacks<Cursor> {
+
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new LocalMoviesLoader(context);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+            while(data.moveToNext()) {
+
+                if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(movie.getId())) {
+                    Toast.makeText(context,"This is a favorite movie",Toast.LENGTH_SHORT).show();
+                    isFavoriteMovie = true;
+                }
+            }
+            if (!isFavoriteMovie) {
+                Toast.makeText(context,"This is a favorite movie",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
     }
 
 
