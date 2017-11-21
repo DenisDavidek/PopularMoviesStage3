@@ -75,6 +75,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindView(R.id.rv_movie_trailers)
     RecyclerView movieTrailersRecyclerView;
 
+    @BindView(R.id.tv_no_trailers_text)
+    TextView noMovieTrailersTextView;
+
+    @BindString(R.string.movie_no_trailer)
+    String noMovieTrailersMessage;
+
     private Movie movie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
@@ -163,6 +169,15 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     @Override
+    public void hideTrailersDataView() {
+        movieTrailersRecyclerView.setVisibility(View.INVISIBLE);
+        noMovieTrailersTextView.setVisibility(View.VISIBLE);
+        noMovieTrailersTextView.setText(noMovieTrailersMessage);
+    /*    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBinding.trailersSectionDivider.getLayoutParams();
+        params.addRule(RelativeLayout.BELOW, R.id.tv_no_trailers_text);*/
+    }
+
+    @Override
     public void watchYoutubeMovieTrailer(String movieKey) {
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + movieKey));
         Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + movieKey));
@@ -221,13 +236,15 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
             if (!data.isEmpty()) {
 
-                TrailersAdapter trailersAdapter  = new TrailersAdapter(data,movieDetailPresenter);
+                TrailersAdapter trailersAdapter = new TrailersAdapter(data, movieDetailPresenter);
 
                 movieTrailersRecyclerView.setHasFixedSize(true);
-        GridLayoutManager        layoutManager = new GridLayoutManager(getContext(),LayoutUtils.calculateNoOfColumns(context));
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(context));
                 movieTrailersRecyclerView.setLayoutManager(layoutManager);
                 movieTrailersRecyclerView.setAdapter(trailersAdapter);
 
+            } else {
+                movieDetailPresenter.prepareNoTrailersDataView();
             }
         }
 

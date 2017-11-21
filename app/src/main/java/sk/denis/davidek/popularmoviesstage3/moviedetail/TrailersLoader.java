@@ -73,5 +73,5 @@ public class TrailersLoader extends AsyncTaskLoader<ArrayList<Trailer>> {
 
         return trailers;
     }
-    }
+}
 

@@ -175,13 +175,13 @@ public class MainFragment extends Fragment implements MainContract.View,
 
             case R.id.action_show_favorite_movies:
                 Snackbar.make(moviesRecyclerView, getString(R.string.showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-               // if (NetworkUtils.checkInternetConnection(mContext)) {
-                    moviesRecyclerView.setAdapter(null);
-                  //  getMoviesData(Constants.getMoviesTopRated()); CURSOR SEM PRIDE
-                    mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
-             //   } else {
+                // if (NetworkUtils.checkInternetConnection(mContext)) {
+                moviesRecyclerView.setAdapter(null);
+                //  getMoviesData(Constants.getMoviesTopRated()); CURSOR SEM PRIDE
+                mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
+                //   } else {
                 //    mainPresenter.prepareErrorLoadingMessage();
-             //   }
+                //   }
                 break;
         }
 
@@ -239,11 +239,12 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     GridLayoutManager layoutManager;
+
     @Override
     public void prepareRecyclerView() {
 
         moviesRecyclerView.setHasFixedSize(true);
-   layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
+        layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
         moviesRecyclerView.setLayoutManager(layoutManager);
     }
 
@@ -316,7 +317,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         if (savedInstanceState != null)
-        state = savedInstanceState.getParcelable("test");
+            state = savedInstanceState.getParcelable("test");
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -326,6 +327,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     Parcelable state;
+
     @Override
     public void onPause() {
         super.onPause();
@@ -336,7 +338,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void onSaveInstanceState(Bundle outState) {
         state = layoutManager.onSaveInstanceState();
-    outState.putParcelable("test",state);
+        outState.putParcelable("test", state);
         super.onSaveInstanceState(outState);
 
     }

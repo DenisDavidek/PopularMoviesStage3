@@ -79,7 +79,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         switch (itemId) {
             case android.R.id.home:
                 finish();
-return true;
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

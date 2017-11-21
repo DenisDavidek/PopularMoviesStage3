@@ -130,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_trailers_text"
                 android:layout_marginTop="@dimen/tv_margin"
+                android:layout_marginBottom="@dimen/tv_margin"
                 android:textSize="@dimen/text_normal"
                 android:visibility="invisible"
                 tools:text="@string/movie_no_trailer" />

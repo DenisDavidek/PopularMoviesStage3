@@ -26,7 +26,10 @@ public interface MovieDetailContract {
         void prepareRecyclerView();
 
         void showReviewsDataView();
+
         void hideReviewsDataView();
+
+        void hideTrailersDataView();
 
         void watchYoutubeMovieTrailer(String movieKey);
     }
@@ -40,6 +43,8 @@ public interface MovieDetailContract {
         void prepareReviewsDataView();
 
         void prepareNoReviewsDataView();
+
+        void prepareNoTrailersDataView();
 
         void prepareYoutubeMovieTrailer(String movieKey);
 
