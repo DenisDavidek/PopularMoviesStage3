@@ -3,6 +3,7 @@ package sk.denis.davidek.popularmoviesstage3.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -33,6 +34,7 @@ import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
+import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
@@ -90,8 +92,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
 
     private int MOVIE_GET_LOADER = 22;
-    private boolean isConnectedToInternet;
-    private int lastFirstVisiblePosition;
+    private String MOVIES_CURRENT_FILTER;
 
     public MainFragment() {
         // Required empty public constructor
@@ -134,6 +135,8 @@ public class MainFragment extends Fragment implements MainContract.View,
         View fragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, fragmentView);
         mainPresenter = new MainPresenter(this);
+
+        MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
 
         return fragmentView;
     }
@@ -178,6 +181,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 // if (NetworkUtils.checkInternetConnection(mContext)) {
                 moviesRecyclerView.setAdapter(null);
                 //  getMoviesData(Constants.getMoviesTopRated()); CURSOR SEM PRIDE
+                getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
                 //   } else {
                 //    mainPresenter.prepareErrorLoadingMessage();
@@ -256,11 +260,21 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void workWithInternetConnection(boolean hasInternetConnection) {
         if (hasInternetConnection) {
-            isConnectedToInternet = true;
-            getMoviesData(Constants.getMoviesPopular());
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+
+                getMoviesCursorLocalData();
+            } else {
+                getMoviesData(MOVIES_CURRENT_FILTER);
+            }
         } else {
-            isConnectedToInternet = false;
-            mainPresenter.prepareErrorLoadingMessage();
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+                getMoviesCursorLocalData();
+            } else {
+
+                mainPresenter.prepareErrorLoadingMessage();
+            }
         }
     }
 
@@ -341,6 +355,38 @@ public class MainFragment extends Fragment implements MainContract.View,
         outState.putParcelable("test", state);
         super.onSaveInstanceState(outState);
 
+    }
+
+    public void getMoviesCursorLocalData() {
+
+        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMovieCursorGetLoader());
+
+        if (getCusorLoader == null) {
+            loaderManager.initLoader(LoaderConstants.getMovieCursorGetLoader(), null, new CallbackLocalQuery());
+        } else
+            loaderManager.restartLoader(LoaderConstants.getMovieCursorGetLoader(), null, new CallbackLocalQuery());
+
+    }
+
+    private Cursor mCursorLocalMovieData;
+
+    private class CallbackLocalQuery implements LoaderManager.LoaderCallbacks<Cursor> {
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new MoviesCursorLocalLoader(mContext);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            mCursorLocalMovieData = data;
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
     }
 
 
