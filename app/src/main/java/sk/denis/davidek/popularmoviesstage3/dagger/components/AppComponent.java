@@ -12,6 +12,7 @@ import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
 import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 
 /**
@@ -36,5 +37,5 @@ public interface AppComponent {
 
     void inject(TrailersAdapter trailersAdapter);
 
-
+    void inject(MovieDetailActivityPrava movieDetailActivityPrava);
 }

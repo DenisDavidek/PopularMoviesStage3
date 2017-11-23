@@ -4,18 +4,23 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,12 +47,8 @@ import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
-
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MovieDetailFragment extends Fragment implements MovieDetailContract.View,
-        LoaderManager.LoaderCallbacks<ArrayList<Review>> {
+public class MovieDetailActivityPrava extends AppCompatActivity implements MovieDetailContract.View,
+        LoaderManager.LoaderCallbacks<ArrayList<Review>>  {
 
     @BindString(R.string.movie_key)
     String selectedMovieKey;
@@ -90,6 +91,13 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
 
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
+    @BindView(R.id.backdrop_image)
+    ImageView backdropImageView;
+
+
     private Movie movie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
@@ -97,41 +105,105 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     Context context;
     private boolean isFavoriteMovie;
 
-
-    public MovieDetailFragment() {
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
-        ButterKnife.bind(this, fragmentView);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movie_detail_prava);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setupToolbarBackIcon();
+    /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+
+        ButterKnife.bind(this);
+        setupCollapsingToolbarLayout();
         App.getAppComponent().inject(this);
         movieDetailPresenter = new MovieDetailPresenter(this);
-        Intent intent = getActivity().getIntent();
+        Intent intent = getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
             movie = intent.getParcelableExtra(selectedMovieKey);
             movieDetailPresenter.distributeMovieDetails(movie);
             initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
             initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
 
-       checkIfMovieIsFavorite();
+            checkIfMovieIsFavorite();
         }
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (isFavoriteMovie) {
+                    Uri uri = MovieContract.MovieEntry.CONTENT_URI;
+                    uri = uri.buildUpon().appendPath(movie.getId()).build();
+                    getContentResolver().delete(uri,null,null);
+                    isFavoriteMovie = false;
+                    checkIfMovieIsFavorite();
+                    Snackbar.make(view, getString(R.string.movie_deleted_from_favorites), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_action), null).show();
 
                 } else {
-
+            Uri finalUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(),movie,context);
+                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalUri, Toast.LENGTH_LONG).show();
+               movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context,movie,finalUri);
+                    Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackbar_action), null).show();
+                    checkIfMovieIsFavorite();
                 }
 
             }
         });
-        return fragmentView;
+
+
     }
+
+    private void setupToolbarBackIcon() {
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setupCollapsingToolbarLayout() {
+        collapsingToolbarLayout.setTitle(getMovieTitle());
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
+        setTitle("");
+        Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
+    }
+
+    private String getMovieTitle() {
+
+        String returnedTitle;
+        Intent intent = getIntent();
+        if (intent.hasExtra(selectedMovieKey)) {
+            movie = intent.getParcelableExtra(selectedMovieKey);
+            returnedTitle = movie.getOriginalTitle();
+        } else
+            returnedTitle = "";
+
+        return returnedTitle;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     @Override
@@ -168,7 +240,23 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void displayMoviePoster(String posterUrl) {
-        Picasso.with(context).load(posterUrl).into(moviePosterImageView);
+
+        if (posterUrl.startsWith("file://")) {
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(posterUrl));
+                moviePosterImageView.setImageBitmap(bitmap);
+                Toast.makeText(getApplicationContext(), "URI ", Toast.LENGTH_LONG).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Picasso.with(this).load(posterUrl).into(moviePosterImageView);
+            Toast.makeText(getApplicationContext(), "PICASSO ", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -219,7 +307,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         argsBundle.putString(Constants.getMovieDefault(), movie);
         argsBundle.putString(Constants.getMovieVideoOrReview(), videoOrReview);
 
-        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
         android.support.v4.content.Loader<ArrayList<Review>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getReviewsLoader());
 
         if (getMoviesLoader == null) {
@@ -236,7 +324,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         argsBundle.putString(Constants.getMovieDefault(), movie);
         argsBundle.putString(Constants.getMovieVideoOrReview(), videoOrReview);
 
-        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
         android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
@@ -248,13 +336,13 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
 
     public void checkIfMovieIsFavorite() {
-        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
         android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
 
         if (getCusorLoader == null) {
             loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
         } else
-           loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+            loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
     }
 
 
@@ -275,11 +363,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(movie.getId())) {
                             Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
+                            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
+                         //   floatingActionButton.setBackground(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
-                        Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "This is NOT a favorite movie", Toast.LENGTH_SHORT).show();
+                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_favorite_border_white_36dp));
                     }
                 }
             }
@@ -309,7 +400,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                 TrailersAdapter trailersAdapter = new TrailersAdapter(data, movieDetailPresenter);
 
                 movieTrailersRecyclerView.setHasFixedSize(true);
-                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(context));
+                GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
                 movieTrailersRecyclerView.setLayoutManager(layoutManager);
                 movieTrailersRecyclerView.setAdapter(trailersAdapter);
 
@@ -327,7 +418,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
-        return new ReviewsLoader(getContext(), args, movie);
+        return new ReviewsLoader(context, args, movie);
     }
 
     @Override
@@ -349,28 +440,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     }
 
-    private OnFragmentInteractionListener mListener;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mListener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnItemClickListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-
-        void onClick(int position);
-    }
 }

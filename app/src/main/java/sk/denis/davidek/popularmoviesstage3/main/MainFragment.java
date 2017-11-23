@@ -34,7 +34,7 @@ import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
-import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
@@ -266,7 +266,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void showItemClickData(Movie movie) {
-        Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+        Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
         intent.putExtra(selectedMovieKey, movie);
         startActivity(intent);
     }

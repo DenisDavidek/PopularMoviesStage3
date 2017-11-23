@@ -1,5 +1,8 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
+import android.content.Context;
+import android.net.Uri;
+
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
@@ -47,6 +50,10 @@ public interface MovieDetailContract {
         void prepareNoTrailersDataView();
 
         void prepareYoutubeMovieTrailer(String movieKey);
+
+        Uri downloadPosterFile(String moviePosterUrl, Movie movie, Context context);
+        void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalUri);
+        void downloadBackgroundFile(String movieBackgroundUrl);
 
     }
 }

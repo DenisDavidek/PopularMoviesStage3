@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -13,9 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".main.MainActivity"
->
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +23,17 @@
         </activity>
         <activity
             android:name=".moviedetail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".main.MainActivity"></activity>
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".moviedetail.MovieDetailActivityPrava"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <provider
+            android:authorities="sk.denis.davidek.popularmoviesstage3"
+            android:name=".data.contentprovider.MovieContentProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

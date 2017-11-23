@@ -35,7 +35,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-             />
+                />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -54,7 +54,7 @@
         app:behavior_overlapTop="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include layout="@layout/content_movie_detail" />
+        <include layout="@layout/content_movie_detail_activity_prava" />
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -64,6 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_favorite_white_36dp" />
+         />
 
 </android.support.design.widget.CoordinatorLayout>
