@@ -20,17 +20,17 @@ public class LocalMoviesLoader extends AsyncTaskLoader<Cursor> {
 
     @Override
     protected void onStartLoading() {
-        if (moviesData!= null) {
+        if (moviesData != null) {
             deliverResult(moviesData);
         } else forceLoad();
-      //  super.onStartLoading();
+        //  super.onStartLoading();
     }
 
     @Override
     public Cursor loadInBackground() {
         try {
-      return getContext().getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
-              null,null,null, MovieContract.MovieEntry.COLUMN_MOVIE_TITLE);
+            return getContext().getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
+                    null, null, null, MovieContract.MovieEntry.COLUMN_MOVIE_TITLE);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

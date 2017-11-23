@@ -7,6 +7,7 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="state_main_activity_key">mainActivityState</string>
 
     <!--menu action items-->
     <string name="action_show_top_rated_movies">Top Rated Movies</string>

@@ -40,7 +40,7 @@ public class FavoriteMoviesLoader extends AsyncTaskLoader<ArrayList<Movie>> {
             String plotSynopsis = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_OVERVIEW));
             double userRating = moviesCursorData.getDouble(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_AVERAGE));
             String releaseDate = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_RELEASE_DATE));
-            movieArrayList.add(new Movie(movieCursorId, movieOriginalTitle, moviePosterUri,movieBackgroundUri, plotSynopsis, userRating, releaseDate));
+            movieArrayList.add(new Movie(movieCursorId, movieOriginalTitle, moviePosterUri, movieBackgroundUri, plotSynopsis, userRating, releaseDate));
         }
         return movieArrayList;
     }

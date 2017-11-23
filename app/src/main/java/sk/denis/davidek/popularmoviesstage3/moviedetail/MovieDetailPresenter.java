@@ -91,7 +91,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
         if (!testIfExists.exists()) {
 
             DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-           //  Toast.makeText(context, "IMAGE DOWNLOADING", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(context, "IMAGE DOWNLOADING", Toast.LENGTH_LONG).show();
             Uri downloadUri = Uri.parse(moviePosterUrl);
             DownloadManager.Request request = new DownloadManager.Request(
                     downloadUri);
@@ -112,12 +112,12 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     }
 
     @Override
-    public void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalPosterUri, Uri finalBackgroundUri) {
+    public void insertFavoriteMovieIntoContentProvidersDatabase(Context context, Movie movie, Uri finalPosterUri, Uri finalBackgroundUri) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_ID, movie.getId());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_TITLE, movie.getOriginalTitle());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_POSTER_URI, finalPosterUri.toString());
-        contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_BACKGROUND_URI,finalBackgroundUri.toString());
+        contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_BACKGROUND_URI, finalBackgroundUri.toString());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_OVERVIEW, movie.getPlotSynopsis());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_AVERAGE, movie.getUserRating());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_RELEASE_DATE, movie.getReleaseDate());

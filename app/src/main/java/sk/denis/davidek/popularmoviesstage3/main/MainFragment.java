@@ -90,8 +90,10 @@ public class MainFragment extends Fragment implements MainContract.View,
     @BindString(R.string.movie_key)
     String selectedMovieKey;
 
+    @BindString(R.string.state_main_activity_key)
+    String mainActivityStateKey;
 
-    private int MOVIE_GET_LOADER = 22;
+    private Parcelable state;
     private String MOVIES_CURRENT_FILTER;
 
     public MainFragment() {
@@ -130,7 +132,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View fragmentView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, fragmentView);
@@ -199,12 +200,12 @@ public class MainFragment extends Fragment implements MainContract.View,
         argsBundle.putString(Constants.getQueryMovieFilter(), movieFilter);
 
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
-        Loader<ArrayList<Movie>> getMoviesLoader = loaderManager.getLoader(MOVIE_GET_LOADER);
+        Loader<ArrayList<Movie>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getMovieLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(MOVIE_GET_LOADER, argsBundle, this);
+            loaderManager.initLoader(LoaderConstants.getMovieLoader(), argsBundle, this);
         } else
-            loaderManager.restartLoader(MOVIE_GET_LOADER, argsBundle, this);
+            loaderManager.restartLoader(LoaderConstants.getMovieLoader(), argsBundle, this);
 
     }
 
@@ -331,7 +332,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         if (savedInstanceState != null)
-            state = savedInstanceState.getParcelable("test");
+            state = savedInstanceState.getParcelable(mainActivityStateKey);
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -340,7 +341,6 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     }
 
-    Parcelable state;
 
     @Override
     public void onPause() {
@@ -352,7 +352,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void onSaveInstanceState(Bundle outState) {
         state = layoutManager.onSaveInstanceState();
-        outState.putParcelable("test", state);
+        outState.putParcelable(mainActivityStateKey, state);
         super.onSaveInstanceState(outState);
 
     }
@@ -400,27 +400,27 @@ public class MainFragment extends Fragment implements MainContract.View,
             loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies());
     }
 
-private class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
+    private class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
 
-    @Override
-    public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-        return new FavoriteMoviesLoader(mContext,mCursorLocalMovieData);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-        if (!data.isEmpty()) {
-            moviesAdapter = new MoviesAdapter(mContext,data, (MainPresenter) mainPresenter);
-            moviesRecyclerView.setAdapter(moviesAdapter);
+        @Override
+        public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
+            return new FavoriteMoviesLoader(mContext, mCursorLocalMovieData);
         }
 
-    }
+        @Override
+        public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
+            if (!data.isEmpty()) {
+                moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
+                moviesRecyclerView.setAdapter(moviesAdapter);
+            }
 
-    @Override
-    public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+        }
 
+        @Override
+        public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+
+        }
     }
-}
 
     /**
      * This interface must be implemented by activities that contain this

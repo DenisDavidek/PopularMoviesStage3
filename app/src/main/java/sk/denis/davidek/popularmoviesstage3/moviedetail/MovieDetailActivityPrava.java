@@ -48,7 +48,7 @@ import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 
 public class MovieDetailActivityPrava extends AppCompatActivity implements MovieDetailContract.View,
-        LoaderManager.LoaderCallbacks<ArrayList<Review>>  {
+        LoaderManager.LoaderCallbacks<ArrayList<Review>> {
 
     @BindString(R.string.movie_key)
     String selectedMovieKey;
@@ -143,18 +143,18 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                 if (isFavoriteMovie) {
                     Uri uri = MovieContract.MovieEntry.CONTENT_URI;
                     uri = uri.buildUpon().appendPath(movie.getId()).build();
-                    getContentResolver().delete(uri,null,null);
+                    getContentResolver().delete(uri, null, null);
                     isFavoriteMovie = false;
                     checkIfMovieIsFavorite();
                     Snackbar.make(view, getString(R.string.movie_deleted_from_favorites), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_action), null).show();
 
                 } else {
-            Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(),movie,context);
-            Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(movie.getBackgroundUrl(), movie,context);
+                    Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(), movie, context);
+                    Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(movie.getBackgroundUrl(), movie, context);
                     Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
                     Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
-               movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context,movie,finalPosterUri,finalBackgroundUri);
+                    movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, movie, finalPosterUri, finalBackgroundUri);
                     Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_action), null).show();
                     checkIfMovieIsFavorite();
@@ -223,7 +223,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @Override
@@ -377,20 +376,20 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-            if (data!= null) {
+            if (data != null) {
                 if (data.getCount() > 0) {
                     while (data.moveToNext()) {
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(movie.getId())) {
                             Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
-                            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
-                         //   floatingActionButton.setBackground(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
+                            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
+                            //   floatingActionButton.setBackground(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
                         Toast.makeText(context, "This is NOT a favorite movie", Toast.LENGTH_SHORT).show();
-                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_favorite_border_white_36dp));
+                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
                     }
                 }
             }
@@ -401,8 +400,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
         }
     }
-
-
 
 
     private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
@@ -459,7 +456,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     public void onLoaderReset(Loader<ArrayList<Review>> loader) {
 
     }
-
 
 
 }

@@ -23,9 +23,9 @@ public class MoviesCursorLocalLoader extends AsyncTaskLoader<Cursor> {
 
     @Override
     protected void onStartLoading() {
-    if (mMoviesData != null) {
-        deliverResult(mMoviesData);
-    } else forceLoad();
+        if (mMoviesData != null) {
+            deliverResult(mMoviesData);
+        } else forceLoad();
     }
 
     @Override

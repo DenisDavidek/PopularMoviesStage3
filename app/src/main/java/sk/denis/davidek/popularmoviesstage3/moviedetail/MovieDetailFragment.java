@@ -115,7 +115,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
             initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
 
-       checkIfMovieIsFavorite();
+            checkIfMovieIsFavorite();
         }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -254,7 +254,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         if (getCusorLoader == null) {
             loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
         } else
-           loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
+            loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
     }
 
 
@@ -269,7 +269,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-            if (data!= null) {
+            if (data != null) {
                 if (data.getCount() > 0) {
                     while (data.moveToNext()) {
 
@@ -290,8 +290,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
         }
     }
-
-
 
 
     private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
