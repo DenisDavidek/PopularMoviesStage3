@@ -112,11 +112,12 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     }
 
     @Override
-    public void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalUri) {
+    public void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalPosterUri, Uri finalBackgroundUri) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_ID, movie.getId());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_TITLE, movie.getOriginalTitle());
-        contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_POSTER_URI, finalUri.toString());
+        contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_POSTER_URI, finalPosterUri.toString());
+        contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_BACKGROUND_URI,finalBackgroundUri.toString());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_OVERVIEW, movie.getPlotSynopsis());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_AVERAGE, movie.getUserRating());
         contentValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_RELEASE_DATE, movie.getReleaseDate());
@@ -129,7 +130,37 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     }
 
     @Override
-    public void downloadBackgroundFile(String movieBackgroundUrl) {
+    public Uri downloadBackgroundFile(String moviePosterUrl, Movie movie, Context context) {
+        Uri finalMoviePosterUri;
+        File direct = new File(Environment.getExternalStorageDirectory()
+                + "/PopularMoviesDownloadedPosters");
 
+        if (!direct.exists()) {
+            direct.mkdirs();
+        }
+        File testIfExists = new File(direct + File.separator + movie.getOriginalTitle() + "_background" + ".jpg");
+
+        if (!testIfExists.exists()) {
+
+            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+            //  Toast.makeText(context, "IMAGE DOWNLOADING", Toast.LENGTH_LONG).show();
+            Uri downloadUri = Uri.parse(moviePosterUrl);
+            DownloadManager.Request request = new DownloadManager.Request(
+                    downloadUri);
+
+            request.setAllowedNetworkTypes(
+                    DownloadManager.Request.NETWORK_WIFI
+                            | DownloadManager.Request.NETWORK_MOBILE)
+                    .setAllowedOverRoaming(false).setTitle("Demo")
+                    .setDescription("Something useful. No, really.")
+                    .setDestinationInExternalPublicDir("/PopularMoviesDownloadedPosters", movie.getOriginalTitle() + "_background" + ".jpg");
+
+            manager.enqueue(request);
+
+        }
+        Uri moviePosterUri = Uri.parse(direct + File.separator + movie.getOriginalTitle() + "_background" + ".jpg");
+        finalMoviePosterUri = Uri.parse("file://" + moviePosterUri);
+        return finalMoviePosterUri;
     }
+
 }

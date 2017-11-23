@@ -35,11 +35,12 @@ public class FavoriteMoviesLoader extends AsyncTaskLoader<ArrayList<Movie>> {
         while (moviesCursorData.moveToNext()) {
             String movieCursorId = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID));
             String movieOriginalTitle = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_TITLE));
-            String movieUri = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_POSTER_URI));
+            String moviePosterUri = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_POSTER_URI));
+            String movieBackgroundUri = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_BACKGROUND_URI));
             String plotSynopsis = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_OVERVIEW));
             double userRating = moviesCursorData.getDouble(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_AVERAGE));
             String releaseDate = moviesCursorData.getString(moviesCursorData.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_RELEASE_DATE));
-            movieArrayList.add(new Movie(movieCursorId, movieOriginalTitle, movieUri,"", plotSynopsis, userRating, releaseDate));
+            movieArrayList.add(new Movie(movieCursorId, movieOriginalTitle, moviePosterUri,movieBackgroundUri, plotSynopsis, userRating, releaseDate));
         }
         return movieArrayList;
     }

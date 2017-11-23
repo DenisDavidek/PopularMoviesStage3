@@ -23,6 +23,7 @@ public class MovieContract {
         public static final String COLUMN_MOVIE_ID = "movieId";
         public static final String COLUMN_MOVIE_TITLE = "movieTitle";
         public static final String COLUMN_MOVIE_POSTER_URI = "poster_path";
+        public static final String COLUMN_MOVIE_BACKGROUND_URI = "background_path";
         public static final String COLUMN_MOVIE_OVERVIEW = "overview";
         public static final String COLUMN_MOVIE_VOTE_AVERAGE = "vote_average";
         public static final String COLUMN_MOVIE_RELEASE_DATE = "release_date";

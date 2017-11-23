@@ -150,9 +150,11 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                             .setAction(getString(R.string.snackbar_action), null).show();
 
                 } else {
-            Uri finalUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(),movie,context);
-                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalUri, Toast.LENGTH_LONG).show();
-               movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context,movie,finalUri);
+            Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(),movie,context);
+            Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(movie.getBackgroundUrl(), movie,context);
+                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
+               movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context,movie,finalPosterUri,finalBackgroundUri);
                     Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_action), null).show();
                     checkIfMovieIsFavorite();
@@ -175,7 +177,25 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         collapsingToolbarLayout.setTitle(getMovieTitle());
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
         setTitle("");
-      //  Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
+
+
+        if (movie.getBackgroundUrl().startsWith("file://")) {
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(movie.getBackgroundUrl()));
+                backdropImageView.setImageBitmap(bitmap);
+                Toast.makeText(getApplicationContext(), "URI BACKGROUND", Toast.LENGTH_LONG).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
+            Toast.makeText(getApplicationContext(), "PICASSO BACKGROUND", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     private String getMovieTitle() {

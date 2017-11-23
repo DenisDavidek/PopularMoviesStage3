@@ -52,8 +52,9 @@ public interface MovieDetailContract {
         void prepareYoutubeMovieTrailer(String movieKey);
 
         Uri downloadPosterFile(String moviePosterUrl, Movie movie, Context context);
-        void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalUri);
-        void downloadBackgroundFile(String movieBackgroundUrl);
+        void insertFavoriteMovieIntoContentProvidersDatabase(Context context,Movie movie, Uri finalPosterUri, Uri finalBackgroundUri);
+
+        Uri downloadBackgroundFile(String moviePosterUrl, Movie movie, Context context);
 
     }
 }
