@@ -161,7 +161,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movie_reviews"
         android:layout_width="match_parent"
