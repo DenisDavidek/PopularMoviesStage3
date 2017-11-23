@@ -175,7 +175,7 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         collapsingToolbarLayout.setTitle(getMovieTitle());
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
         setTitle("");
-        Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
+      //  Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
     }
 
     private String getMovieTitle() {

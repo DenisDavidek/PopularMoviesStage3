@@ -11,6 +11,8 @@ public  class LoaderConstants {
 
     private static int MOVIE_CURSOR_GET_LOADER = 41;
 
+    private int MOVIE_FAVORITES_GET_LOADER = 77;
+
     public static int getReviewsLoader() {
         return REVIEWS_LOADER;
     }
@@ -25,5 +27,9 @@ public  class LoaderConstants {
 
     public static int getMovieCursorGetLoader() {
         return MOVIE_CURSOR_GET_LOADER;
+    }
+
+    public int getMovieFavoritesGetLoader() {
+        return MOVIE_FAVORITES_GET_LOADER;
     }
 }

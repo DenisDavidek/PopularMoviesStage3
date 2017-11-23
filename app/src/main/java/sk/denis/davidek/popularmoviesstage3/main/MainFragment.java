@@ -381,6 +381,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             mCursorLocalMovieData = data;
+            getFavoriteMovies();
         }
 
         @Override
@@ -389,6 +390,37 @@ public class MainFragment extends Fragment implements MainContract.View,
         }
     }
 
+    public void getFavoriteMovies() {
+        android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
+        android.support.v4.content.Loader<ArrayList<Movie>> getFavoriteMoviesLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
+
+        if (getFavoriteMoviesLoader == null) {
+            loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies());
+        } else
+            loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies());
+    }
+
+private class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
+
+    @Override
+    public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
+        return new FavoriteMoviesLoader(mContext,mCursorLocalMovieData);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
+        if (!data.isEmpty()) {
+            moviesAdapter = new MoviesAdapter(mContext,data, (MainPresenter) mainPresenter);
+            moviesRecyclerView.setAdapter(moviesAdapter);
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
+
+    }
+}
 
     /**
      * This interface must be implemented by activities that contain this
