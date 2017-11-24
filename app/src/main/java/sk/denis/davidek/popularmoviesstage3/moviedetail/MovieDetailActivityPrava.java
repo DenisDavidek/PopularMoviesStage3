@@ -267,6 +267,7 @@ String noInternetConnectionMessage;
         movieTrailersRecyclerView.setVisibility(View.INVISIBLE);
         noMovieTrailersTextView.setVisibility(View.VISIBLE);
         noMovieTrailersTextView.setText(message);
+
     }
 
     @Override
