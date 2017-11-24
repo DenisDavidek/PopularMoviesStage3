@@ -317,6 +317,21 @@ public class MainFragment extends Fragment implements MainContract.View,
         errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void showNoFavoriteMoviesMessage() {
+        moviesRecyclerView.setVisibility(View.INVISIBLE);
+        noFavoriteMoviesTextView.setVisibility(View.VISIBLE);
+        if (errorInternetConnectionTextView.getVisibility() == View.VISIBLE) {
+            errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void hideNoFavoriteMoviesMessage() {
+        moviesRecyclerView.setVisibility(View.VISIBLE);
+        noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
+
+    }
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {

@@ -33,6 +33,10 @@ public interface MainContract {
         void showInternetErrorLoadingMessage();
 
         void showMovieDataView();
+
+        void showNoFavoriteMoviesMessage();
+
+        void hideNoFavoriteMoviesMessage();
     }
 
     //vsetko ostatné // Presenter žiaden android kód.
@@ -49,7 +53,6 @@ public interface MainContract {
         void prepareInternetErrorLoadingMessage();
 
         void prepareMovieDataView();
-
 
     }
 }

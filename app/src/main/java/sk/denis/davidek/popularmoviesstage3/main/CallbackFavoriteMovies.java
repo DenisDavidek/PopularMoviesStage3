@@ -41,10 +41,11 @@ public class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<Arr
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         mainView.hideLoadingProgressBar(View.INVISIBLE);
         if (!data.isEmpty()) {
+            mainView.hideNoFavoriteMoviesMessage();
             mainView.showMovieDataView();
             mainView.showFavoriteMoviesData(data);
         } else {
-            // dorobiť
+          mainView.showNoFavoriteMoviesMessage();
         }
 
     }
