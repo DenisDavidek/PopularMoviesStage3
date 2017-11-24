@@ -99,8 +99,11 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     ImageView backdropImageView;
 
 
-    private Movie movie;
+    private Movie selectedMovie;
     private MovieDetailContract.Presenter movieDetailPresenter;
+
+@BindString(R.string.no_internet_connection)
+String noInternetConnectionMessage;
 
     @Inject
     Context context;
@@ -121,19 +124,19 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
         Intent intent = getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
-            movie = intent.getParcelableExtra(selectedMovieKey);
-            movieDetailPresenter.distributeMovieDetails(movie);
+            selectedMovie = intent.getParcelableExtra(selectedMovieKey);
+            movieDetailPresenter.distributeMovieDetails(selectedMovie);
 
             if (NetworkUtils.checkInternetConnection(context)) {
                 initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
                 initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
             } else {
-                hideReviewsDataView();
+                hideReviewsDataView(noInternetConnectionMessage);
                 hideTrailersDataView();
             }
 
             checkIfMovieIsFavorite();
-            movieDetailPresenter.prepareCollapsingToolbarLayout(movie);
+            movieDetailPresenter.prepareCollapsingToolbarLayout(selectedMovie);
         }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +145,7 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
                 if (isFavoriteMovie) {
                     Uri uri = MovieContract.MovieEntry.CONTENT_URI;
-                    uri = uri.buildUpon().appendPath(movie.getId()).build();
+                    uri = uri.buildUpon().appendPath(selectedMovie.getId()).build();
                     getContentResolver().delete(uri, null, null);
                     isFavoriteMovie = false;
                     checkIfMovieIsFavorite();
@@ -150,11 +153,11 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                             .setAction(getString(R.string.snackbar_action), null).show();
 
                 } else {
-                    Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(movie.getPosterUrl(), movie, context);
-                    Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(movie.getBackgroundUrl(), movie, context);
+                    Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(selectedMovie.getPosterUrl(), selectedMovie, context);
+                    Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(selectedMovie.getBackgroundUrl(), selectedMovie, context);
                     Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
                     Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
-                    movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, movie, finalPosterUri, finalBackgroundUri);
+                    movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, selectedMovie, finalPosterUri, finalBackgroundUri);
                     Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_action), null).show();
                     checkIfMovieIsFavorite();
@@ -253,10 +256,10 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     }
 
     @Override
-    public void hideReviewsDataView() {
+    public void hideReviewsDataView(String message) {
         movieReviewsRecyclerView.setVisibility(View.INVISIBLE);
         noMoviewReviewsTextView.setVisibility(View.VISIBLE);
-        noMoviewReviewsTextView.setText(noMovieReviewsMessage);
+        noMoviewReviewsTextView.setText(message);
     }
 
     @Override
@@ -298,6 +301,14 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         Toast.makeText(getApplicationContext(), "PICASSO BACKGROUND MVP", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
+        movieTrailersRecyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
+        movieTrailersRecyclerView.setLayoutManager(layoutManager);
+        movieTrailersRecyclerView.setAdapter(trailersAdapter);
+    }
+
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {
 
@@ -326,9 +337,9 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
+            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
         } else
-            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
+            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
 
     }
 
@@ -359,15 +370,15 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                 if (data.getCount() > 0) {
                     while (data.moveToNext()) {
 
-                        if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(movie.getId())) {
-                            Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
+                        if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
+                            Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
                             //   floatingActionButton.setBackground(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
-                        Toast.makeText(context, "This is NOT a favorite movie", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "This is NOT a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                         floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
                     }
                 }
@@ -381,40 +392,9 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     }
 
 
-    private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
-
-        @Override
-        public Loader<ArrayList<Trailer>> onCreateLoader(int id, Bundle args) {
-            return new TrailersLoader(context, args, movie);
-        }
-
-        @Override
-        public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> data) {
-
-            if (!data.isEmpty()) {
-
-                TrailersAdapter trailersAdapter = new TrailersAdapter(data, movieDetailPresenter);
-
-                movieTrailersRecyclerView.setHasFixedSize(true);
-                GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
-                movieTrailersRecyclerView.setLayoutManager(layoutManager);
-                movieTrailersRecyclerView.setAdapter(trailersAdapter);
-
-            } else {
-                movieDetailPresenter.prepareNoTrailersDataView();
-            }
-        }
-
-        @Override
-        public void onLoaderReset(Loader<ArrayList<Trailer>> loader) {
-
-        }
-    }
-
-
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
-        return new ReviewsLoader(context, args, movie);
+        return new ReviewsLoader(context, args, selectedMovie);
     }
 
     @Override
@@ -427,7 +407,7 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
             movieReviewsRecyclerView.setAdapter(reviewsAdapter);
 
         } else {
-            movieDetailPresenter.prepareNoReviewsDataView();
+            movieDetailPresenter.prepareNoReviewsDataView(noMovieReviewsMessage);
         }
     }
 

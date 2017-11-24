@@ -186,11 +186,12 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     @Override
-    public void hideReviewsDataView() {
+    public void hideReviewsDataView(String message) {
         movieReviewsRecyclerView.setVisibility(View.INVISIBLE);
         noMoviewReviewsTextView.setVisibility(View.VISIBLE);
         noMoviewReviewsTextView.setText(noMovieReviewsMessage);
     }
+
 
     @Override
     public void hideTrailersDataView() {
@@ -225,6 +226,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void displayMovieImageBackground(String movieBackgroundUrl) {
+
+    }
+
+    @Override
+    public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
 
     }
 
@@ -354,7 +360,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
             movieReviewsRecyclerView.setAdapter(reviewsAdapter);
 
         } else {
-            movieDetailPresenter.prepareNoReviewsDataView();
+            movieDetailPresenter.prepareNoReviewsDataView(noMovieReviewsMessage);
         }
     }
 

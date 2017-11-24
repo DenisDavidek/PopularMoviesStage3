@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
@@ -31,7 +32,7 @@ public interface MovieDetailContract {
 
         void showReviewsDataView();
 
-        void hideReviewsDataView();
+        void hideReviewsDataView(String message);
 
         void hideTrailersDataView();
 
@@ -42,6 +43,8 @@ public interface MovieDetailContract {
         void displayMovieImageBackground(Bitmap bitmap);
 
         void displayMovieImageBackground(String movieBackgroundUrl);
+
+        void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter);
     }
 
     interface Presenter extends BasePresenter {
@@ -52,7 +55,7 @@ public interface MovieDetailContract {
 
         void prepareReviewsDataView();
 
-        void prepareNoReviewsDataView();
+        void prepareNoReviewsDataView(String message);
 
         void prepareNoTrailersDataView();
 

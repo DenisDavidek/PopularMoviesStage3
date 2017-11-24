@@ -64,8 +64,8 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     }
 
     @Override
-    public void prepareNoReviewsDataView() {
-        movieDetailView.hideReviewsDataView();
+    public void prepareNoReviewsDataView(String message) {
+        movieDetailView.hideReviewsDataView(message);
     }
 
     @Override

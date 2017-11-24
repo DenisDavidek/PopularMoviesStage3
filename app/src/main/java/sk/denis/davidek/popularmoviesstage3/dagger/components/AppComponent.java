@@ -13,6 +13,7 @@ import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.CallbackFavoriteMovies;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
 import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.CallbackVideos;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 
@@ -41,4 +42,5 @@ public interface AppComponent {
     void inject(MovieDetailActivityPrava movieDetailActivityPrava);
 
     void inject(CallbackFavoriteMovies callbackFavoriteMovies);
+    void inject(CallbackVideos callbackVideos);
 }
