@@ -116,7 +116,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
 
         ButterKnife.bind(this);
-        setupCollapsingToolbarLayout();
         App.getAppComponent().inject(this);
         movieDetailPresenter = new MovieDetailPresenter(this);
 
@@ -134,8 +133,8 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
             }
 
             checkIfMovieIsFavorite();
+            movieDetailPresenter.prepareCollapsingToolbarLayout(movie);
         }
-
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +163,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
             }
         });
 
-
     }
 
     private void setupToolbarBackIcon() {
@@ -172,44 +170,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void setupCollapsingToolbarLayout() {
-        collapsingToolbarLayout.setTitle(getMovieTitle());
-        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
-        setTitle("");
-
-
-        if (movie.getBackgroundUrl().startsWith("file://")) {
-
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(movie.getBackgroundUrl()));
-                backdropImageView.setImageBitmap(bitmap);
-                Toast.makeText(getApplicationContext(), "URI BACKGROUND", Toast.LENGTH_LONG).show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            Picasso.with(this).load(movie.getBackgroundUrl()).into(backdropImageView);
-            Toast.makeText(getApplicationContext(), "PICASSO BACKGROUND", Toast.LENGTH_LONG).show();
-        }
-
-
-    }
-
-    private String getMovieTitle() {
-
-        String returnedTitle;
-        Intent intent = getIntent();
-        if (intent.hasExtra(selectedMovieKey)) {
-            movie = intent.getParcelableExtra(selectedMovieKey);
-            returnedTitle = movie.getOriginalTitle();
-        } else
-            returnedTitle = "";
-
-        return returnedTitle;
     }
 
     @Override
@@ -316,6 +276,26 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         } catch (ActivityNotFoundException e) {
             startActivity(webIntent);
         }
+    }
+
+    @Override
+    public void setupCollapsingToolbarLayout(Movie movie) {
+        collapsingToolbarLayout.setTitle(movie.getOriginalTitle());
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
+        setTitle("");
+        movieDetailPresenter.getBackgroundMovieImage(context, movie);
+    }
+
+    @Override
+    public void displayMovieImageBackground(Bitmap bitmap) {
+        backdropImageView.setImageBitmap(bitmap);
+        Toast.makeText(getApplicationContext(), "URI BACKGROUND MVP", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayMovieImageBackground(String movieBackgroundUrl) {
+        Picasso.with(this).load(movieBackgroundUrl).into(backdropImageView);
+        Toast.makeText(getApplicationContext(), "PICASSO BACKGROUND MVP", Toast.LENGTH_LONG).show();
     }
 
 

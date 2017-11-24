@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -210,6 +211,21 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         } catch (ActivityNotFoundException e) {
             startActivity(webIntent);
         }
+    }
+
+    @Override
+    public void setupCollapsingToolbarLayout(Movie movie) {
+
+    }
+
+    @Override
+    public void displayMovieImageBackground(Bitmap bitmap) {
+
+    }
+
+    @Override
+    public void displayMovieImageBackground(String movieBackgroundUrl) {
+
     }
 
 

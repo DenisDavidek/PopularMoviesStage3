@@ -3,8 +3,10 @@ package sk.denis.davidek.popularmoviesstage3.moviedetail;
 import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 
 import java.io.File;
 import java.text.ParseException;
@@ -161,6 +163,27 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
         Uri moviePosterUri = Uri.parse(direct + File.separator + movie.getOriginalTitle() + "_background" + ".jpg");
         finalMoviePosterUri = Uri.parse("file://" + moviePosterUri);
         return finalMoviePosterUri;
+    }
+
+    @Override
+    public void prepareCollapsingToolbarLayout(Movie movie) {
+        movieDetailView.setupCollapsingToolbarLayout(movie);
+    }
+
+    @Override
+    public void getBackgroundMovieImage(Context context, Movie movie) {
+        if (movie.getBackgroundUrl().startsWith("file://")) {
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(movie.getBackgroundUrl()));
+                movieDetailView.displayMovieImageBackground(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            movieDetailView.displayMovieImageBackground(movie.getBackgroundUrl());
+        }
     }
 
 }

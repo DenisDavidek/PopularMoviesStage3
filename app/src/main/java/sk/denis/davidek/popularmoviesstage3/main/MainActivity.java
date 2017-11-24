@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public boolean isAllPermissionsGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.

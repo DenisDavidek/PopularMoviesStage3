@@ -1,6 +1,7 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
@@ -35,6 +36,12 @@ public interface MovieDetailContract {
         void hideTrailersDataView();
 
         void watchYoutubeMovieTrailer(String movieKey);
+
+        void setupCollapsingToolbarLayout(Movie movie);
+
+        void displayMovieImageBackground(Bitmap bitmap);
+
+        void displayMovieImageBackground(String movieBackgroundUrl);
     }
 
     interface Presenter extends BasePresenter {
@@ -56,6 +63,10 @@ public interface MovieDetailContract {
         void insertFavoriteMovieIntoContentProvidersDatabase(Context context, Movie movie, Uri finalPosterUri, Uri finalBackgroundUri);
 
         Uri downloadBackgroundFile(String moviePosterUrl, Movie movie, Context context);
+
+        void prepareCollapsingToolbarLayout(Movie movie);
+
+        void getBackgroundMovieImage(Context context, Movie movie);
 
     }
 }
