@@ -45,7 +45,7 @@ public class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<Arr
             mainView.showMovieDataView();
             mainView.showFavoriteMoviesData(data);
         } else {
-          mainView.showNoFavoriteMoviesMessage();
+            mainView.showNoFavoriteMoviesMessage();
         }
 
     }

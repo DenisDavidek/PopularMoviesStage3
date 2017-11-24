@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.
                     permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED ) {
+                    == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG, "Permission is granted > 23");
                 return true;
             } else {

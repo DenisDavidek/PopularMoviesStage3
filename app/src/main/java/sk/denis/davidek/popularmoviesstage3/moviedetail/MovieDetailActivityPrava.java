@@ -46,6 +46,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
+import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 public class MovieDetailActivityPrava extends AppCompatActivity implements MovieDetailContract.View,
         LoaderManager.LoaderCallbacks<ArrayList<Review>> {
@@ -109,28 +110,28 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail_prava);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupToolbarBackIcon();
-    /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
 
         ButterKnife.bind(this);
         setupCollapsingToolbarLayout();
         App.getAppComponent().inject(this);
         movieDetailPresenter = new MovieDetailPresenter(this);
+
         Intent intent = getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
             movie = intent.getParcelableExtra(selectedMovieKey);
             movieDetailPresenter.distributeMovieDetails(movie);
-            initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
-            initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+
+            if (NetworkUtils.checkInternetConnection(context)) {
+                initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
+                initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+            } else {
+                hideReviewsDataView();
+                hideTrailersDataView();
+            }
 
             checkIfMovieIsFavorite();
         }
@@ -303,8 +304,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
         movieTrailersRecyclerView.setVisibility(View.INVISIBLE);
         noMovieTrailersTextView.setVisibility(View.VISIBLE);
         noMovieTrailersTextView.setText(noMovieTrailersMessage);
-    /*    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBinding.trailersSectionDivider.getLayoutParams();
-        params.addRule(RelativeLayout.BELOW, R.id.tv_no_trailers_text);*/
     }
 
     @Override
