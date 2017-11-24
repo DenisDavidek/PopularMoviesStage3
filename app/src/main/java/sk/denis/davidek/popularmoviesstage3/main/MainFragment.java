@@ -181,14 +181,9 @@ public class MainFragment extends Fragment implements MainContract.View,
 
             case R.id.action_show_favorite_movies:
                 Snackbar.make(moviesRecyclerView, getString(R.string.showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                // if (NetworkUtils.checkInternetConnection(mContext)) {
                 moviesRecyclerView.setAdapter(null);
-                //  getMoviesData(Constants.getMoviesTopRated()); CURSOR SEM PRIDE
                 getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
-                //   } else {
-                //    mainPresenter.prepareInternetErrorLoadingMessage();
-                //   }
                 break;
         }
 
