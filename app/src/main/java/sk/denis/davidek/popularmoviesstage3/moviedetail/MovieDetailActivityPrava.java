@@ -132,7 +132,7 @@ String noInternetConnectionMessage;
                 initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
             } else {
                 hideReviewsDataView(noInternetConnectionMessage);
-                hideTrailersDataView();
+                hideTrailersDataView(noInternetConnectionMessage);
             }
 
             checkIfMovieIsFavorite();
@@ -263,10 +263,10 @@ String noInternetConnectionMessage;
     }
 
     @Override
-    public void hideTrailersDataView() {
+    public void hideTrailersDataView(String message) {
         movieTrailersRecyclerView.setVisibility(View.INVISIBLE);
         noMovieTrailersTextView.setVisibility(View.VISIBLE);
-        noMovieTrailersTextView.setText(noMovieTrailersMessage);
+        noMovieTrailersTextView.setText(message);
     }
 
     @Override

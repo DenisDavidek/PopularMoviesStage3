@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import sk.denis.davidek.popularmoviesstage3.App;
+import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
@@ -47,7 +48,7 @@ public class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<T
             TrailersAdapter trailersAdapter = new TrailersAdapter(data, movieDetailPresenter);
             movieDetailView.prepareTrailersRecyclerView(trailersAdapter);
         } else {
-            movieDetailPresenter.prepareNoTrailersDataView();
+            movieDetailPresenter.prepareNoTrailersDataView(context.getString(R.string.movie_no_trailer));
         }
     }
 

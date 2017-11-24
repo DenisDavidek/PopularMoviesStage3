@@ -34,7 +34,7 @@ public interface MovieDetailContract {
 
         void hideReviewsDataView(String message);
 
-        void hideTrailersDataView();
+        void hideTrailersDataView(String message);
 
         void watchYoutubeMovieTrailer(String movieKey);
 
@@ -57,7 +57,7 @@ public interface MovieDetailContract {
 
         void prepareNoReviewsDataView(String message);
 
-        void prepareNoTrailersDataView();
+        void prepareNoTrailersDataView(String message);
 
         void prepareYoutubeMovieTrailer(String movieKey);
 

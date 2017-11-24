@@ -192,15 +192,15 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         noMoviewReviewsTextView.setText(noMovieReviewsMessage);
     }
 
-
     @Override
-    public void hideTrailersDataView() {
+    public void hideTrailersDataView(String message) {
         movieTrailersRecyclerView.setVisibility(View.INVISIBLE);
         noMovieTrailersTextView.setVisibility(View.VISIBLE);
-        noMovieTrailersTextView.setText(noMovieTrailersMessage);
-    /*    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mBinding.trailersSectionDivider.getLayoutParams();
-        params.addRule(RelativeLayout.BELOW, R.id.tv_no_trailers_text);*/
+        noMovieTrailersTextView.setText(message);
     }
+
+
+
 
     @Override
     public void watchYoutubeMovieTrailer(String movieKey) {
@@ -334,7 +334,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                 movieTrailersRecyclerView.setAdapter(trailersAdapter);
 
             } else {
-                movieDetailPresenter.prepareNoTrailersDataView();
+                movieDetailPresenter.prepareNoTrailersDataView(noMovieTrailersMessage);
             }
         }
 
