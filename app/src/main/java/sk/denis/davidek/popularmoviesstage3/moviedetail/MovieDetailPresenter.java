@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.inject.Inject;
+
+import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 
@@ -24,9 +27,13 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
     private final MovieDetailContract.View movieDetailView;
 
+    @Inject
+    Context context;
+
     public MovieDetailPresenter(MovieDetailContract.View view) {
         this.movieDetailView = view;
         view.setPresenter(this);
+        App.getAppComponent().inject(this);
     }
 
     @Override
@@ -39,8 +46,10 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
         movieDetailView.displayMovieTitle(movie.getOriginalTitle());
         movieDetailView.displayMoviePlotSynopsis(movie.getPlotSynopsis());
         movieDetailView.displayUserRating(movie.getUserRating());
-        movieDetailView.displayMoviePoster(movie.getPosterUrl());
         formatReleaseDate(movie.getReleaseDate());
+
+        getPosterMovieImage(context,movie.getPosterUrl());
+
     }
 
     @Override
@@ -183,6 +192,25 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
         } else {
             movieDetailView.displayMovieImageBackground(movie.getBackgroundUrl());
+        }
+    }
+
+    @Override
+    public void getPosterMovieImage(Context context,String posterUrl) {
+        if (posterUrl.startsWith("file://")) {
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(posterUrl));
+                movieDetailView.displayMovieImagePoster(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            movieDetailView.displayMovieImagePoster(posterUrl);
+
         }
     }
 

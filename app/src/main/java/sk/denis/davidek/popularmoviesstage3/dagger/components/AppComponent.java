@@ -16,6 +16,7 @@ import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.CallbackVideos;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailPresenter;
 
 /**
  * Created by denis on 15.11.2017.
@@ -43,4 +44,6 @@ public interface AppComponent {
 
     void inject(CallbackFavoriteMovies callbackFavoriteMovies);
     void inject(CallbackVideos callbackVideos);
+
+    void inject(MovieDetailPresenter movieDetailPresenter);
 }

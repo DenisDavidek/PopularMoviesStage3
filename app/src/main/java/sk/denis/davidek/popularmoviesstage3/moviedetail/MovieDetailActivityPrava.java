@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -221,26 +220,7 @@ String noInternetConnectionMessage;
         movieReleaseDateTextView.setText(releaseDate);
     }
 
-    @Override
-    public void displayMoviePoster(String posterUrl) {
 
-        if (posterUrl.startsWith("file://")) {
-
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(posterUrl));
-                moviePosterImageView.setImageBitmap(bitmap);
-                Toast.makeText(getApplicationContext(), "URI ", Toast.LENGTH_LONG).show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            Picasso.with(this).load(posterUrl).into(moviePosterImageView);
-            Toast.makeText(getApplicationContext(), "PICASSO ", Toast.LENGTH_LONG).show();
-        }
-
-    }
 
     @Override
     public void prepareRecyclerView() {
@@ -308,6 +288,18 @@ String noInternetConnectionMessage;
         GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
         movieTrailersRecyclerView.setLayoutManager(layoutManager);
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
+    }
+
+    @Override
+    public void displayMovieImagePoster(Bitmap bitmap) {
+        moviePosterImageView.setImageBitmap(bitmap);
+        Toast.makeText(getApplicationContext(), "URI ", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayMovieImagePoster(String moviePosterUrl) {
+        Picasso.with(this).load(moviePosterUrl).into(moviePosterImageView);
+        Toast.makeText(getApplicationContext(), "PICASSO ", Toast.LENGTH_LONG).show();
     }
 
 

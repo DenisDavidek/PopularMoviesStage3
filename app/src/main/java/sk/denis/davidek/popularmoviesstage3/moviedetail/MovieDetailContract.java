@@ -26,8 +26,6 @@ public interface MovieDetailContract {
 
         void displayReleaseDate(String releaseDate);
 
-        void displayMoviePoster(String posterUrl);
-
         void prepareRecyclerView();
 
         void showReviewsDataView();
@@ -45,6 +43,10 @@ public interface MovieDetailContract {
         void displayMovieImageBackground(String movieBackgroundUrl);
 
         void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter);
+
+        void displayMovieImagePoster(Bitmap bitmap);
+
+        void displayMovieImagePoster(String moviePosterUrl);
     }
 
     interface Presenter extends BasePresenter {
@@ -70,6 +72,8 @@ public interface MovieDetailContract {
         void prepareCollapsingToolbarLayout(Movie movie);
 
         void getBackgroundMovieImage(Context context, Movie movie);
+
+        void getPosterMovieImage(Context context,String posterUrl);
 
     }
 }

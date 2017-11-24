@@ -21,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -168,11 +166,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
     @Override
-    public void displayMoviePoster(String posterUrl) {
-        Picasso.with(context).load(posterUrl).into(moviePosterImageView);
-    }
-
-    @Override
     public void prepareRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         movieReviewsRecyclerView.setLayoutManager(layoutManager);
@@ -231,6 +224,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
+
+    }
+
+    @Override
+    public void displayMovieImagePoster(Bitmap bitmap) {
+
+    }
+
+    @Override
+    public void displayMovieImagePoster(String moviePosterUrl) {
 
     }
 
