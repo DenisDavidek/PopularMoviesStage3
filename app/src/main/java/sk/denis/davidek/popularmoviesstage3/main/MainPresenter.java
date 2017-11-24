@@ -54,8 +54,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void prepareErrorLoadingMessage() {
-        mainView.showErrorLoadingMessage();
+    public void prepareInternetErrorLoadingMessage() {
+        mainView.showInternetErrorLoadingMessage();
     }
 
     @Override

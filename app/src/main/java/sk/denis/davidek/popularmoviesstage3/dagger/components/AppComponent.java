@@ -10,6 +10,7 @@ import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
+import sk.denis.davidek.popularmoviesstage3.main.CallbackFavoriteMovies;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
 import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
@@ -38,4 +39,6 @@ public interface AppComponent {
     void inject(TrailersAdapter trailersAdapter);
 
     void inject(MovieDetailActivityPrava movieDetailActivityPrava);
+
+    void inject(CallbackFavoriteMovies callbackFavoriteMovies);
 }

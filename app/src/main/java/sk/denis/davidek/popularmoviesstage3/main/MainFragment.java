@@ -96,6 +96,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     private Parcelable state;
     private String MOVIES_CURRENT_FILTER;
 
+    private GridLayoutManager layoutManager;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -162,7 +164,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                     getMoviesData(Constants.getMoviesPopular());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
                 } else {
-                    mainPresenter.prepareErrorLoadingMessage();
+                    mainPresenter.prepareInternetErrorLoadingMessage();
                 }
                 break;
 
@@ -173,7 +175,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                     getMoviesData(Constants.getMoviesTopRated());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesTopRated());
                 } else {
-                    mainPresenter.prepareErrorLoadingMessage();
+                    mainPresenter.prepareInternetErrorLoadingMessage();
                 }
                 break;
 
@@ -185,7 +187,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
                 //   } else {
-                //    mainPresenter.prepareErrorLoadingMessage();
+                //    mainPresenter.prepareInternetErrorLoadingMessage();
                 //   }
                 break;
         }
@@ -239,11 +241,10 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-        //TODO CHECK IF PRESENER JE NULOVY
-        mainPresenter = presenter;
+        if (presenter != null)
+            mainPresenter = presenter;
     }
 
-    GridLayoutManager layoutManager;
 
     @Override
     public void prepareRecyclerView() {
@@ -254,9 +255,11 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     @Override
-    public void setMovieFilter() {
-
+    public void showFavoriteMoviesData(ArrayList<Movie> movies) {
+        moviesAdapter = new MoviesAdapter(mContext, movies, (MainPresenter) mainPresenter);
+        moviesRecyclerView.setAdapter(moviesAdapter);
     }
+
 
     @Override
     public void workWithInternetConnection(boolean hasInternetConnection) {
@@ -274,7 +277,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 getMoviesCursorLocalData();
             } else {
 
-                mainPresenter.prepareErrorLoadingMessage();
+                mainPresenter.prepareInternetErrorLoadingMessage();
             }
         }
     }
@@ -294,7 +297,12 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     @Override
-    public void showErrorLoadingMessage() {
+    public void hideLoadingProgressBar(int load) {
+        loadingProgressBar.setVisibility(load);
+    }
+
+    @Override
+    public void showInternetErrorLoadingMessage() {
         moviesRecyclerView.setVisibility(View.INVISIBLE);
         errorInternetConnectionTextView.setVisibility(View.VISIBLE);
         if (noFavoriteMoviesTextView.getVisibility() == View.VISIBLE) {
@@ -312,19 +320,19 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-        return new MainLoader(getContext(), args, this);
+        return new MainLoader(mContext, args, this);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-        loadingProgressBar.setVisibility(View.INVISIBLE);
+        hideLoadingProgressBar(View.INVISIBLE);
         if (!data.isEmpty()) {
             mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
             layoutManager.onRestoreInstanceState(state);
         } else {
-            mainPresenter.prepareErrorLoadingMessage();
+            mainPresenter.prepareInternetErrorLoadingMessage();
         }
     }
 
@@ -395,32 +403,11 @@ public class MainFragment extends Fragment implements MainContract.View,
         android.support.v4.content.Loader<ArrayList<Movie>> getFavoriteMoviesLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
 
         if (getFavoriteMoviesLoader == null) {
-            loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies());
+            loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies(mCursorLocalMovieData, this));
         } else
-            loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies());
+            loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackFavoriteMovies(mCursorLocalMovieData, this));
     }
 
-    private class CallbackFavoriteMovies implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
-
-        @Override
-        public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-            return new FavoriteMoviesLoader(mContext, mCursorLocalMovieData);
-        }
-
-        @Override
-        public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
-            if (!data.isEmpty()) {
-                moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
-                moviesRecyclerView.setAdapter(moviesAdapter);
-            }
-
-        }
-
-        @Override
-        public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
-
-        }
-    }
 
     /**
      * This interface must be implemented by activities that contain this

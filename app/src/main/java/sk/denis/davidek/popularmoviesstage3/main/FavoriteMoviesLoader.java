@@ -4,6 +4,7 @@ package sk.denis.davidek.popularmoviesstage3.main;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.AsyncTaskLoader;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -18,15 +19,18 @@ public class FavoriteMoviesLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
     ArrayList<Movie> movieArrayList = new ArrayList<>();
     private Cursor moviesCursorData;
+    private MainContract.View mainFragmentView;
 
-    public FavoriteMoviesLoader(Context context, Cursor movieData) {
+    public FavoriteMoviesLoader(Context context, Cursor movieData, MainContract.View view) {
         super(context);
         this.moviesCursorData = movieData;
+        this.mainFragmentView = view;
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
+        mainFragmentView.showLoadingProgressBar(View.VISIBLE);
         forceLoad();
     }
 

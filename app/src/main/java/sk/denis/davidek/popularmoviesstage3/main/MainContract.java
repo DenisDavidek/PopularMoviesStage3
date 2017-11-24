@@ -3,6 +3,8 @@ package sk.denis.davidek.popularmoviesstage3.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
 import sk.denis.davidek.popularmoviesstage3.base.BaseView;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
@@ -18,7 +20,7 @@ public interface MainContract {
 
         void prepareRecyclerView();
 
-        void setMovieFilter();
+        void showFavoriteMoviesData(ArrayList<Movie> movies);
 
         void workWithInternetConnection(boolean hasInternetConnection);
 
@@ -26,7 +28,9 @@ public interface MainContract {
 
         void showLoadingProgressBar(int load);
 
-        void showErrorLoadingMessage();
+        void hideLoadingProgressBar(int load);
+
+        void showInternetErrorLoadingMessage();
 
         void showMovieDataView();
     }
@@ -42,7 +46,7 @@ public interface MainContract {
 
         void setCurrentMovieFilterSetting(SharedPreferences preferences, String key, String value);
 
-        void prepareErrorLoadingMessage();
+        void prepareInternetErrorLoadingMessage();
 
         void prepareMovieDataView();
 

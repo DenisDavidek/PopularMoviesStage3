@@ -16,7 +16,9 @@ public class LoaderConstants {
 
     private int MOVIE_FAVORITES_GET_LOADER = 77;
 
-    public static int getMovieLoader() {return MOVIE_GET_LOADER;}
+    public static int getMovieLoader() {
+        return MOVIE_GET_LOADER;
+    }
 
     public static int getReviewsLoader() {
         return REVIEWS_LOADER;

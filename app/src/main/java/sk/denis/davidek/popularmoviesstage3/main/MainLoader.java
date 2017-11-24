@@ -23,6 +23,7 @@ import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
  */
 
 class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
+
     private Bundle bundle;
     ArrayList<Movie> movies = new ArrayList<>();
     private MainFragment mainFragmentView;
