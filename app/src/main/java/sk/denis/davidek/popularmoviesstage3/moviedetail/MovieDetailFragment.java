@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -22,6 +23,10 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -31,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.LocalMoviesLoader;
+import sk.denis.davidek.popularmoviesstage3.MessageEvent;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
@@ -163,6 +169,42 @@ public void setSelectedMovie(Movie selectedMovie) {
             }
         });*/
         return fragmentView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+        if (isFavoriteMovie) {
+            Uri uri = MovieContract.MovieEntry.CONTENT_URI;
+            uri = uri.buildUpon().appendPath(selectedMovie.getId()).build();
+            context.getContentResolver().delete(uri, null, null);
+            isFavoriteMovie = false;
+            checkIfMovieIsFavorite();
+            Snackbar.make(moviePosterImageView, getString(R.string.movie_deleted_from_favorites), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.snackbar_action), null).show();
+
+        } else {
+            Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(selectedMovie.getPosterUrl(), selectedMovie, context);
+            Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(selectedMovie.getBackgroundUrl(), selectedMovie, context);
+            Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
+            movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, selectedMovie, finalPosterUri, finalBackgroundUri);
+            Snackbar.make(moviePosterImageView, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.snackbar_action), null).show();
+            checkIfMovieIsFavorite();
+        }
     }
 
 
@@ -336,10 +378,12 @@ public void setSelectedMovie(Movie selectedMovie) {
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
                             Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                             isFavoriteMovie = true;
+                            mListener.onClick(isFavoriteMovie);
                         }
                     }
                     if (!isFavoriteMovie) {
                         Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
+                        mListener.onClick(isFavoriteMovie);
                     }
                 }
             }
@@ -375,6 +419,29 @@ public void setSelectedMovie(Movie selectedMovie) {
     @Override
     public void onLoaderReset(Loader<ArrayList<Review>> loader) {
 
+    }
+
+    private OnFragmentInteractionListener mListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+        void onClick(Movie movie);
+        void onClick(boolean value);
     }
 
 }

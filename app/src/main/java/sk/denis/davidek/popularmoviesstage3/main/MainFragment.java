@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,6 @@ import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
-import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
@@ -99,6 +99,10 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private GridLayoutManager layoutManager;
     private boolean isTwoPane;
+
+
+    @BindInt(R.integer.justTest)
+    int justTest;
 
     public MainFragment() {
         // Required empty public constructor
@@ -247,8 +251,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void prepareRecyclerView() {
 
-        moviesRecyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(getContext()));
+        moviesRecyclerView.setHasFixedSize(true); // LayoutUtils.calculateNoOfColumns(getContext())
+        layoutManager = new GridLayoutManager(getContext(),justTest);
         moviesRecyclerView.setLayoutManager(layoutManager);
     }
 
