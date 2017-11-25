@@ -1,7 +1,6 @@
 package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 
-public class MovieDetailActivity extends AppCompatActivity implements MovieDetailFragment.OnFragmentInteractionListener {
+public class MovieDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;
@@ -86,13 +85,4 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void onClick(int position) {
-
-    }
 }

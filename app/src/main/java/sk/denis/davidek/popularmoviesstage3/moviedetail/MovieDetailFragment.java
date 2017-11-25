@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -20,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
+import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
 /**
@@ -86,16 +88,22 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindString(R.string.movie_no_trailer)
     String noMovieTrailersMessage;
 
-    @BindView(R.id.fab)
-    FloatingActionButton floatingActionButton;
+  /*  @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;*/
 
-    private Movie movie;
+    private Movie selectedMovie;
     private MovieDetailContract.Presenter movieDetailPresenter;
+
+    @BindString(R.string.no_internet_connection)
+    String noInternetConnectionMessage;
 
     @Inject
     Context context;
     private boolean isFavoriteMovie;
 
+public void setSelectedMovie(Movie selectedMovie) {
+    this.selectedMovie = selectedMovie;
+}
 
     public MovieDetailFragment() {
     }
@@ -106,18 +114,43 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         View fragmentView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, fragmentView);
         App.getAppComponent().inject(this);
+
         movieDetailPresenter = new MovieDetailPresenter(this);
+
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
-            movie = intent.getParcelableExtra(selectedMovieKey);
-            movieDetailPresenter.distributeMovieDetails(movie);
-            initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
-            initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+            selectedMovie = intent.getParcelableExtra(selectedMovieKey);
+            movieDetailPresenter.distributeMovieDetails(selectedMovie);
+
+            if (NetworkUtils.checkInternetConnection(context)) {
+                initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
+                initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+            } else {
+                hideReviewsDataView(noInternetConnectionMessage);
+                hideTrailersDataView(noInternetConnectionMessage);
+            }
 
             checkIfMovieIsFavorite();
+
+        } else {
+
+            if (selectedMovie != null) {
+                movieDetailPresenter.distributeMovieDetails(selectedMovie);
+
+                if (NetworkUtils.checkInternetConnection(context)) {
+                    initializeGetReviewsLoader(Constants.getMovieQueryText(), Constants.getReviewQueryText());
+                    initializeGetTrailersLoader(Constants.getMovieQueryText(), Constants.getTrailerQueryText());
+                } else {
+                    hideReviewsDataView(noInternetConnectionMessage);
+                    hideTrailersDataView(noInternetConnectionMessage);
+                }
+
+                checkIfMovieIsFavorite();
+
+            }
         }
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+/*        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -128,7 +161,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                 }
 
             }
-        });
+        });*/
         return fragmentView;
     }
 
@@ -182,7 +215,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     public void hideReviewsDataView(String message) {
         movieReviewsRecyclerView.setVisibility(View.INVISIBLE);
         noMoviewReviewsTextView.setVisibility(View.VISIBLE);
-        noMoviewReviewsTextView.setText(noMovieReviewsMessage);
+        noMoviewReviewsTextView.setText(message);
     }
 
     @Override
@@ -191,9 +224,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         noMovieTrailersTextView.setVisibility(View.VISIBLE);
         noMovieTrailersTextView.setText(message);
     }
-
-
-
 
     @Override
     public void watchYoutubeMovieTrailer(String movieKey) {
@@ -209,32 +239,37 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void setupCollapsingToolbarLayout(Movie movie) {
-
+// not needed in fragment
     }
 
     @Override
     public void displayMovieImageBackground(Bitmap bitmap) {
-
+// not needed in fragment
     }
 
     @Override
     public void displayMovieImageBackground(String movieBackgroundUrl) {
-
+// not needed in fragment
     }
 
     @Override
     public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
-
+        movieTrailersRecyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
+        movieTrailersRecyclerView.setLayoutManager(layoutManager);
+        movieTrailersRecyclerView.setAdapter(trailersAdapter);
     }
 
     @Override
     public void displayMovieImagePoster(Bitmap bitmap) {
-
+        moviePosterImageView.setImageBitmap(bitmap);
+        Toast.makeText(context, "URI ", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void displayMovieImagePoster(String moviePosterUrl) {
-
+        Picasso.with(context).load(moviePosterUrl).into(moviePosterImageView);
+        Toast.makeText(context, "PICASSO ", Toast.LENGTH_LONG).show();
     }
 
 
@@ -265,9 +300,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
+            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this) );
         } else
-            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos());
+            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
 
     }
 
@@ -298,13 +333,13 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                 if (data.getCount() > 0) {
                     while (data.moveToNext()) {
 
-                        if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(movie.getId())) {
-                            Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
+                        if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
+                            Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
-                        Toast.makeText(context, "This is a favorite movie", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -317,40 +352,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     }
 
 
-    private class CallbackVideos implements LoaderManager.LoaderCallbacks<ArrayList<Trailer>> {
-
-        @Override
-        public Loader<ArrayList<Trailer>> onCreateLoader(int id, Bundle args) {
-            return new TrailersLoader(context, args, movie);
-        }
-
-        @Override
-        public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> data) {
-
-            if (!data.isEmpty()) {
-
-                TrailersAdapter trailersAdapter = new TrailersAdapter(data, movieDetailPresenter);
-
-                movieTrailersRecyclerView.setHasFixedSize(true);
-                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), LayoutUtils.calculateNoOfColumns(context));
-                movieTrailersRecyclerView.setLayoutManager(layoutManager);
-                movieTrailersRecyclerView.setAdapter(trailersAdapter);
-
-            } else {
-                movieDetailPresenter.prepareNoTrailersDataView(noMovieTrailersMessage);
-            }
-        }
-
-        @Override
-        public void onLoaderReset(Loader<ArrayList<Trailer>> loader) {
-
-        }
-    }
-
 
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
-        return new ReviewsLoader(getContext(), args, movie);
+        return new ReviewsLoader(getContext(), args, selectedMovie);
     }
 
     @Override
@@ -372,28 +377,4 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     }
 
-    private OnFragmentInteractionListener mListener;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mListener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnItemClickListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-
-        void onClick(int position);
-    }
 }

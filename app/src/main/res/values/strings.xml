@@ -15,15 +15,15 @@
     <string name="action_show_favorite_movies">Favorite Movies</string>
 
     <!--Strings for detailIntentActivity-->
-    <string name="movie_key" translatable="false">movie</string>
+    <string name="movie_key" translatable="false">selectedMovie</string>
 
     <string name="written_by">Written by</string>
     <string name="reviews">Reviews</string>
     <string name="trailers">Trailers</string>
 
 
-    <string name="movie_no_review">There are no reviews for this movie.</string>
-    <string name="movie_no_trailer">There are no trailers for this movie.</string>
+    <string name="movie_no_review">There are no reviews for this selectedMovie.</string>
+    <string name="movie_no_trailer">There are no trailers for this selectedMovie.</string>
 
     <!--shared preferences keys-->
     <string name="pref_current_movies_filter" translatable="false">current_movie_filter</string>
@@ -34,7 +34,7 @@
     <string name="showing_favorite_movies">Showing favorite movies</string>
     <string name="title_activity_movie_detail_prava">MovieDetailActivityPrava</string>
 
-    <string name="movie_added_to_favorites" translatable="true">This movie was added to your favorites.</string>
-    <string name="movie_deleted_from_favorites" translatable="true">This movie was removed from your favorites.</string>
+    <string name="movie_added_to_favorites" translatable="true">This selectedMovie was added to your favorites.</string>
+    <string name="movie_deleted_from_favorites" translatable="true">This selectedMovie was removed from your favorites.</string>
     <string name="snackbar_action">Action</string>
 </resources>

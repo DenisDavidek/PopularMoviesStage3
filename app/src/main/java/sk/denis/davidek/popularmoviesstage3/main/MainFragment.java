@@ -32,7 +32,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
-import sk.denis.davidek.popularmoviesstage3.OnItemClickListener;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
@@ -52,7 +51,7 @@ import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
  * create an instance of this fragment.
  */
 public class MainFragment extends Fragment implements MainContract.View,
-        LoaderManager.LoaderCallbacks<ArrayList<Movie>>, OnItemClickListener{
+        LoaderManager.LoaderCallbacks<ArrayList<Movie>>{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -287,7 +286,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         isTwoPane = MainActivity.isTwoPane;
         Log.e("TWO PANE FRAGMENT", String.valueOf(isTwoPane));
         if (isTwoPane) {
-            mListener.onClick(1);
+            mListener.onClick(movie);
 
         }else {
 
@@ -402,10 +401,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private Cursor mCursorLocalMovieData;
 
-    @Override
-    public void onClick(int position) {
-        mListener.onClick(position);
-    }
+
 
     private class CallbackLocalQuery implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -450,6 +446,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-        void onClick(int position);
+        void onClick(Movie movie);
     }
 }

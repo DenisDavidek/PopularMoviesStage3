@@ -11,12 +11,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.data.Movie;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
 
     private String TAG = "PERMISSIONS TAG";
 
     public static boolean isTwoPane;
+
+    private Movie selectedMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +31,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         if (findViewById(R.id.rl_recipe_step_instruction) != null) {
             isTwoPane = true;
             Log.e("TWO PANE ACTIVITY ", String.valueOf(isTwoPane));
-            if (savedInstanceState == null) {
+            if (savedInstanceState != null && savedInstanceState.containsKey("test")) {
 
-                Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
+                selectedMovie = savedInstanceState.getParcelable("test");
+                Toast.makeText(getApplicationContext(),"testSavedInstanceStatePodmienka",Toast.LENGTH_SHORT).show();
+                MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
+                movieDetailFragment.setSelectedMovie(selectedMovie);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_step_media_container, movieDetailFragment)
+                        .commit();
             }
         }
 
@@ -72,11 +82,25 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     }
 
     @Override
-    public void onClick(int position) {
+    public void onClick(Movie movie) {
         if (isTwoPane) {
-            Toast.makeText(getApplicationContext(),"It is two pane UI + " + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"It is two pane UI " , Toast.LENGTH_SHORT).show();
+            selectedMovie = movie;
+            MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
+            movieDetailFragment.setSelectedMovie(movie);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_step_media_container, movieDetailFragment)
+                    .commit();
         } else{
 
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("test", selectedMovie);
+        super.onSaveInstanceState(outState);
+    }
+
+
 }

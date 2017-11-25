@@ -42,7 +42,7 @@
         android:textSize="@dimen/text_small"
         app:layout_constraintLeft_toLeftOf="@+id/tv_writtenby"
         app:layout_constraintTop_toBottomOf="@+id/tv_writtenby"
-        tools:text="I love this movie a lot! 10/10" />
+        tools:text="I love this selectedMovie a lot! 10/10" />
 
     <View
         android:id="@+id/review_divider"
