@@ -14,6 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +32,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
+import sk.denis.davidek.popularmoviesstage3.OnItemClickListener;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
@@ -50,7 +52,7 @@ import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
  * create an instance of this fragment.
  */
 public class MainFragment extends Fragment implements MainContract.View,
-        LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
+        LoaderManager.LoaderCallbacks<ArrayList<Movie>>, OnItemClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -97,6 +99,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     private String MOVIES_CURRENT_FILTER;
 
     private GridLayoutManager layoutManager;
+    private boolean isTwoPane;
 
     public MainFragment() {
         // Required empty public constructor
@@ -140,6 +143,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         mainPresenter = new MainPresenter(this);
 
         MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
+
 
         return fragmentView;
     }
@@ -279,10 +283,19 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void showItemClickData(Movie movie) {
-        Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
-        intent.putExtra(selectedMovieKey, movie);
-        startActivity(intent);
-    }
+
+        isTwoPane = MainActivity.isTwoPane;
+        Log.e("TWO PANE FRAGMENT", String.valueOf(isTwoPane));
+        if (isTwoPane) {
+            mListener.onClick(1);
+
+        }else {
+
+            Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
+            intent.putExtra(selectedMovieKey, movie);
+            startActivity(intent);
+        }
+        }
 
     @Override
     public void showLoadingProgressBar(int load) {
@@ -389,6 +402,11 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private Cursor mCursorLocalMovieData;
 
+    @Override
+    public void onClick(int position) {
+        mListener.onClick(position);
+    }
+
     private class CallbackLocalQuery implements LoaderManager.LoaderCallbacks<Cursor> {
 
         @Override
@@ -432,5 +450,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void onClick(int position);
     }
 }
