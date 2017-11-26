@@ -35,7 +35,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
-import sk.denis.davidek.popularmoviesstage3.LocalMoviesLoader;
 import sk.denis.davidek.popularmoviesstage3.MessageEvent;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;

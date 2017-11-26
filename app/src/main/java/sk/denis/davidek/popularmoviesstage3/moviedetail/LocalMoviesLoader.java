@@ -1,4 +1,4 @@
-package sk.denis.davidek.popularmoviesstage3;
+package sk.denis.davidek.popularmoviesstage3.moviedetail;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,7 +23,6 @@ public class LocalMoviesLoader extends AsyncTaskLoader<Cursor> {
         if (moviesData != null) {
             deliverResult(moviesData);
         } else forceLoad();
-        //  super.onStartLoading();
     }
 
     @Override

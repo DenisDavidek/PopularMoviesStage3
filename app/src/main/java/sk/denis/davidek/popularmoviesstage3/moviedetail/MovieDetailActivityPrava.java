@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +33,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
-import sk.denis.davidek.popularmoviesstage3.LocalMoviesLoader;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.adapters.ReviewsAdapter;
 import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
@@ -68,7 +66,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     @BindView(R.id.iv_movie_poster)
     ImageView moviePosterImageView;
 
-
     @BindView(R.id.rv_movie_reviews)
     RecyclerView movieReviewsRecyclerView;
 
@@ -77,7 +74,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
     @BindString(R.string.movie_no_review)
     String noMovieReviewsMessage;
-
 
     @BindView(R.id.rv_movie_trailers)
     RecyclerView movieTrailersRecyclerView;
@@ -88,7 +84,7 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     @BindString(R.string.movie_no_trailer)
     String noMovieTrailersMessage;
 
-    @BindView(R.id.fab)
+    @BindView(R.id.fab_favorite)
     FloatingActionButton floatingActionButton;
 
     @BindView(R.id.collapsing_toolbar_layout)
@@ -154,8 +150,6 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                 } else {
                     Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(selectedMovie.getPosterUrl(), selectedMovie, context);
                     Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(selectedMovie.getBackgroundUrl(), selectedMovie, context);
-                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
-                    Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
                     movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, selectedMovie, finalPosterUri, finalBackgroundUri);
                     Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.snackbar_action), null).show();
@@ -272,13 +266,11 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     @Override
     public void displayMovieImageBackground(Bitmap bitmap) {
         backdropImageView.setImageBitmap(bitmap);
-        Toast.makeText(getApplicationContext(), "URI BACKGROUND MVP", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void displayMovieImageBackground(String movieBackgroundUrl) {
         Picasso.with(this).load(movieBackgroundUrl).into(backdropImageView);
-        Toast.makeText(getApplicationContext(), "PICASSO BACKGROUND MVP", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -292,14 +284,13 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     @Override
     public void displayMovieImagePoster(Bitmap bitmap) {
         moviePosterImageView.setImageBitmap(bitmap);
-        Toast.makeText(getApplicationContext(), "URI ", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void displayMovieImagePoster(String moviePosterUrl) {
         Picasso.with(this).load(moviePosterUrl).into(moviePosterImageView);
-        Toast.makeText(getApplicationContext(), "PICASSO ", Toast.LENGTH_LONG).show();
     }
+
 
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {
@@ -338,9 +329,9 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
 
     public void checkIfMovieIsFavorite() {
         android.support.v4.app.LoaderManager loaderManager = getSupportLoaderManager();
-        android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
+        android.support.v4.content.Loader<Cursor> getCursorLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
 
-        if (getCusorLoader == null) {
+        if (getCursorLoader == null) {
             loaderManager.initLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
         } else
             loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
@@ -363,14 +354,11 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
                     while (data.moveToNext()) {
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
-                            Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
-                            //   floatingActionButton.setBackground(ContextCompat.getDrawable(context,R.drawable.ic_favorite_white_36dp));
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
-                        Toast.makeText(context, "This is NOT a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                         floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
                     }
                 }
