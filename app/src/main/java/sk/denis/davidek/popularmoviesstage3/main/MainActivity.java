@@ -50,15 +50,17 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
                         .replace(R.id.recipe_step_media_container, movieDetailFragment)
                         .commit();
             }
+
+            floatingActionButton = findViewById(R.id.fab);
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Wow",Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
+                }
+            });
         }
-        floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Wow",Toast.LENGTH_SHORT).show();
-                EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
-            }
-        });
+
 
 /*        int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
