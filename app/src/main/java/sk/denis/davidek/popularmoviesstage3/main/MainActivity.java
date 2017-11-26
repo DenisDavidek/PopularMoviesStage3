@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     private Movie selectedMovie;
 
-    private LinearLayout linearLayout;
+
     private FloatingActionButton floatingActionButton;
 
     @Override
@@ -65,29 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         }
 
 
-/*        int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //code for portrait mode
-            linearLayout = findViewById(R.id.ll_main_fragment);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,0,
-
-                    1.0f
-            );
-            linearLayout.setLayoutParams(param);
-            linearLayout.requestLayout();
-        } else {
-            //code for landscape mode
-            linearLayout = findViewById(R.id.ll_main_fragment);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                 0,    LinearLayout.LayoutParams.MATCH_PARENT,
-
-                    1.0f
-            );
-            linearLayout.setLayoutParams(param);
-            linearLayout.requestLayout();
-
-        }*/
 
     }
 
@@ -132,32 +108,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         if (isTwoPane) {
 
             selectedMovie = movie;
-
-/*
-            int orientation = this.getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                //code for portrait mode
-                linearLayout = findViewById(R.id.ll_main_fragment);
-                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,0,
-
-                        0.5f
-                );
-                linearLayout.setLayoutParams(param);
-                linearLayout.requestLayout();
-            } else {
-                //code for landscape mode
-                linearLayout = findViewById(R.id.ll_main_fragment);
-                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                        0,    LinearLayout.LayoutParams.MATCH_PARENT,
-
-                        0.5f
-                );
-                linearLayout.setLayoutParams(param);
-                linearLayout.requestLayout();
-
-            }
-*/
 
             MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
             movieDetailFragment.setSelectedMovie(movie);

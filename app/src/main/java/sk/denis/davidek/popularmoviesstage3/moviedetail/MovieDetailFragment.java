@@ -93,9 +93,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindString(R.string.movie_no_trailer)
     String noMovieTrailersMessage;
 
-  /*  @BindView(R.id.fab)
-    FloatingActionButton floatingActionButton;*/
-
     private Movie selectedMovie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
@@ -154,19 +151,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
             }
         }
-
-/*        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (isFavoriteMovie) {
-
-                } else {
-
-                }
-
-            }
-        });*/
         return fragmentView;
     }
 
@@ -197,8 +181,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         } else {
             Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(selectedMovie.getPosterUrl(), selectedMovie, context);
             Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(selectedMovie.getBackgroundUrl(), selectedMovie, context);
-            Toast.makeText(context, "IMAGE DOWNLOADING " + finalPosterUri, Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "IMAGE DOWNLOADING " + finalBackgroundUri, Toast.LENGTH_LONG).show();
             movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, selectedMovie, finalPosterUri, finalBackgroundUri);
             Snackbar.make(moviePosterImageView, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.snackbar_action), null).show();
@@ -375,13 +357,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                     while (data.moveToNext()) {
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
-                            Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                             isFavoriteMovie = true;
                             mListener.onClick(isFavoriteMovie);
                         }
                     }
                     if (!isFavoriteMovie) {
-                        Toast.makeText(context, "This is a favorite selectedMovie", Toast.LENGTH_SHORT).show();
                         mListener.onClick(isFavoriteMovie);
                     }
                 }

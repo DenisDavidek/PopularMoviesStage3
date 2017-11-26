@@ -54,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/recipe_step_media_container"
-            android:layout_marginTop="0dp"
             android:scaleType="centerInside" />
 
     </LinearLayout>
@@ -67,8 +66,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_favorite_border_white_36dp"
         />
