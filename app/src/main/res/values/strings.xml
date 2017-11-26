@@ -34,7 +34,7 @@
     <string name="showing_favorite_movies">Showing favorite movies</string>
     <string name="title_activity_movie_detail_prava">MovieDetailActivityPrava</string>
 
-    <string name="movie_added_to_favorites" translatable="true">This selectedMovie was added to your favorites.</string>
-    <string name="movie_deleted_from_favorites" translatable="true">This selectedMovie was removed from your favorites.</string>
+    <string name="movie_added_to_favorites" translatable="true">This movie was added to your favorites.</string>
+    <string name="movie_deleted_from_favorites" translatable="true">This movie was removed from your favorites.</string>
     <string name="snackbar_action">Action</string>
 </resources>

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -168,7 +167,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
         if (isFavoriteMovie) {
             Uri uri = MovieContract.MovieEntry.CONTENT_URI;
             uri = uri.buildUpon().appendPath(selectedMovie.getId()).build();
