@@ -286,13 +286,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Override
     public void displayMovieImagePoster(Bitmap bitmap) {
         moviePosterImageView.setImageBitmap(bitmap);
-        Toast.makeText(context, "URI ", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void displayMovieImagePoster(String moviePosterUrl) {
         Picasso.with(context).load(moviePosterUrl).into(moviePosterImageView);
-        Toast.makeText(context, "PICASSO ", Toast.LENGTH_LONG).show();
     }
 
 

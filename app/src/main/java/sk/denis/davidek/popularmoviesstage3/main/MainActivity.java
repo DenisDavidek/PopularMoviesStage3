@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         if (findViewById(R.id.rl_recipe_step_instruction) != null) {
             isTwoPane = true;
             Log.e("TWO PANE ACTIVITY ", String.valueOf(isTwoPane));
-            if (savedInstanceState != null && savedInstanceState.containsKey(selectedMovieKey) && selectedMovie != null) {
+            if (savedInstanceState != null && savedInstanceState.containsKey(selectedMovieKey) ) {
 
                 selectedMovie = savedInstanceState.getParcelable(selectedMovieKey);
                 MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        if (selectedMovie != null)
         outState.putParcelable(selectedMovieKey, selectedMovie);
         super.onSaveInstanceState(outState);
     }
