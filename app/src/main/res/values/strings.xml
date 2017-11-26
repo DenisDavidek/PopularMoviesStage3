@@ -22,8 +22,8 @@
     <string name="trailers">Trailers</string>
 
 
-    <string name="movie_no_review">There are no reviews for this selectedMovie.</string>
-    <string name="movie_no_trailer">There are no trailers for this selectedMovie.</string>
+    <string name="movie_no_review">There are no reviews for this movie.</string>
+    <string name="movie_no_trailer">There are no trailers for this movie.</string>
 
     <!--shared preferences keys-->
     <string name="pref_current_movies_filter" translatable="false">current_movie_filter</string>
