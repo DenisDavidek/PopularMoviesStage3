@@ -73,7 +73,7 @@ public interface MovieDetailContract {
 
         void getBackgroundMovieImage(Context context, Movie movie);
 
-        void getPosterMovieImage(Context context,String posterUrl);
+        void getPosterMovieImage(Context context, String posterUrl);
 
     }
 }

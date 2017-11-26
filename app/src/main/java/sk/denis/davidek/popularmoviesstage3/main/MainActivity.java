@@ -12,10 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindString;
+import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.MessageEvent;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
@@ -27,7 +28,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     public static boolean isTwoPane;
 
+    @BindString(R.string.movie_key)
+    String selectedMovieKey;
+
     private Movie selectedMovie;
+
     private LinearLayout linearLayout;
     private FloatingActionButton floatingActionButton;
 
@@ -36,14 +41,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         isAllPermissionsGranted();
-
+        ButterKnife.bind(this);
         if (findViewById(R.id.rl_recipe_step_instruction) != null) {
             isTwoPane = true;
             Log.e("TWO PANE ACTIVITY ", String.valueOf(isTwoPane));
-            if (savedInstanceState != null && savedInstanceState.containsKey("test") && selectedMovie != null) {
+            if (savedInstanceState != null && savedInstanceState.containsKey(selectedMovieKey) && selectedMovie != null) {
 
-                selectedMovie = savedInstanceState.getParcelable("test");
-                Toast.makeText(getApplicationContext(),"testSavedInstanceStatePodmienka",Toast.LENGTH_SHORT).show();
+                selectedMovie = savedInstanceState.getParcelable(selectedMovieKey);
                 MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
                 movieDetailFragment.setSelectedMovie(selectedMovie);
                 getSupportFragmentManager().beginTransaction()
@@ -55,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"Wow",Toast.LENGTH_SHORT).show();
                     EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
                 }
             });
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     @Override
     public void onClick(Movie movie) {
         if (isTwoPane) {
-            Toast.makeText(getApplicationContext(),"It is two pane UI " , Toast.LENGTH_SHORT).show();
+
             selectedMovie = movie;
 
 /*
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.recipe_step_media_container, movieDetailFragment)
                     .commit();
-        } else{
+        } else {
 
         }
     }
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable("test", selectedMovie);
+        outState.putParcelable(selectedMovieKey, selectedMovie);
         super.onSaveInstanceState(outState);
     }
 

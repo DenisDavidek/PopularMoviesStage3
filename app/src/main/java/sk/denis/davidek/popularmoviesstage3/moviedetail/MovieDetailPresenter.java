@@ -48,7 +48,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
         movieDetailView.displayUserRating(movie.getUserRating());
         formatReleaseDate(movie.getReleaseDate());
 
-        getPosterMovieImage(context,movie.getPosterUrl());
+        getPosterMovieImage(context, movie.getPosterUrl());
 
     }
 
@@ -196,7 +196,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
     }
 
     @Override
-    public void getPosterMovieImage(Context context,String posterUrl) {
+    public void getPosterMovieImage(Context context, String posterUrl) {
         if (posterUrl.startsWith("file://")) {
 
             try {

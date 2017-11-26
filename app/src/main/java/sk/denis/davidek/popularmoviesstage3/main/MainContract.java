@@ -14,9 +14,9 @@ import sk.denis.davidek.popularmoviesstage3.data.Movie;
  */
 
 public interface MainContract {
-    //show
-    interface View extends BaseView<Presenter> {
 
+    //show - UI actions which will be reflected on the screen.
+    interface View extends BaseView<Presenter> {
 
         void prepareRecyclerView();
 
@@ -42,9 +42,7 @@ public interface MainContract {
     //vsetko ostatné // Presenter žiaden android kód.
     interface Presenter extends BasePresenter {
 
-
         void getInternetStatus(Context context);
-
 
         void onItemInteraction(Movie movie);
 

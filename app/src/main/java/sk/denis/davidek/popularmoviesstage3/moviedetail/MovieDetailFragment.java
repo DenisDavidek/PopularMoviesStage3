@@ -107,9 +107,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     Context context;
     private boolean isFavoriteMovie;
 
-public void setSelectedMovie(Movie selectedMovie) {
-    this.selectedMovie = selectedMovie;
-}
+    public void setSelectedMovie(Movie selectedMovie) {
+        this.selectedMovie = selectedMovie;
+    }
 
     public MovieDetailFragment() {
     }
@@ -342,9 +342,9 @@ public void setSelectedMovie(Movie selectedMovie) {
         android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this) );
+            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie, movieDetailPresenter, this));
         } else
-            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
+            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie, movieDetailPresenter, this));
 
     }
 
@@ -396,7 +396,6 @@ public void setSelectedMovie(Movie selectedMovie) {
     }
 
 
-
     @Override
     public Loader<ArrayList<Review>> onCreateLoader(int id, Bundle args) {
         return new ReviewsLoader(getContext(), args, selectedMovie);
@@ -440,7 +439,9 @@ public void setSelectedMovie(Movie selectedMovie) {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
         void onClick(Movie movie);
+
         void onClick(boolean value);
     }
 

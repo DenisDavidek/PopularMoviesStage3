@@ -51,7 +51,7 @@ import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
  * create an instance of this fragment.
  */
 public class MainFragment extends Fragment implements MainContract.View,
-        LoaderManager.LoaderCallbacks<ArrayList<Movie>>{
+        LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,8 +101,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     private boolean isTwoPane;
 
 
-    @BindInt(R.integer.justTest)
-    int justTest;
+    @BindInt(R.integer.amountOfItems)
+    int amountOfItems;
 
     public MainFragment() {
         // Required empty public constructor
@@ -251,8 +251,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void prepareRecyclerView() {
 
-        moviesRecyclerView.setHasFixedSize(true); // LayoutUtils.calculateNoOfColumns(getContext())
-        layoutManager = new GridLayoutManager(getContext(),justTest);
+        moviesRecyclerView.setHasFixedSize(true);
+        layoutManager = new GridLayoutManager(getContext(), amountOfItems);
         moviesRecyclerView.setLayoutManager(layoutManager);
     }
 
@@ -289,16 +289,17 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         isTwoPane = MainActivity.isTwoPane;
         Log.e("TWO PANE FRAGMENT", String.valueOf(isTwoPane));
+
         if (isTwoPane) {
             mListener.onClick(movie);
 
-        }else {
+        } else {
 
             Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
             intent.putExtra(selectedMovieKey, movie);
             startActivity(intent);
         }
-        }
+    }
 
     @Override
     public void showLoadingProgressBar(int load) {
@@ -394,9 +395,9 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void getMoviesCursorLocalData() {
 
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
-        android.support.v4.content.Loader<Cursor> getCusorLoader = loaderManager.getLoader(LoaderConstants.getMovieCursorGetLoader());
+        android.support.v4.content.Loader<Cursor> getCursorLoader = loaderManager.getLoader(LoaderConstants.getMovieCursorGetLoader());
 
-        if (getCusorLoader == null) {
+        if (getCursorLoader == null) {
             loaderManager.initLoader(LoaderConstants.getMovieCursorGetLoader(), null, new CallbackLocalQuery());
         } else
             loaderManager.restartLoader(LoaderConstants.getMovieCursorGetLoader(), null, new CallbackLocalQuery());
@@ -404,7 +405,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     private Cursor mCursorLocalMovieData;
-
 
 
     private class CallbackLocalQuery implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -427,6 +427,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     public void getFavoriteMovies() {
+
         android.support.v4.app.LoaderManager loaderManager = getLoaderManager();
         android.support.v4.content.Loader<ArrayList<Movie>> getFavoriteMoviesLoader = loaderManager.getLoader(LoaderConstants.getMoviesFavoritesLoader());
 
@@ -450,6 +451,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
         void onClick(Movie movie);
     }
 }

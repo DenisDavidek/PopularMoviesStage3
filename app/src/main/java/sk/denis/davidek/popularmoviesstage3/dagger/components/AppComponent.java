@@ -43,6 +43,7 @@ public interface AppComponent {
     void inject(MovieDetailActivityPrava movieDetailActivityPrava);
 
     void inject(CallbackFavoriteMovies callbackFavoriteMovies);
+
     void inject(CallbackVideos callbackVideos);
 
     void inject(MovieDetailPresenter movieDetailPresenter);

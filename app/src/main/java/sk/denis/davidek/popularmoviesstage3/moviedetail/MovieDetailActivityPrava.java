@@ -101,8 +101,8 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     private Movie selectedMovie;
     private MovieDetailContract.Presenter movieDetailPresenter;
 
-@BindString(R.string.no_internet_connection)
-String noInternetConnectionMessage;
+    @BindString(R.string.no_internet_connection)
+    String noInternetConnectionMessage;
 
     @Inject
     Context context;
@@ -221,7 +221,6 @@ String noInternetConnectionMessage;
     }
 
 
-
     @Override
     public void prepareRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -330,9 +329,9 @@ String noInternetConnectionMessage;
         android.support.v4.content.Loader<ArrayList<Trailer>> getMoviesLoader = loaderManager.getLoader(LoaderConstants.getTrailersLoader());
 
         if (getMoviesLoader == null) {
-            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
+            loaderManager.initLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie, movieDetailPresenter, this));
         } else
-            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie,movieDetailPresenter,this));
+            loaderManager.restartLoader(LoaderConstants.getTrailersLoader(), argsBundle, new CallbackVideos(selectedMovie, movieDetailPresenter, this));
 
     }
 
