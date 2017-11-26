@@ -295,6 +295,8 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         } else {
 
+            MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
+
             Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
             intent.putExtra(selectedMovieKey, movie);
             startActivity(intent);
