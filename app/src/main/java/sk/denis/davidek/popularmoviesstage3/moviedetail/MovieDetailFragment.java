@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +45,6 @@ import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
-import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
@@ -101,6 +101,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Inject
     Context context;
     private boolean isFavoriteMovie;
+
+    @BindInt(R.integer.amountOfItemsMovieDetail)
+    int amountOfItems;
 
     public void setSelectedMovie(Movie selectedMovie) {
         this.selectedMovie = selectedMovie;
@@ -276,7 +279,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @Override
     public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
         movieTrailersRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
+        GridLayoutManager layoutManager = new GridLayoutManager(context, amountOfItems);
         movieTrailersRecyclerView.setLayoutManager(layoutManager);
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
     }

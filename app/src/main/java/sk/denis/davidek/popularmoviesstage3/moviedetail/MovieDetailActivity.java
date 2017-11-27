@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +43,6 @@ import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
-import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 public class MovieDetailActivity extends AppCompatActivity implements MovieDetailContract.View,
@@ -103,6 +103,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Inject
     Context context;
     private boolean isFavoriteMovie;
+
+    @BindInt(R.integer.amountOfItems)
+    int amountOfItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,7 +279,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Override
     public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
         movieTrailersRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(context, LayoutUtils.calculateNoOfColumns(context));
+        GridLayoutManager layoutManager = new GridLayoutManager(context,amountOfItems);
         movieTrailersRecyclerView.setLayoutManager(layoutManager);
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
     }
