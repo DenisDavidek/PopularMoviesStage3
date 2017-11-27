@@ -14,7 +14,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    Application application;
+    private final Application application;
 
     public AppModule(Application application) {
         this.application = application;
@@ -25,13 +25,5 @@ public class AppModule {
     Application providesApplication() {
         return application;
     }
-
-
-
-/*
-@Provides
-    @Singleton
-    SharedPreferences.Editor providesSharedPreferencesEditor(){
-        return  providesSharedPreferences().edit();
-}*/
+    
 }

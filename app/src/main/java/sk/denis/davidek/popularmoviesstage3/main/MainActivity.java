@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     }
 
 
-    public boolean isAllPermissionsGranted() {
+    private boolean isAllPermissionsGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.
                     permission.READ_EXTERNAL_STORAGE)

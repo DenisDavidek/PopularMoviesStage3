@@ -14,6 +14,7 @@ import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 public class MoviesCursorLocalLoader extends AsyncTaskLoader<Cursor> {
 
     Cursor mMoviesData = null;
+
     private Context mContext;
 
     public MoviesCursorLocalLoader(Context context) {

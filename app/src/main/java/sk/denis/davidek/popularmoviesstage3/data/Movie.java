@@ -18,7 +18,7 @@ public class Movie implements Parcelable {
     private String plotSynopsis;
     private double userRating;
     private String releaseDate;
-    private ArrayList<Movie> reviews; //Review
+    private ArrayList<Review> reviews; //Review
 
     protected Movie(Parcel in) {
 
@@ -72,7 +72,7 @@ public class Movie implements Parcelable {
         return id;
     }
 
-    public ArrayList<Movie> getReviews() {
+    public ArrayList<Review> getReviews() {
         return reviews;
     }
 
