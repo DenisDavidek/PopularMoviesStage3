@@ -8,8 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/fragment_movie_detail_content_padding_horizontal"
-        android:paddingRight="@dimen/fragment_movie_detail_content_padding_horizontal"
         tools:context="sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment"
         tools:showIn="@layout/activity_movie_detail">
 
