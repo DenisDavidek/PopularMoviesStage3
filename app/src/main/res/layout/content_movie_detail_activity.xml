@@ -146,7 +146,8 @@
                 android:layout_marginTop="@dimen/textview_margin_vertical"
                 android:layout_marginBottom="@dimen/textview_margin_vertical"
                 android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
-                android:textSize="@dimen/text_normal"
+                android:layout_marginRight="@dimen/textview_margin_horizontal_8dp"
+                android:textSize="@dimen/text_small"
                 android:visibility="invisible"
                 tools:text="@string/movie_no_trailer"
                 android:layout_marginStart="@dimen/textview_margin_horizontal_8dp" />
@@ -193,9 +194,10 @@
                 android:layout_below="@id/tv_review_text"
                 android:layout_marginTop="@dimen/textview_margin_vertical"
                 android:layout_marginBottom="@dimen/textview_margin_vertical"
-                android:textSize="@dimen/text_normal"
+                android:textSize="@dimen/text_small"
                 android:visibility="invisible"
                 android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
+                android:layout_marginRight="@dimen/textview_margin_horizontal_8dp"
                 tools:text="@string/movie_no_review"
                 android:layout_marginStart="@dimen/textview_margin_horizontal_8dp" />
         </RelativeLayout>

@@ -38,7 +38,7 @@ import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
-import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivityPrava;
+import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
@@ -297,7 +297,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
             MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
 
-            Intent intent = new Intent(getContext(), MovieDetailActivityPrava.class);
+            Intent intent = new Intent(getContext(), MovieDetailActivity.class);
             intent.putExtra(selectedMovieKey, movie);
             startActivity(intent);
         }

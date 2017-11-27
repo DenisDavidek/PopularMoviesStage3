@@ -54,7 +54,7 @@
         app:behavior_overlapTop="@dimen/movie_detail_content_overlay"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/content_movie_detail_activity_prava" />
+        <include layout="@layout/content_movie_detail_activity" />
 
     </android.support.v4.widget.NestedScrollView>
 

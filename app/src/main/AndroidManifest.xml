@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".moviedetail.MovieDetailActivityPrava"
+            android:name=".moviedetail.MovieDetailActivity"
             android:parentActivityName=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 

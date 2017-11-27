@@ -5,19 +5,6 @@
     <dimen name="progressBar_width">42dp</dimen>
     <dimen name="progressBar_height">42dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-
-
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
-    <dimen name="activity_horizontal_padding">16dp</dimen>
-    <dimen name="activity_vertical_padding">16dp</dimen>
-
-
-
-
-
-
     <dimen name="divider_height1dp">1dp</dimen>
     <dimen name="movie_detail_content_overlay">0dp</dimen>
 
@@ -38,12 +25,14 @@
     <dimen name="textview_margin_vertical">16dp</dimen>
     <dimen name="textview_margin_horizontal_8dp">8dp</dimen>
     <dimen name="parent_layout_margin">8dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
 
 
  <!--Padding dimensions-->
     <dimen name="fragment_movie_detail_content_padding_horizontal">0dp</dimen>
     <dimen name="textview_padding">16dp</dimen>
     <dimen name="parent_layout_padding">8dp</dimen>
+    <dimen name="activity_vertical_padding">16dp</dimen>
 
     <!--Text sizes-->
     <dimen name="text_big">26sp</dimen>

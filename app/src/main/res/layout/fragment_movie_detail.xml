@@ -148,6 +148,8 @@
                     android:layout_below="@id/tv_trailers_text"
                     android:layout_marginBottom="@dimen/textview_margin_vertical"
                     android:layout_marginTop="@dimen/textview_margin_vertical"
+                    android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
+                    android:layout_marginRight="@dimen/textview_margin_horizontal_8dp"
                     android:textSize="@dimen/text_small"
                     android:visibility="invisible"
                     tools:text="@string/movie_no_trailer" />
@@ -195,6 +197,7 @@
                     android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
                     android:layout_marginStart="@dimen/textview_margin_horizontal_8dp"
                     android:layout_marginTop="@dimen/textview_margin_vertical"
+                    android:layout_marginRight="@dimen/textview_margin_horizontal_8dp"
                     android:textSize="@dimen/text_small"
                     android:visibility="invisible"
                     tools:text="@string/movie_no_review" />

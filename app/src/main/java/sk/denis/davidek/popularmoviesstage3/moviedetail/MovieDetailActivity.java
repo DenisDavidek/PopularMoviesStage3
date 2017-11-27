@@ -45,7 +45,7 @@ import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
 import sk.denis.davidek.popularmoviesstage3.utils.LayoutUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
-public class MovieDetailActivityPrava extends AppCompatActivity implements MovieDetailContract.View,
+public class MovieDetailActivity extends AppCompatActivity implements MovieDetailContract.View,
         LoaderManager.LoaderCallbacks<ArrayList<Review>> {
 
     @BindString(R.string.movie_key)
@@ -107,7 +107,7 @@ public class MovieDetailActivityPrava extends AppCompatActivity implements Movie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail_prava);
+        setContentView(R.layout.activity_movie_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupToolbarBackIcon();
