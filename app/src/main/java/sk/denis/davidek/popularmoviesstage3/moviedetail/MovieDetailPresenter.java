@@ -135,9 +135,7 @@ public class MovieDetailPresenter implements MovieDetailContract.Presenter {
 
 
         Uri uri = context.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
-        if (uri != null) {
-            // Toast.makeText(context, uri.toString(), Toast.LENGTH_LONG).show();
-        }
+
     }
 
     @Override

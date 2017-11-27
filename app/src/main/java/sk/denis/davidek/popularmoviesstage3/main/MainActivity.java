@@ -114,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.recipe_step_media_container, movieDetailFragment)
                     .commit();
-        } else {
-
         }
     }
 

@@ -25,7 +25,7 @@
         <activity
             android:name=".moviedetail.MovieDetailActivityPrava"
             android:parentActivityName=".main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:authorities="sk.denis.davidek.popularmoviesstage3"
