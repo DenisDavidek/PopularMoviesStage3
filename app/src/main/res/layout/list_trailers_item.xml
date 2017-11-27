@@ -15,7 +15,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        tools:background="@drawable/ic_launcher_background" />
+        tools:background="@drawable/ic_launcher_background"
+        android:contentDescription="@string/cd_movie_poster"/>
 
     <TextView
         android:id="@+id/tv_trailer_name"

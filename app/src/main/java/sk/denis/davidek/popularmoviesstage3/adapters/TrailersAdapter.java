@@ -71,9 +71,8 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
         boolean shouldAttachToRoot = false;
 
         View movieView = inflater.inflate(R.layout.list_trailers_item, parent, shouldAttachToRoot);
-        TrailersViewHolder viewHolder = new TrailersViewHolder(movieView);
 
-        return viewHolder;
+        return new TrailersViewHolder(movieView);
     }
 
     @Override

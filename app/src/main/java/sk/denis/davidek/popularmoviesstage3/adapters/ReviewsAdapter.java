@@ -55,9 +55,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
         boolean shouldAttachToRoot = false;
 
         View movieView = inflater.inflate(R.layout.list_reviews_item, parent, shouldAttachToRoot);
-        ReviewsViewHolder viewHolder = new ReviewsViewHolder(movieView);
 
-        return viewHolder;
+        return new ReviewsViewHolder(movieView);
     }
 
     @Override

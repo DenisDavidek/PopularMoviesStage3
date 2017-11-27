@@ -31,7 +31,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                tools:src="@mipmap/ic_launcher" />
+                tools:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/cd_movie_poster"/>
 
             <TextView
                 android:id="@+id/tv_movie_title"

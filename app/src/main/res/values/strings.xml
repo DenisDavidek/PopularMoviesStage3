@@ -37,4 +37,8 @@
     <string name="movie_added_to_favorites" translatable="true">This movie was added to your favorites.</string>
     <string name="movie_deleted_from_favorites" translatable="true">This movie was removed from your favorites.</string>
     <string name="snackbar_action">Action</string>
+
+
+    <!--content description message-->
+    <string name="cd_movie_poster">Movie poster</string>
 </resources>

@@ -62,9 +62,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         boolean shouldAttachToRoot = false;
 
         View movieView = inflater.inflate(R.layout.list_movies_item, parent, shouldAttachToRoot);
-        MoviesViewHolder viewHolder = new MoviesViewHolder(movieView);
 
-        return viewHolder;
+        return new MoviesViewHolder(movieView);
     }
 
     @Override
