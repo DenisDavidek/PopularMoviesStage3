@@ -41,4 +41,5 @@
 
     <!--content description message-->
     <string name="cd_movie_poster">Movie poster</string>
+    <string name="cd_movie_background">Movie background</string>
 </resources>

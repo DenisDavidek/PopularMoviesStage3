@@ -69,5 +69,5 @@
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
       android:src="@drawable/ic_favorite_border_white_36dp"
-        />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
