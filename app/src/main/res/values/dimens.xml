@@ -5,7 +5,7 @@
     <dimen name="appBarLayout_height">200dp</dimen>
 
     <!--CardView-->
-    <dimen name="cardview_margin">16dp</dimen>
+    <dimen name="cardview_margin">8dp</dimen>
 
     <!--Dividers-->
     <dimen name="divider_height1dp">1dp</dimen>
@@ -13,7 +13,7 @@
     <dimen name="movie_detail_content_overlay">0dp</dimen>
 
     <!--Margin dimensions-->
-    <dimen name="tv_marginHorizontal">30dp</dimen>
+    <dimen name="tv_marginHorizontal">15dp</dimen>
     <dimen name="textview_margin_vertical">16dp</dimen>
     <dimen name="textview_margin_horizontal_8dp">8dp</dimen>
     <dimen name="parent_layout_margin">8dp</dimen>
@@ -24,6 +24,7 @@
     <!--Padding dimensions-->
     <dimen name="fragment_movie_detail_content_padding_horizontal">0dp</dimen>
     <dimen name="textview_padding">16dp</dimen>
+    <dimen name="textview_padding_8dp">8dp</dimen>
     <dimen name="parent_layout_padding">8dp</dimen>
     <dimen name="activity_vertical_padding">16dp</dimen>
     <dimen name="movie_item_padding">2dp</dimen>
@@ -36,5 +37,6 @@
     <dimen name="text_big">26sp</dimen>
     <dimen name="text_normal_24sp">24sp</dimen>
     <dimen name="text_normal">20sp</dimen>
+    <dimen name="text_normal_18sp">18sp</dimen>
     <dimen name="text_small">16sp</dimen>
 </resources>

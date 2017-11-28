@@ -10,14 +10,16 @@
         android:orientation="vertical"
         tools:context="sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment"
         tools:showIn="@layout/activity_movie_detail"
-        android:background="#E0E0E0">
+        android:background="@color/colorBackground"
+        android:paddingTop="@dimen/movie_item_padding">
 
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_basic_movie_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/cardview_margin">
+            android:layout_margin="@dimen/cardview_margin"
+        >
 
 
             <RelativeLayout
