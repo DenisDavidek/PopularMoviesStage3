@@ -67,6 +67,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-      android:src="@drawable/ic_favorite_border_white_36dp"
+      android:src="@drawable/button_unfavorite"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>

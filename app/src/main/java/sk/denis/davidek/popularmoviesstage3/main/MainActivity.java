@@ -130,10 +130,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     @Override
     public void onClick(boolean value) {
         if (value) {
-            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_white_36dp));
+            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_favorite));
 
         } else {
-            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_border_white_36dp));
+            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_unfavorite));
 
         }
     }
