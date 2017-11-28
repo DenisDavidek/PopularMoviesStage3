@@ -26,6 +26,7 @@
     <dimen name="textview_padding">16dp</dimen>
     <dimen name="parent_layout_padding">8dp</dimen>
     <dimen name="activity_vertical_padding">16dp</dimen>
+    <dimen name="movie_item_padding">2dp</dimen>
 
     <!--ProgressBar-->
     <dimen name="progressBar_width">42dp</dimen>
