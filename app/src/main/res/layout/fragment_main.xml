@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sk.denis.davidek.popularmoviesstage3.main.MainFragment"
-    android:padding="@dimen/activity_vertical_padding">
+    android:padding="@dimen/activity_vertical_padding"
+    android:background="#E0E0E0">
 
         <ProgressBar
             android:id="@+id/progressBar"
