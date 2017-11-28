@@ -356,12 +356,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                     while (data.moveToNext()) {
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
-                            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
+                            floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_favorite));
+                         //   floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
-                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
+                        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
+                 //       floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
                     }
                 }
             }
