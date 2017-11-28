@@ -279,7 +279,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Override
     public void prepareTrailersRecyclerView(TrailersAdapter trailersAdapter) {
         movieTrailersRecyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(context,amountOfItems);
+        GridLayoutManager layoutManager = new GridLayoutManager(context, amountOfItems);
         movieTrailersRecyclerView.setLayoutManager(layoutManager);
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
     }
@@ -293,7 +293,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     public void displayMovieImagePoster(String moviePosterUrl) {
         Picasso.with(this).load(moviePosterUrl).into(moviePosterImageView);
     }
-
 
 
     private void initializeGetReviewsLoader(String movie, String videoOrReview) {

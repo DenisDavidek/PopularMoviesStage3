@@ -18,6 +18,7 @@ import butterknife.BindString;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.MessageEvent;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 
@@ -31,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     String selectedMovieKey;
 
     private Movie selectedMovie;
-
-
     private FloatingActionButton floatingActionButton;
 
     @Override
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         if (findViewById(R.id.rl_recipe_step_instruction) != null) {
             isTwoPane = true;
             Log.e("TWO PANE ACTIVITY ", String.valueOf(isTwoPane));
-            if (savedInstanceState != null && savedInstanceState.containsKey(selectedMovieKey) ) {
+            if (savedInstanceState != null && savedInstanceState.containsKey(selectedMovieKey)) {
 
                 selectedMovie = savedInstanceState.getParcelable(selectedMovieKey);
                 MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
                 }
             });
         }
-
 
 
     }
@@ -118,6 +116,18 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     }
 
     @Override
+    public void changeToolbarTitle(String title) {
+
+        if (title.equals(Constants.getMoviesTopRated())) {
+            setTitle(getString(R.string.toolbar_title_top_rated));
+        } else if (title.equals(Constants.getMoviesPopular())) {
+            setTitle(getString(R.string.toolbar_title_popular));
+        } else if (title.equals(Constants.getMoviesFavorites())) {
+            setTitle(getString(R.string.toolbar_title_favorite));
+        }
+    }
+
+    @Override
     public void onClick(boolean value) {
         if (value) {
             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_favorite_white_36dp));
@@ -131,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (selectedMovie != null)
-        outState.putParcelable(selectedMovieKey, selectedMovie);
+            outState.putParcelable(selectedMovieKey, selectedMovie);
         super.onSaveInstanceState(outState);
     }
 

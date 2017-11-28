@@ -38,4 +38,9 @@
     <!--content description message-->
     <string name="cd_movie_poster">Movie poster</string>
     <string name="cd_movie_background">Movie background</string>
+
+    <!--Toolbar titles-->
+    <string name="toolbar_title_top_rated">Top rated</string>
+    <string name="toolbar_title_popular">Popular</string>
+    <string name="toolbar_title_favorite">Favorite collection</string>
 </resources>

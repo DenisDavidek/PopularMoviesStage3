@@ -146,7 +146,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         mainPresenter = new MainPresenter(this);
 
         MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
-
+        mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
 
         return fragmentView;
     }
@@ -170,6 +170,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesPopular());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
+                    mListener.changeToolbarTitle(Constants.getMoviesPopular());
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
@@ -181,6 +182,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesTopRated());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesTopRated());
+                    mListener.changeToolbarTitle(Constants.getMoviesTopRated());
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
@@ -191,6 +193,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 moviesRecyclerView.setAdapter(null);
                 getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
+                mListener.changeToolbarTitle(Constants.getMoviesFavorites());
                 break;
         }
 
@@ -455,5 +458,8 @@ public class MainFragment extends Fragment implements MainContract.View,
         void onFragmentInteraction(Uri uri);
 
         void onClick(Movie movie);
+
+        void changeToolbarTitle(String title);
+
     }
 }
