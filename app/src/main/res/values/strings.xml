@@ -43,4 +43,8 @@
     <string name="toolbar_title_top_rated">Top rated</string>
     <string name="toolbar_title_popular">Popular</string>
     <string name="toolbar_title_favorite">Favorite collection</string>
+
+
+    <string name="release_date">Release Date:\u0020</string>
+    <string name="user_rating">User Rating:\u0020</string>
 </resources>

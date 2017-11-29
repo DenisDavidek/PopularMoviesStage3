@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:adjustViewBounds="true"
     android:orientation="vertical"
- android:padding="@dimen/parent_layout_padding">
+    android:padding="@dimen/parent_layout_padding">
 
     <ImageView
         android:id="@+id/iv_movie_poster"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         tools:background="@drawable/ic_launcher_background"
-        android:contentDescription="@string/cd_movie_poster"/>
+        android:contentDescription="@string/cd_movie_poster" />
 
     <TextView
         android:id="@+id/tv_trailer_name"
