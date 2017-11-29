@@ -4,6 +4,8 @@
     <!--AppBarLayout-->
     <dimen name="appBarLayout_height">200dp</dimen>
 
+    <dimen name="relative_layout_margin_horizontal">16dp</dimen>
+
     <dimen name="fragment_movie_detail_content_padding_horizontal">32dp</dimen>
     <dimen name="movie_detail_content_overlay">96dp</dimen>
 </resources>
