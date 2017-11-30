@@ -6,7 +6,8 @@ package sk.denis.davidek.popularmoviesstage3.data;
 
 public class Constants {
     private static final String MOVIES_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    private static final String MOVIES_IMAGE_SIZE = "w500/";
+    /*    private static final String MOVIES_IMAGE_SIZE = "w500/";*/
+    private static final String MOVIES_IMAGE_SIZE = "w342/";
     private static final String MOVIES_IMAGE_BACKGROUND_SIZE = "w780";
 
     private static final String QUERY_MOVIE_FILTER = "movie_filter";

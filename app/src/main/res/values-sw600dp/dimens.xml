@@ -10,4 +10,6 @@
     <!--Padding dimensions-->
     <dimen name="movie_item_padding">4dp</dimen>
 
+    <dimen name="relative_layout_margin_horizontal">16dp</dimen>
+
 </resources>
