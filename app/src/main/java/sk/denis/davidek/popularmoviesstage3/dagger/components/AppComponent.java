@@ -11,6 +11,7 @@ import sk.denis.davidek.popularmoviesstage3.adapters.TrailersAdapter;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.AppModule;
 import sk.denis.davidek.popularmoviesstage3.dagger.modules.ContextModule;
 import sk.denis.davidek.popularmoviesstage3.main.CallbackFavoriteMovies;
+import sk.denis.davidek.popularmoviesstage3.main.MainActivity;
 import sk.denis.davidek.popularmoviesstage3.main.MainFragment;
 import sk.denis.davidek.popularmoviesstage3.main.MainPresenter;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.CallbackVideos;
@@ -29,6 +30,8 @@ public interface AppComponent {
     Context getContext();
 
     SharedPreferences getSharedPreferences();
+
+    void inject(MainActivity mainActivity);
 
     void inject(MainFragment mainFragment);
 

@@ -1,6 +1,7 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,8 +15,11 @@ import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 
+import javax.inject.Inject;
+
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.MessageEvent;
 import sk.denis.davidek.popularmoviesstage3.R;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
@@ -34,11 +38,20 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     private Movie selectedMovie;
     private FloatingActionButton floatingActionButton;
 
+    @BindString(R.string.pref_current_movies_filter)
+    String moviesCurrentFilterKey;
+
+    @Inject
+    SharedPreferences sharedPreferences;
+
+    private String MOVIES_CURRENT_FILTER;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         isAllPermissionsGranted();
+        App.getAppComponent().inject(this);
         ButterKnife.bind(this);
         if (findViewById(R.id.rl_recipe_step_instruction) != null) {
             isTwoPane = true;
@@ -127,14 +140,27 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         }
     }
 
+
     @Override
     public void onClick(boolean value) {
+        MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.recipe_detail_fragment);
+
         if (value) {
             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_favorite));
 
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+
+                mainFragment.updateMovieFavoriteUI();
+            }
+
+            Log.e("TESTTAG", "true");
         } else {
             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_unfavorite));
-
+            Log.e("TESTTAG", "false");
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+                mainFragment.updateMovieFavoriteUI();
+            }
         }
     }
 

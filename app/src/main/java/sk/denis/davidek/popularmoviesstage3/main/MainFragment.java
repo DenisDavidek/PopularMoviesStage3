@@ -137,6 +137,10 @@ public class MainFragment extends Fragment implements MainContract.View,
         App.getAppComponent().inject(this);
     }
 
+    public void updateMovieFavoriteUI() {
+        getMoviesCursorLocalData();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
