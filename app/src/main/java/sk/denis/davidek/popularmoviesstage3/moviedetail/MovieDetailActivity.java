@@ -147,15 +147,15 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                     getContentResolver().delete(uri, null, null);
                     isFavoriteMovie = false;
                     checkIfMovieIsFavorite();
-                    Snackbar.make(view, getString(R.string.movie_deleted_from_favorites), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.snackbar_action), null).show();
+                    Snackbar.make(view, getString(R.string.snackBar_movie_deleted_from_favorites), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackBar_action), null).show();
 
                 } else {
                     Uri finalPosterUri = movieDetailPresenter.downloadPosterFile(selectedMovie.getPosterUrl(), selectedMovie, context);
                     Uri finalBackgroundUri = movieDetailPresenter.downloadBackgroundFile(selectedMovie.getBackgroundUrl(), selectedMovie, context);
                     movieDetailPresenter.insertFavoriteMovieIntoContentProvidersDatabase(context, selectedMovie, finalPosterUri, finalBackgroundUri);
-                    Snackbar.make(view, getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.snackbar_action), null).show();
+                    Snackbar.make(view, getString(R.string.snackBar_movie_added_to_favorites), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.snackBar_action), null).show();
                     checkIfMovieIsFavorite();
                 }
 

@@ -66,7 +66,7 @@
                     android:layout_below="@id/tv_movie_title"
                     android:layout_toEndOf="@+id/tv_movie_user_rating"
                     android:layout_toRightOf="@+id/tv_movie_user_rating"
-                    android:text="@string/user_rating_max_rank"
+                    android:text="@string/movie_basic_info_user_rating_max_rank"
                     android:textSize="@dimen/text_normal" />
 
                 <TextView
@@ -100,7 +100,7 @@
                 android:layout_toEndOf="@+id/tv_movie_user_rating"
                 android:layout_toRightOf="@+id/tv_movie_user_rating"
                 android:padding="@dimen/textview_padding"
-                android:text="@string/user_rating_max_rank"
+                android:text="@string/movie_basic_info_user_rating_max_rank"
                 android:textSize="@dimen/text_normal"
                 tools:text="It continues after 1 selectedMovie entry ......" />
 

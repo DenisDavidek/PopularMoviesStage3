@@ -10,16 +10,16 @@
         <menu>
             <item
                 android:id="@+id/action_show_top_rated_movies"
-                android:title="@string/action_show_top_rated_movies"
+                android:title="@string/menu_action_show_top_rated_movies"
                 app:showAsAction="ifRoom" />
 
             <item
                 android:id="@+id/action_show_popular_movies"
-                android:title="@string/action_show_popular_movies"
+                android:title="@string/menu_action_show_popular_movies"
                 app:showAsAction="ifRoom" />
             <item
                 android:id="@+id/action_show_favorite_movies"
-                android:title="@string/action_show_favorite_movies"
+                android:title="@string/menu_action_show_favorite_movies"
                 app:showAsAction="ifRoom" />
 
         </menu>

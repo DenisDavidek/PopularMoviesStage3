@@ -165,7 +165,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         switch (selectedItemId) {
 
             case R.id.action_show_popular_movies:
-                Snackbar.make(moviesRecyclerView, getString(R.string.showing_popular_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_popular_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 if (NetworkUtils.checkInternetConnection(mContext)) {
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesPopular());
@@ -177,7 +177,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 break;
 
             case R.id.action_show_top_rated_movies:
-                Snackbar.make(moviesRecyclerView, getString(R.string.showing_top_rated_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_top_rated_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 if (NetworkUtils.checkInternetConnection(mContext)) {
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesTopRated());
@@ -189,7 +189,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 break;
 
             case R.id.action_show_favorite_movies:
-                Snackbar.make(moviesRecyclerView, getString(R.string.showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 moviesRecyclerView.setAdapter(null);
                 getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());

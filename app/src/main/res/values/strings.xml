@@ -3,9 +3,9 @@
     <string name="app_name">PopularMovies</string>
 
     <!--menu action items-->
-    <string name="action_show_top_rated_movies">Show top rated movies</string>
-    <string name="action_show_popular_movies">Show popular movies</string>
-    <string name="action_show_favorite_movies">Show favorite movies</string>
+    <string name="menu_action_show_top_rated_movies">Show top rated movies</string>
+    <string name="menu_action_show_popular_movies">Show popular movies</string>
+    <string name="menu_action_show_favorite_movies">Show favorite movies</string>
 
 
    <!-- error messages-->
@@ -31,12 +31,12 @@
 
 
     <!--SnackBar Messages-->
-    <string name="showing_popular_movies">Showing popular movies</string>
-    <string name="showing_top_rated_movies">Showing top rated movies</string>
-    <string name="showing_favorite_movies">Showing favorite movies</string>
-    <string name="movie_added_to_favorites" >This movie was added to your favorites.</string>
-    <string name="movie_deleted_from_favorites" >This movie was removed from your favorites.</string>
-    <string name="snackbar_action">Action</string>
+    <string name="snackBar_showing_popular_movies">Showing popular movies</string>
+    <string name="snackBar_showing_top_rated_movies">Showing top rated movies</string>
+    <string name="snackBar_showing_favorite_movies">Showing favorite movies</string>
+    <string name="snackBar_movie_added_to_favorites" >This movie was added to your favorites</string>
+    <string name="snackBar_movie_deleted_from_favorites" >This movie was removed from your favorites</string>
+    <string name="snackBar_action">Action</string>
 
 
     <!--content description messages-->
@@ -51,8 +51,8 @@
 
 
     <!--Movie basic info card-->
-    <string name="release_date">Release Date:\u0020</string>
-    <string name="user_rating">User Rating:\u0020</string>
-    <string name="user_rating_max_rank">/10</string>
+    <string name="movie_basic_info_release_date">Release Date:\u0020</string>
+    <string name="movie_basic_info_user_rating">User Rating:\u0020</string>
+    <string name="movie_basic_info_user_rating_max_rank">/10</string>
 
 </resources>

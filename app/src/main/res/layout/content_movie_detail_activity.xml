@@ -61,7 +61,7 @@
 
 
                     android:textSize="@dimen/text_normal_18sp"
-                    android:text="@string/user_rating"
+                    android:text="@string/movie_basic_info_user_rating"
 
                     />
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_movie_user_rating_text"
                     android:layout_toRightOf="@+id/tv_movie_user_rating"
-                    android:text="@string/user_rating_max_rank"
+                    android:text="@string/movie_basic_info_user_rating_max_rank"
                     android:textSize="@dimen/text_big"
                     android:layout_toEndOf="@+id/tv_movie_user_rating" />
             </RelativeLayout>
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_normal_18sp"
                     android:textStyle="italic"
-                    android:text="@string/release_date" />
+                    android:text="@string/movie_basic_info_release_date" />
 
                 <TextView
                     android:id="@+id/tv_movie_release_date"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_movie_title"
             android:layout_toRightOf="@+id/tv_movie_user_rating"
-            android:text="@string/user_rating_max_rank"
+            android:text="@string/movie_basic_info_user_rating_max_rank"
             android:textSize="@dimen/text_normal_18sp"
             android:padding="@dimen/textview_padding_8dp"
             tools:text="It continues after 1 selectedMovie entry ......"

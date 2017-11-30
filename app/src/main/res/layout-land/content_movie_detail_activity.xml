@@ -59,7 +59,7 @@
                     android:id="@+id/tv_movie_user_rating_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_rating"
+                    android:text="@string/movie_basic_info_user_rating"
                     android:layout_centerVertical="true"
 
                     android:textSize="@dimen/text_normal_18sp"
@@ -85,7 +85,7 @@
                     android:layout_toEndOf="@+id/tv_movie_user_rating"
                     android:layout_toRightOf="@+id/tv_movie_user_rating"
                     android:layout_centerVertical="true"
-                    android:text="@string/user_rating_max_rank"
+                    android:text="@string/movie_basic_info_user_rating_max_rank"
                     android:textSize="@dimen/text_big" />
             </RelativeLayout>
 
@@ -104,7 +104,7 @@
                     android:id="@+id/tv_movie_release_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/release_date"
+                    android:text="@string/movie_basic_info_release_date"
                     android:textSize="@dimen/text_normal_18sp"
                     android:textStyle="italic"
                     android:layout_centerVertical="true" />
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_movie_title"
             android:layout_toRightOf="@+id/tv_movie_user_rating"
-            android:text="@string/user_rating_max_rank"
+            android:text="@string/movie_basic_info_user_rating_max_rank"
             android:textSize="@dimen/text_normal_18sp"
             android:padding="@dimen/textview_padding_8dp"
             tools:text="It continues after 1 selectedMovie entry ......"
