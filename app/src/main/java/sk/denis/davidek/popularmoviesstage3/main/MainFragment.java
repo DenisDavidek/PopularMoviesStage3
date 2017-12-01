@@ -22,7 +22,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -104,6 +109,12 @@ public class MainFragment extends Fragment implements MainContract.View,
     @BindInt(R.integer.amountOfItems)
     int amountOfItems;
 
+    @BindView(R.id.adView)
+    AdView mAdView;
+
+    @BindView(R.id.rl_basic_movie)
+    RelativeLayout relativeLayoutBasicMovie;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -151,6 +162,36 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
         mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
+
+
+        mAdView.setAdListener(new AdListener() {
+
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
+                layoutParams.removeRule(RelativeLayout.ABOVE);
+                moviesRecyclerView.setLayoutParams(layoutParams);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.ABOVE, R.id.adView);
+                relativeLayoutBasicMovie.setLayoutParams(layoutParams);
+
+            }
+        });
+
+     /*   AdUtils adUtils = new AdUtils(this);
+        if (!(adUtils.isTestDevice())) { TREBA ZAJTRA PRIDAŤ*/
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+      /*  }*/
+
 
         return fragmentView;
     }

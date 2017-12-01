@@ -6,6 +6,11 @@
     android:padding="@dimen/activity_vertical_padding"
     android:background="@color/colorBackground">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_basic_movie"
+        android:layout_marginBottom="@dimen/recyclerView_margin_vertical">
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -43,5 +48,14 @@
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true" />
 
+    </RelativeLayout>
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 </RelativeLayout>
 
