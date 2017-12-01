@@ -23,6 +23,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
+import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 public class MovieDetailActivity extends AppCompatActivity implements MovieDetailContract.View,
@@ -107,6 +110,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @BindInt(R.integer.amountOfItems)
     int amountOfItems;
 
+    @BindView(R.id.adView)
+    AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,6 +167,16 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
 
             }
         });
+
+
+        AdUtils adUtils = new AdUtils();
+        if (!(adUtils.isTestDevice())) {
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }
+
+
 
     }
 
