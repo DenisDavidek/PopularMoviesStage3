@@ -177,7 +177,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         }
 
 
-
     }
 
     private void setupToolbarBackIcon() {

@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +47,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.data.Review;
 import sk.denis.davidek.popularmoviesstage3.data.Trailer;
 import sk.denis.davidek.popularmoviesstage3.data.contentprovider.MovieContract;
+import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
@@ -105,6 +108,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindInt(R.integer.amountOfItemsMovieDetail)
     int amountOfItems;
 
+
+    @BindView(R.id.adView)
+    AdView mAdView;
+
     public void setSelectedMovie(Movie selectedMovie) {
         this.selectedMovie = selectedMovie;
     }
@@ -153,6 +160,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
             }
         }
+
+
+        AdUtils adUtils = new AdUtils();
+        if (!(adUtils.isTestDevice())) {
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }
+
+
         return fragmentView;
     }
 
