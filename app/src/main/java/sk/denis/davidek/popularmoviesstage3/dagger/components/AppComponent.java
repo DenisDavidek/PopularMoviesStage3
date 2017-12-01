@@ -18,6 +18,7 @@ import sk.denis.davidek.popularmoviesstage3.moviedetail.CallbackVideos;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailPresenter;
+import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
 
 /**
  * Created by denis on 15.11.2017.
@@ -50,4 +51,6 @@ public interface AppComponent {
     void inject(CallbackVideos callbackVideos);
 
     void inject(MovieDetailPresenter movieDetailPresenter);
+
+    void inject(AdUtils adUtils);
 }

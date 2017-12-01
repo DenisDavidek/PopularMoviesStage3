@@ -44,6 +44,7 @@ import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
+import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
 import sk.denis.davidek.popularmoviesstage3.utils.NetworkUtils;
 
 
@@ -185,12 +186,12 @@ public class MainFragment extends Fragment implements MainContract.View,
             }
         });
 
-     /*   AdUtils adUtils = new AdUtils(this);
-        if (!(adUtils.isTestDevice())) { TREBA ZAJTRA PRIDAŤ*/
+        AdUtils adUtils = new AdUtils();
+        if (!(adUtils.isTestDevice())) {
 
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
-      /*  }*/
+        }
 
 
         return fragmentView;
