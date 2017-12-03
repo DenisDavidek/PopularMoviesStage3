@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
+import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
 
 /**
  * Created by denis on 15.11.2017.
@@ -19,10 +20,12 @@ public class MainPresenter implements MainContract.Presenter {
     @Inject
     Context context;
 
+    private AdUtils adUtils;
+
     public MainPresenter(MainContract.View mainView) {
 
         this.mainView = mainView;
-
+        adUtils = new AdUtils();
         mainView.setPresenter(this);
         App.getAppComponent().inject(this);
     }
@@ -47,6 +50,12 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void prepareMovieDataView() {
         mainView.showMovieDataView();
+    }
+
+    @Override
+    public void prepareAdRequest() {
+
+        mainView.loadAndShowAd(adUtils.getAdRequest());
     }
 
 

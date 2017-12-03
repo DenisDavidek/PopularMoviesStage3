@@ -2,6 +2,8 @@ package sk.denis.davidek.popularmoviesstage3.main;
 
 import android.content.SharedPreferences;
 
+import com.google.android.gms.ads.AdRequest;
+
 import java.util.ArrayList;
 
 import sk.denis.davidek.popularmoviesstage3.base.BasePresenter;
@@ -36,6 +38,8 @@ public interface MainContract {
         void showNoFavoriteMoviesMessage();
 
         void hideNoFavoriteMoviesMessage();
+
+        void loadAndShowAd(AdRequest adRequest);
     }
 
     //vsetko ostatné // Presenter žiaden android kód.
@@ -48,6 +52,8 @@ public interface MainContract {
         void prepareInternetErrorLoadingMessage();
 
         void prepareMovieDataView();
+
+        void prepareAdRequest();
 
     }
 }

@@ -30,7 +30,7 @@
             android:text="@string/no_internet_connection"
             android:textSize="@dimen/text_normal"
             android:visibility="invisible"
-            android:padding="@dimen/movie_item_padding"/>
+            android:padding="@dimen/movie_item_padding" />
 
         <TextView
             android:id="@+id/tv_no_favorite_movies"
@@ -41,7 +41,7 @@
             android:text="@string/no_favorite_movies"
             android:textSize="@dimen/text_normal"
             android:visibility="invisible"
-            android:padding="@dimen/movie_item_padding"/>
+            android:padding="@dimen/movie_item_padding" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_movies"

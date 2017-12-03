@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
@@ -189,7 +190,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         if (!(adUtils.isTestDevice())) {
 
-            adUtils.loadAd(mAdView);
+            mainPresenter.prepareAdRequest();
         }
 
 
@@ -406,6 +407,11 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void hideNoFavoriteMoviesMessage() {
         moviesRecyclerView.setVisibility(View.VISIBLE);
         noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void loadAndShowAd(AdRequest adRequest) {
+        mAdView.loadAd(adRequest);
     }
 
     @Override

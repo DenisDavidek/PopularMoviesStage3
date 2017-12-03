@@ -4,7 +4,6 @@ import android.content.Context;
 import android.provider.Settings;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import javax.inject.Inject;
 
@@ -28,8 +27,7 @@ public class AdUtils {
         return "true".equals(testLabSetting);
     }
 
-    public void loadAd(AdView mAdView){
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+    public AdRequest getAdRequest() {
+        return new AdRequest.Builder().build();
     }
 }
