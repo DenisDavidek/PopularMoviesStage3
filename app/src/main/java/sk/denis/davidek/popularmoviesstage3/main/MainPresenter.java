@@ -2,15 +2,11 @@ package sk.denis.davidek.popularmoviesstage3.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import javax.inject.Inject;
 
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.data.Movie;
-
-import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
  * Created by denis on 15.11.2017.
@@ -29,16 +25,6 @@ public class MainPresenter implements MainContract.Presenter {
 
         mainView.setPresenter(this);
         App.getAppComponent().inject(this);
-    }
-
-
-    @Override
-    public void getInternetStatus(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        mainView.workWithInternetConnection(networkInfo != null && networkInfo.isConnectedOrConnecting());
-
     }
 
     @Override
@@ -66,7 +52,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void start() {
-        getInternetStatus(context);
         mainView.prepareRecyclerView();
     }
 }

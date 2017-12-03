@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sk.denis.davidek.popularmoviesstage3.main.MainFragment"
-    android:padding="@dimen/activity_vertical_padding"
     android:background="@color/colorBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rl_basic_movie"
-        android:layout_marginBottom="@dimen/recyclerView_margin_vertical">
+        android:layout_margin="@dimen/recyclerView_margin_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/colorPrimary">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -28,7 +30,8 @@
             android:layout_centerHorizontal="true"
             android:text="@string/no_internet_connection"
             android:textSize="@dimen/text_normal"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:padding="@dimen/movie_item_padding"/>
 
         <TextView
             android:id="@+id/tv_no_favorite_movies"

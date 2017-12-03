@@ -7,7 +7,7 @@
     <dimen name="relative_layout_margin_horizontal">16dp</dimen>
 
     <!--RecyclerView margins-->
-    <dimen name="recyclerView_margin_vertical">8dp</dimen>
+    <dimen name="recyclerView_margin_vertical">16dp</dimen>
 
 
     <dimen name="fragment_movie_detail_content_padding_horizontal">32dp</dimen>

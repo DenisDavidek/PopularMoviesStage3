@@ -1,6 +1,5 @@
 package sk.denis.davidek.popularmoviesstage3.main;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ public interface MainContract {
 
         void showFavoriteMoviesData(ArrayList<Movie> movies);
 
-        void workWithInternetConnection(boolean hasInternetConnection);
-
         void showItemClickData(Movie movie);
 
         void showLoadingProgressBar(int load);
@@ -31,6 +28,8 @@ public interface MainContract {
         void hideLoadingProgressBar(int load);
 
         void showInternetErrorLoadingMessage();
+
+        void hideInternetErrorLoadingMessage();
 
         void showMovieDataView();
 
@@ -41,8 +40,6 @@ public interface MainContract {
 
     //vsetko ostatné // Presenter žiaden android kód.
     interface Presenter extends BasePresenter {
-
-        void getInternetStatus(Context context);
 
         void onItemInteraction(Movie movie);
 

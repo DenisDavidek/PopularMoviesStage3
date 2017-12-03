@@ -25,7 +25,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -165,7 +164,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
 
 
-        mAdView.setAdListener(new AdListener() {
+  /*      mAdView.setAdListener(new AdListener() {
 
 
             @Override
@@ -180,17 +179,38 @@ public class MainFragment extends Fragment implements MainContract.View,
             public void onAdLoaded() {
                 super.onAdLoaded();
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
+              *//*  layoutParams.setMargins(16,16,16,16);*//*
                 layoutParams.addRule(RelativeLayout.ABOVE, R.id.adView);
                 relativeLayoutBasicMovie.setLayoutParams(layoutParams);
 
             }
-        });
+        });*/
 
         AdUtils adUtils = new AdUtils();
         if (!(adUtils.isTestDevice())) {
 
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
+        }
+
+
+        if (NetworkUtils.checkInternetConnection(mContext)){
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+
+                getMoviesCursorLocalData();
+            } else {
+                getMoviesData(MOVIES_CURRENT_FILTER);
+            }
+        } else {
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+                getMoviesCursorLocalData();
+            } else {
+
+                mainPresenter.prepareInternetErrorLoadingMessage();
+            }
+
         }
 
 
@@ -217,6 +237,16 @@ public class MainFragment extends Fragment implements MainContract.View,
                     getMoviesData(Constants.getMoviesPopular());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
                     mListener.changeToolbarTitle(Constants.getMoviesPopular());
+
+
+                    AdUtils adUtils = new AdUtils();
+                    if (!(adUtils.isTestDevice())) {
+
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        mAdView.loadAd(adRequest);
+                    }
+
+
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
@@ -229,6 +259,16 @@ public class MainFragment extends Fragment implements MainContract.View,
                     getMoviesData(Constants.getMoviesTopRated());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesTopRated());
                     mListener.changeToolbarTitle(Constants.getMoviesTopRated());
+
+
+                    AdUtils adUtils = new AdUtils();
+                    if (!(adUtils.isTestDevice())) {
+
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        mAdView.loadAd(adRequest);
+                    }
+
+
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
@@ -312,26 +352,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
 
-    @Override
-    public void workWithInternetConnection(boolean hasInternetConnection) {
-        if (hasInternetConnection) {
-
-            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
-
-                getMoviesCursorLocalData();
-            } else {
-                getMoviesData(MOVIES_CURRENT_FILTER);
-            }
-        } else {
-
-            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
-                getMoviesCursorLocalData();
-            } else {
-
-                mainPresenter.prepareInternetErrorLoadingMessage();
-            }
-        }
-    }
 
     @Override
     public void showItemClickData(Movie movie) {
@@ -374,6 +394,15 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     @Override
+    public void hideInternetErrorLoadingMessage() {
+        moviesRecyclerView.setVisibility(View.VISIBLE);
+        errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
+        if (noFavoriteMoviesTextView.getVisibility() == View.VISIBLE) {
+            noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
     public void showMovieDataView() {
 
         moviesRecyclerView.setVisibility(View.VISIBLE);
@@ -393,7 +422,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void hideNoFavoriteMoviesMessage() {
         moviesRecyclerView.setVisibility(View.VISIBLE);
         noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
-
     }
 
     @Override
@@ -405,6 +433,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         hideLoadingProgressBar(View.INVISIBLE);
         if (!data.isEmpty()) {
+          //  hideInternetErrorLoadingMessage();
             mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
