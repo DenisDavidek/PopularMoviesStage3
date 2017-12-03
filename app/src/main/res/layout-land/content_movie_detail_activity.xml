@@ -42,7 +42,7 @@
                 android:layout_toEndOf="@+id/iv_movie_poster"
                 android:layout_toRightOf="@+id/iv_movie_poster"
                 android:maxLines="3"
-                android:textSize="@dimen/text_big"
+                android:textSize="@dimen/text_normal_24sp"
                 android:textStyle="bold"
                 tools:text="John Wick 2" />
 
@@ -72,7 +72,7 @@
 
                     android:layout_toRightOf="@+id/tv_movie_user_rating_text"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_big"
+                    android:textSize="@dimen/text_normal_24sp"
                     tools:text="9.0"
                     android:layout_toEndOf="@+id/tv_movie_user_rating_text" />
 
@@ -84,7 +84,7 @@
                     android:layout_toRightOf="@+id/tv_movie_user_rating"
                     android:layout_centerVertical="true"
                     android:text="@string/movie_basic_info_user_rating_max_rank"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_normal_24sp" />
             </RelativeLayout>
 
 
