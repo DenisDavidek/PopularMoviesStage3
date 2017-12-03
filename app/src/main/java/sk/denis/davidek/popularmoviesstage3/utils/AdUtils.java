@@ -3,6 +3,9 @@ package sk.denis.davidek.popularmoviesstage3.utils;
 import android.content.Context;
 import android.provider.Settings;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import javax.inject.Inject;
 
 import sk.denis.davidek.popularmoviesstage3.App;
@@ -23,5 +26,10 @@ public class AdUtils {
     public boolean isTestDevice() {
         String testLabSetting = Settings.System.getString(context.getContentResolver(), "firebase.test.lab");
         return "true".equals(testLabSetting);
+    }
+
+    public void loadAd(AdView mAdView){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

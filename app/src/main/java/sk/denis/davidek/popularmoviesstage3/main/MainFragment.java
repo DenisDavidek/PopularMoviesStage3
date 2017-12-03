@@ -25,7 +25,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
@@ -104,6 +103,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     private GridLayoutManager layoutManager;
     private boolean isTwoPane;
+    private AdUtils adUtils = new AdUtils();
 
 
     @BindInt(R.integer.amountOfItems)
@@ -186,15 +186,14 @@ public class MainFragment extends Fragment implements MainContract.View,
             }
         });*/
 
-        AdUtils adUtils = new AdUtils();
+
         if (!(adUtils.isTestDevice())) {
 
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
+            adUtils.loadAd(mAdView);
         }
 
 
-        if (NetworkUtils.checkInternetConnection(mContext)){
+        if (NetworkUtils.checkInternetConnection(mContext)) {
 
             if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
 
@@ -232,54 +231,40 @@ public class MainFragment extends Fragment implements MainContract.View,
 
             case R.id.action_show_popular_movies:
                 Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_popular_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                 if (NetworkUtils.checkInternetConnection(mContext)) {
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesPopular());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesPopular());
                     mListener.changeToolbarTitle(Constants.getMoviesPopular());
-
-
-                    AdUtils adUtils = new AdUtils();
-                    if (!(adUtils.isTestDevice())) {
-
-                        AdRequest adRequest = new AdRequest.Builder().build();
-                        mAdView.loadAd(adRequest);
-                    }
-
-
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
+
                 break;
 
             case R.id.action_show_top_rated_movies:
                 Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_top_rated_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                 if (NetworkUtils.checkInternetConnection(mContext)) {
                     moviesRecyclerView.setAdapter(null);
                     getMoviesData(Constants.getMoviesTopRated());
                     mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesTopRated());
                     mListener.changeToolbarTitle(Constants.getMoviesTopRated());
-
-
-                    AdUtils adUtils = new AdUtils();
-                    if (!(adUtils.isTestDevice())) {
-
-                        AdRequest adRequest = new AdRequest.Builder().build();
-                        mAdView.loadAd(adRequest);
-                    }
-
-
                 } else {
                     mainPresenter.prepareInternetErrorLoadingMessage();
                 }
+
                 break;
 
             case R.id.action_show_favorite_movies:
                 Snackbar.make(moviesRecyclerView, getString(R.string.snackBar_showing_favorite_movies), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                 moviesRecyclerView.setAdapter(null);
                 getMoviesCursorLocalData();
                 mainPresenter.setCurrentMovieFilterSetting(sharedPreferences, moviesCurrentFilterKey, Constants.getMoviesFavorites());
                 mListener.changeToolbarTitle(Constants.getMoviesFavorites());
+
                 break;
         }
 
@@ -350,7 +335,6 @@ public class MainFragment extends Fragment implements MainContract.View,
         moviesAdapter = new MoviesAdapter(mContext, movies, (MainPresenter) mainPresenter);
         moviesRecyclerView.setAdapter(moviesAdapter);
     }
-
 
 
     @Override
@@ -433,7 +417,6 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         hideLoadingProgressBar(View.INVISIBLE);
         if (!data.isEmpty()) {
-          //  hideInternetErrorLoadingMessage();
             mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);

@@ -11,8 +11,7 @@
         android:id="@+id/rl_basic_movie"
         android:layout_margin="@dimen/recyclerView_margin_vertical"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/colorPrimary">
+        android:layout_alignParentLeft="true">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -41,7 +40,8 @@
             android:layout_centerHorizontal="true"
             android:text="@string/no_favorite_movies"
             android:textSize="@dimen/text_normal"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:padding="@dimen/movie_item_padding"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_movies"
