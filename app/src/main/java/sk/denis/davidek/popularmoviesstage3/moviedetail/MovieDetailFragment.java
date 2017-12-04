@@ -380,6 +380,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                     if (!isFavoriteMovie) {
                         mListener.onClick(isFavoriteMovie);
                     }
+                } else {
+                    mListener.onClick(isFavoriteMovie);
                 }
             }
         }
