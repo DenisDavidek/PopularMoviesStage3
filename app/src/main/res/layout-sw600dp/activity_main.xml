@@ -35,7 +35,7 @@
             android:background="@android:color/darker_gray"
             android:id="@+id/view_divider"
             android:layout_marginTop="@dimen/recyclerView_margin_vertical"
-            android:layout_marginBottom="@dimen/recyclerView_margin_vertical"/>
+            android:layout_marginBottom="@dimen/recyclerView_margin_vertical" />
 
 
         <LinearLayout

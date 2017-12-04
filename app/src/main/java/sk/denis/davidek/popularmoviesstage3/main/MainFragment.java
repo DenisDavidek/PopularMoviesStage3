@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -117,6 +118,10 @@ public class MainFragment extends Fragment implements MainContract.View,
     @BindView(R.id.rl_basic_movie)
     RelativeLayout relativeLayoutBasicMovie;
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -165,6 +170,19 @@ public class MainFragment extends Fragment implements MainContract.View,
         MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
         mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MOVIES_CURRENT_FILTER = sharedPreferences.getString(moviesCurrentFilterKey, Constants.getMoviesTopRated());
+                if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites()))
+                    getMoviesCursorLocalData();
+                else
+                    getMoviesData(MOVIES_CURRENT_FILTER);
+                mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
+
+            }
+        });
+
 
         mAdView.setAdListener(new AdListener() {
 
@@ -181,7 +199,6 @@ public class MainFragment extends Fragment implements MainContract.View,
             public void onAdLoaded() {
                 super.onAdLoaded();
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
-               // layoutParams.setMargins(16,16,16,16);
                 layoutParams.addRule(RelativeLayout.ABOVE, R.id.adView);
                 relativeLayoutBasicMovie.setLayoutParams(layoutParams);
 
@@ -389,6 +406,11 @@ public class MainFragment extends Fragment implements MainContract.View,
     }
 
     @Override
+    public void hideSwipeRefreshLayout() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void showMovieDataView() {
 
         moviesRecyclerView.setVisibility(View.VISIBLE);
@@ -423,6 +445,8 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
         hideLoadingProgressBar(View.INVISIBLE);
+        hideSwipeRefreshLayout();
+        Log.e("SETREFRESHING", " CALLED");
         if (!data.isEmpty()) {
             mainPresenter.prepareMovieDataView();
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);

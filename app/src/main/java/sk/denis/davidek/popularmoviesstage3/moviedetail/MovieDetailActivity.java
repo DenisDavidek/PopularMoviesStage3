@@ -18,6 +18,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -373,14 +374,19 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
                             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_favorite));
                             //   floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
+                            Log.e("FAVORITE VNUTRI", "SET");
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
                         floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
                         //       floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
+                        Log.e("UNFAVORITE VNUTRI", "SET");
                     }
                 }
+            } else {
+                floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
+                Log.e("UNFAVORITE VONKU", "SET");
             }
         }
 

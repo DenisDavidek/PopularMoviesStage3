@@ -1,67 +1,72 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sk.denis.davidek.popularmoviesstage3.main.MainFragment"
-    android:background="@color/colorBackground">
+    android:id="@+id/swipe_refresh_layout">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rl_basic_movie"
-        android:layout_margin="@dimen/recyclerView_margin_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/colorAccent">
+        tools:context="sk.denis.davidek.popularmoviesstage3.main.MainFragment"
+        android:background="@color/colorBackground">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="@dimen/progressBar_width"
-            android:layout_height="@dimen/progressBar_height"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/tv_error_no_internet_connection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/no_internet_connection"
-            android:textSize="@dimen/text_normal"
-            android:visibility="invisible"
-            android:padding="@dimen/movie_item_padding" />
-
-        <TextView
-            android:id="@+id/tv_no_favorite_movies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/no_favorite_movies"
-            android:textSize="@dimen/text_normal"
-            android:visibility="invisible"
-            android:padding="@dimen/movie_item_padding" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_movies"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:id="@+id/rl_basic_movie"
+            android:layout_margin="@dimen/recyclerView_margin_vertical"
             android:layout_alignParentTop="true"
-            android:adjustViewBounds="true" />
+            android:layout_alignParentLeft="true">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="@dimen/progressBar_width"
+                android:layout_height="@dimen/progressBar_height"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_error_no_internet_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/no_internet_connection"
+                android:textSize="@dimen/text_normal"
+                android:visibility="invisible"
+                android:padding="@dimen/movie_item_padding" />
+
+            <TextView
+                android:id="@+id/tv_no_favorite_movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/no_favorite_movies"
+                android:textSize="@dimen/text_normal"
+                android:visibility="invisible"
+                android:padding="@dimen/movie_item_padding" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_movies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true" />
+
+        </RelativeLayout>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
     </RelativeLayout>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
-</RelativeLayout>
-
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -33,6 +33,8 @@ public interface MainContract {
 
         void hideInternetErrorLoadingMessage();
 
+        void hideSwipeRefreshLayout();
+
         void showMovieDataView();
 
         void showNoFavoriteMoviesMessage();

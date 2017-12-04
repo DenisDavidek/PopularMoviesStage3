@@ -137,10 +137,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
         if (title.equals(Constants.getMoviesTopRated())) {
             setTitle(getString(R.string.toolbar_title_top_rated));
+            Log.e("CHANGE TOOLBAR TITLE ", "TOP RATED");
         } else if (title.equals(Constants.getMoviesPopular())) {
             setTitle(getString(R.string.toolbar_title_popular));
+            Log.e("CHANGE TOOLBAR TITLE ", "POPULAR");
         } else if (title.equals(Constants.getMoviesFavorites())) {
             setTitle(getString(R.string.toolbar_title_favorite));
+            Log.e("CHANGE TOOLBAR TITLE ", "FAVORITE");
         }
     }
 
