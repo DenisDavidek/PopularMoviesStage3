@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -165,7 +166,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         mListener.changeToolbarTitle(MOVIES_CURRENT_FILTER);
 
 
-  /*      mAdView.setAdListener(new AdListener() {
+        mAdView.setAdListener(new AdListener() {
 
 
             @Override
@@ -173,19 +174,19 @@ public class MainFragment extends Fragment implements MainContract.View,
                 super.onAdFailedToLoad(i);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
                 layoutParams.removeRule(RelativeLayout.ABOVE);
-                moviesRecyclerView.setLayoutParams(layoutParams);
+                relativeLayoutBasicMovie.setLayoutParams(layoutParams);
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
-              *//*  layoutParams.setMargins(16,16,16,16);*//*
+               // layoutParams.setMargins(16,16,16,16);
                 layoutParams.addRule(RelativeLayout.ABOVE, R.id.adView);
                 relativeLayoutBasicMovie.setLayoutParams(layoutParams);
 
             }
-        });*/
+        });
 
 
         if (!(adUtils.isTestDevice())) {

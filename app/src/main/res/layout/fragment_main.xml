@@ -11,7 +11,8 @@
         android:id="@+id/rl_basic_movie"
         android:layout_margin="@dimen/recyclerView_margin_vertical"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:background="@color/colorAccent">
 
         <ProgressBar
             android:id="@+id/progressBar"

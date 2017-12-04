@@ -34,7 +34,7 @@
     <dimen name="progressBar_height">42dp</dimen>
 
     <!--RecyclerView margins-->
-    <dimen name="recyclerView_margin_vertical">16dp</dimen>
+    <dimen name="recyclerView_margin_vertical">8dp</dimen>
 
     <!--Text sizes-->
     <dimen name="text_bigtest">32sp</dimen>

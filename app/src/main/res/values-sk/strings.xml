@@ -51,6 +51,6 @@
 
     <!--Movie basic info card-->
     <string name="movie_basic_info_release_date">Dátum vydania:\u0020</string>
-    <string name="movie_basic_info_user_rating">Používateľské hodnotenie:\u0020</string>
+    <string name="movie_basic_info_user_rating">Hodnotenie vo svete:\u0020</string>
 
 </resources>
