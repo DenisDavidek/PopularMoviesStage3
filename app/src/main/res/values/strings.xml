@@ -53,6 +53,6 @@
     <!--Movie basic info card-->
     <string name="movie_basic_info_release_date">Release Date:\u0020</string>
     <string name="movie_basic_info_user_rating">User Rating:\u0020</string>
-    <string name="movie_basic_info_user_rating_max_rank">/10</string>
+    <string name="movie_basic_info_user_rating_max_rank" translatable="false">/10</string>
 
 </resources>

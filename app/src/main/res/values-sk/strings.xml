@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--menu action items-->
+    <string name="menu_action_show_top_rated_movies">Zobraz najlepšie hodnotené filmy</string>
+    <string name="menu_action_show_popular_movies">Zobraz populárne filmy</string>
+    <string name="menu_action_show_favorite_movies">Zobraz obľúbenú kolekciu filmov</string>
+
+
+    <!-- error messages-->
+    <string name="no_internet_connection">Momentálne nie si pripojený k internetu. Prosím pripoj sa k internetu a vyber kategóriu filmov, ktoré chceš zobraziť.</string>
+    <string name="no_favorite_movies">Žiadne filmy nie sú súčasťou tvojej obľúbenej kolekcie.</string>
+    <string name="movie_no_review">Recenzie pre tento film nie sú k dispozícií.</string>
+    <string name="movie_no_trailer">Videá Pre tento film nie sú k dispozícií.</string>
+
+
+    <!--Keys-->
+    <string name="state_main_activity_key" translatable="false">mainActivityState</string>
+    <string name="movie_key" translatable="false">selectedMovie</string>
+
+
+    <!--Shared preferences keys-->
+    <string name="pref_current_movies_filter" translatable="false">current_movie_filter</string>
+
+
+    <!--Strings for detailIntentActivity-->
+    <string name="written_by">Napísané</string>
+    <string name="reviews">Recenzie</string>
+    <string name="trailers">Videá</string>
+
+
+    <!--SnackBar Messages-->
+    <string name="snackBar_showing_popular_movies">Zobrazujem populárne filmy</string>
+    <string name="snackBar_showing_top_rated_movies">Zobrazujem najlepšie hodnotené filmy</string>
+    <string name="snackBar_showing_favorite_movies">Zobrazujem obľúbenú kolekciu filmov</string>
+    <string name="snackBar_movie_added_to_favorites">Tento film bol pridaný ku tvojim obľúbeným</string>
+    <string name="snackBar_movie_deleted_from_favorites">Tento film bol odobratý z tvojich obľúbených</string>
+    <string name="snackBar_action">Akcia</string>
+
+
+    <!--content description messages-->
+    <string name="cd_movie_poster">Filmový plagát</string>
+    <string name="cd_movie_background">Filmové pozadie</string>
+
+
+    <!--Toolbar titles-->
+    <string name="toolbar_title_top_rated">Najlepšie hodnotené</string>
+    <string name="toolbar_title_popular">Populárne</string>
+    <string name="toolbar_title_favorite">Obľúbená kolekcia</string>
+
+
+    <!--Movie basic info card-->
+    <string name="movie_basic_info_release_date">Dátum vydania:\u0020</string>
+    <string name="movie_basic_info_user_rating">Používateľské hodnotenie:\u0020</string>
+
+</resources>
