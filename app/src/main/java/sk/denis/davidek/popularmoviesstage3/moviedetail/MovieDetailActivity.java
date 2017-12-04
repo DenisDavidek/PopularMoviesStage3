@@ -355,7 +355,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
             loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
     }
 
-//Callback query nie je callnuty po odobratí z db, prečo?
     private class CallbackQuery implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -373,27 +372,23 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
 
                         if (data.getString(data.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID)).equals(selectedMovie.getId())) {
                             floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_favorite));
-                            //   floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_36dp));
-                            Log.e("FAVORITE VNUTRI", "SET");
                             isFavoriteMovie = true;
                         }
                     }
                     if (!isFavoriteMovie) {
                         floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
-                        //       floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_36dp));
-                        Log.e("UNFAVORITE VNUTRI", "SET");
                     }
+                } else {
+                    floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
                 }
-            } else {
-                floatingActionButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.button_unfavorite));
-                Log.e("UNFAVORITE VONKU", "SET");
             }
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-
+            Log.e("onLoadReset TU ", "called");
         }
+
     }
 
 
