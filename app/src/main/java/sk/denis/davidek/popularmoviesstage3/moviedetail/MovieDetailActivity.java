@@ -355,7 +355,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
             loaderManager.restartLoader(LoaderConstants.getMoviesFavoritesLoader(), null, new CallbackQuery());
     }
 
-
+//Callback query nie je callnuty po odobratí z db, prečo?
     private class CallbackQuery implements LoaderManager.LoaderCallbacks<Cursor> {
 
 

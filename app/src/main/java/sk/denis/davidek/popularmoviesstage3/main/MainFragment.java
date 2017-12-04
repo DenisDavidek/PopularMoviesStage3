@@ -416,6 +416,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
         moviesRecyclerView.setVisibility(View.VISIBLE);
         errorInternetConnectionTextView.setVisibility(View.INVISIBLE);
+        noFavoriteMoviesTextView.setVisibility(View.INVISIBLE);
     }
 
     @Override
