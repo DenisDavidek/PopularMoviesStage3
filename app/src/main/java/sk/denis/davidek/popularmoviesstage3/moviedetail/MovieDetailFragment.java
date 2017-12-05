@@ -11,15 +11,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
@@ -108,9 +112,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     @BindInt(R.integer.amountOfItemsMovieDetail)
     int amountOfItems;
 
-
     @BindView(R.id.adView)
     AdView mAdView;
+
+    @BindView(R.id.cv_movie_plot_synopsis)
+    CardView moviePlotSynopsisCardView;
 
     public void setSelectedMovie(Movie selectedMovie) {
         this.selectedMovie = selectedMovie;
@@ -127,6 +133,26 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         App.getAppComponent().inject(this);
 
         movieDetailPresenter = new MovieDetailPresenter(this);
+
+        mAdView.setAdListener(new AdListener() {
+
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) moviePlotSynopsisCardView.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.cv_basic_movie_info);
+                moviePlotSynopsisCardView.setLayoutParams(layoutParams);
+                Log.e("onADFAILED TABLET ", "called");
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+            }
+        });
+
 
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(selectedMovieKey)) {

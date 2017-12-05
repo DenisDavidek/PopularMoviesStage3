@@ -117,10 +117,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @BindView(R.id.adView)
     AdView mAdView;
 
-    @BindView(R.id.cv_basic_movie_info)
-    CardView basicMovieInfoCardView;
-
-
     @BindView(R.id.cv_movie_plot_synopsis)
     CardView moviePlotSynopsisCardView;
 
@@ -138,7 +134,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         movieDetailPresenter = new MovieDetailPresenter(this);
 
 
-
         mAdView.setAdListener(new AdListener() {
 
 
@@ -147,7 +142,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                 super.onAdFailedToLoad(i);
 
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) moviePlotSynopsisCardView.getLayoutParams();
-                layoutParams.addRule(RelativeLayout.BELOW,R.id.cv_basic_movie_info);
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.cv_basic_movie_info);
                 moviePlotSynopsisCardView.setLayoutParams(layoutParams);
                 Log.e("onADFAILED ", "called");
             }
@@ -155,20 +150,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-        /*        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.adView);
-                relativeLayoutBasicMovie.setLayoutParams(layoutParams);
-*/
             }
         });
-
-
-
-
-
-
-
-
 
 
         Intent intent = getIntent();
