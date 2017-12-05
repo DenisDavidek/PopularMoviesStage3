@@ -235,6 +235,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         return fragmentView;
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
@@ -352,6 +353,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void showFavoriteMoviesData(ArrayList<Movie> movies) {
+        moviesRecyclerView.setAdapter(null);
         moviesAdapter = new MoviesAdapter(mContext, movies, (MainPresenter) mainPresenter);
         moviesRecyclerView.setAdapter(moviesAdapter);
     }
@@ -451,6 +453,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         Log.e("SETREFRESHING", " CALLED");
         if (!data.isEmpty()) {
             mainPresenter.prepareMovieDataView();
+            moviesRecyclerView.setAdapter(null);
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
             layoutManager.onRestoreInstanceState(state);
@@ -477,6 +480,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onPause() {
         super.onPause();
         state = layoutManager.onSaveInstanceState();
+
 
     }
 

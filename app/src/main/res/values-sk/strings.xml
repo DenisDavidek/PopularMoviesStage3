@@ -8,7 +8,7 @@
 
 
     <!-- error messages-->
-    <string name="no_internet_connection">Momentálne nie si pripojený k internetu. Prosím pripoj sa k internetu a vyber kategóriu filmov, ktoré chceš zobraziť.</string>
+    <string name="no_internet_connection">Momentálne nie si pripojený k internetu. Prosím pripoj sa k internetu.</string>
     <string name="no_favorite_movies">Žiadne filmy nie sú súčasťou tvojej obľúbenej kolekcie.</string>
     <string name="movie_no_review">Recenzie pre tento film nie sú k dispozícií.</string>
     <string name="movie_no_trailer">Videá Pre tento film nie sú k dispozícií.</string>
@@ -41,6 +41,6 @@
 
     <!--Movie basic info card-->
     <string name="movie_basic_info_release_date">Dátum vydania:\u0020</string>
-    <string name="movie_basic_info_user_rating">Hodnotenie vo svete:\u0020</string>
+    <string name="movie_basic_info_user_rating">Hodnotenie:\u0020</string>
 
 </resources>
