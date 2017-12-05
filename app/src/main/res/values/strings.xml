@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">PopularMovies</string>
+    <string name="app_name" translatable="false">PopularMovies</string>
 
     <!--menu action items-->
     <string name="menu_action_show_top_rated_movies">Show top rated movies</string>
