@@ -4,9 +4,6 @@
     <!--CardView-->
     <dimen name="cardview_margin">16dp</dimen>
 
-    <!--Margin dimensions-->
-    <dimen name="tv_marginHorizontal">30dp</dimen>
-
     <!--Padding dimensions-->
     <dimen name="movie_item_padding">4dp</dimen>
 
