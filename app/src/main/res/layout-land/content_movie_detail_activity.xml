@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_movie_release_date_text"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_normal"
+                    android:textSize="@dimen/text_normal_18sp"
                     tools:text="10.2.2017"
                     android:layout_toEndOf="@+id/tv_movie_release_date_text" />
 

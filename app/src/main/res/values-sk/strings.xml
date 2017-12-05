@@ -11,7 +11,7 @@
     <string name="no_internet_connection">Momentálne nie si pripojený k internetu. Prosím pripoj sa k internetu.</string>
     <string name="no_favorite_movies">Žiadne filmy nie sú súčasťou tvojej obľúbenej kolekcie.</string>
     <string name="movie_no_review">Recenzie pre tento film nie sú k dispozícií.</string>
-    <string name="movie_no_trailer">Videá Pre tento film nie sú k dispozícií.</string>
+    <string name="movie_no_trailer">Videá pre tento film nie sú k dispozícií.</string>
 
     <!--Strings for detailIntentActivity-->
     <string name="written_by">Napísané</string>
