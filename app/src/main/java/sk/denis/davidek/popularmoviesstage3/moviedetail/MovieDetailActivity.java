@@ -14,6 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +23,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
@@ -114,6 +117,13 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @BindView(R.id.adView)
     AdView mAdView;
 
+    @BindView(R.id.cv_basic_movie_info)
+    CardView basicMovieInfoCardView;
+
+
+    @BindView(R.id.cv_movie_plot_synopsis)
+    CardView moviePlotSynopsisCardView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +136,40 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         ButterKnife.bind(this);
         App.getAppComponent().inject(this);
         movieDetailPresenter = new MovieDetailPresenter(this);
+
+
+
+        mAdView.setAdListener(new AdListener() {
+
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) moviePlotSynopsisCardView.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.BELOW,R.id.cv_basic_movie_info);
+                moviePlotSynopsisCardView.setLayoutParams(layoutParams);
+                Log.e("onADFAILED ", "called");
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+        /*        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayoutBasicMovie.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.adView);
+                relativeLayoutBasicMovie.setLayoutParams(layoutParams);
+*/
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         Intent intent = getIntent();
         if (intent.hasExtra(selectedMovieKey)) {
