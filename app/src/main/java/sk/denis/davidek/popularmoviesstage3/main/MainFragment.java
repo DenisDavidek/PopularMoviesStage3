@@ -456,7 +456,7 @@ public class MainFragment extends Fragment implements MainContract.View,
             moviesRecyclerView.setAdapter(null);
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
-            layoutManager.onRestoreInstanceState(state);
+            moviesRecyclerView.getLayoutManager().onRestoreInstanceState(state);
         } else {
             mainPresenter.prepareInternetErrorLoadingMessage();
         }
@@ -479,14 +479,14 @@ public class MainFragment extends Fragment implements MainContract.View,
     @Override
     public void onPause() {
         super.onPause();
-        state = layoutManager.onSaveInstanceState();
+      //  state = layoutManager.onSaveInstanceState();
 
 
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        state = layoutManager.onSaveInstanceState();
+        state = moviesRecyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(mainActivityStateKey, state);
         super.onSaveInstanceState(outState);
 

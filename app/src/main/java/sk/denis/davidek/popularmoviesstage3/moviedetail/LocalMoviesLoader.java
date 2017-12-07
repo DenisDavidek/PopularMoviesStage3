@@ -31,6 +31,7 @@ public class LocalMoviesLoader extends AsyncTaskLoader<Cursor> {
     public Cursor loadInBackground() {
         try {
             Log.e("Load in background ", "called");
+
             return getContext().getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
                     null, null, null, MovieContract.MovieEntry.COLUMN_MOVIE_TITLE);
         } catch (Exception e) {
