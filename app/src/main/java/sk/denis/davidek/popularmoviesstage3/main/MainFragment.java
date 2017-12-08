@@ -212,7 +212,7 @@ public class MainFragment extends Fragment implements MainContract.View,
         }
 
 
-        if (NetworkUtils.checkInternetConnection(mContext)) {
+/*        if (NetworkUtils.checkInternetConnection(mContext)) {
 
             if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
 
@@ -229,7 +229,7 @@ public class MainFragment extends Fragment implements MainContract.View,
                 mainPresenter.prepareInternetErrorLoadingMessage();
             }
 
-        }
+        }*/
 
 
         return fragmentView;
@@ -334,6 +334,24 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onResume() {
         super.onResume();
         mainPresenter.start();
+        if (NetworkUtils.checkInternetConnection(mContext)) {
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+
+                getMoviesCursorLocalData();
+            } else {
+                getMoviesData(MOVIES_CURRENT_FILTER);
+            }
+        } else {
+
+            if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+                getMoviesCursorLocalData();
+            } else {
+
+                mainPresenter.prepareInternetErrorLoadingMessage();
+            }
+
+        }
     }
 
     @Override

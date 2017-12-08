@@ -10,11 +10,11 @@ public class LoaderConstants {
 
     private static int REVIEWS_LOADER = 23;
     private static int TRAILERS_LOADER = 24;
-    private static int MOVIES_FAVORITES_LOADER = 25;
+    private static int MOVIES_FAVORITES_LOADER = 700;
 
-    private static int MOVIE_CURSOR_GET_LOADER = 41;
+    private static int MOVIE_CURSOR_GET_LOADER = 99;
 
-    private int MOVIE_FAVORITES_GET_LOADER = 77;
+/*    private int MOVIE_FAVORITES_GET_LOADER = 77;*/
 
     public static int getMovieLoader() {
         return MOVIE_GET_LOADER;
@@ -36,7 +36,7 @@ public class LoaderConstants {
         return MOVIE_CURSOR_GET_LOADER;
     }
 
-    public int getMovieFavoritesGetLoader() {
+/*    public int getMovieFavoritesGetLoader() {
         return MOVIE_FAVORITES_GET_LOADER;
-    }
+    }*/
 }
