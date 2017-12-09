@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -287,6 +288,9 @@ public class MainFragment extends Fragment implements MainContract.View,
                 mListener.changeToolbarTitle(Constants.getMoviesFavorites());
 
                 break;
+
+            case R.id.action_about_app:
+                Toast.makeText(mContext,"A new screen will launch.", Toast.LENGTH_SHORT).show();
         }
 
 
