@@ -6,52 +6,71 @@
     tools:context="sk.denis.davidek.popularmoviesstage3.aboutapp.AboutAppActivity">
 
     <RelativeLayout
+        android:id="@+id/rl_developed_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
         android:layout_centerHorizontal="true"
-        android:id="@+id/rl_developed_by">
+        android:layout_margin="@dimen/relative_layout_margin_horizontal">
 
-    <TextView
-        android:id="@+id/tv_developed_by"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Developed By"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_normal_24sp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/tv_developed_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Developed By"
+            android:textSize="@dimen/text_normal_24sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_developer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Denis Dávidek"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
-        android:textSize="@dimen/text_normal"
-android:layout_toRightOf="@+id/tv_developed_by" />
+        <TextView
+            android:id="@+id/tv_developer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
+            android:layout_toRightOf="@+id/tv_developed_by"
+            android:text="Denis Dávidek"
+            android:textSize="@dimen/text_normal" />
 
 
     </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you interested in other software products from me?"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:layout_below="@+id/rl_developed_by"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_normal"
-        android:layout_below="@+id/rl_developed_by" />
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:text="Are you interested in other software products from me?"
+        android:textSize="@dimen/text_normal" />
 
     <TextView
         android:id="@+id/tv_get_uvplayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get it Here"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:layout_below="@+id/tv_question"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_normal"
-        android:layout_below="@+id/tv_question" />
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:text="Get it Here"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/tv_app_uses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_get_uvplayer"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:text="Data for this app comes from The Movie Database"
+        android:textSize="@dimen/text_normal" />
+
+    <ImageView
+        android:id="@+id/iv_tmdb_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_app_uses"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/tmdb_logo" />
 
 </RelativeLayout>
