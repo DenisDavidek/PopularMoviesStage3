@@ -56,7 +56,9 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/relative_layout_margin_horizontal"
         android:text="@string/get_other_products"
-        android:textSize="@dimen/text_normal" />
+        android:textSize="@dimen/text_normal_24sp"
+        android:clickable="true"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_app_uses"
@@ -74,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_app_uses"
         android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
         android:src="@drawable/tmdb_logo"
         tools:src="@drawable/tmdb_logo"/>
 
