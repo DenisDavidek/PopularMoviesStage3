@@ -17,7 +17,7 @@
     <dimen name="textview_margin_horizontal_8dp">8dp</dimen>
     <dimen name="parent_layout_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-
+    <dimen name="relative_layout_margin_horizontal">16dp</dimen>
 
     <!--Padding dimensions-->
     <dimen name="fragment_movie_detail_content_padding_horizontal">0dp</dimen>
