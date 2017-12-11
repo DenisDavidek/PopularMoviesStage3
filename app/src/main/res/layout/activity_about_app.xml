@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/relative_layout_margin_horizontal"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rl_developed_by">
 
     <TextView
         android:id="@+id/tv_developed_by"
@@ -30,5 +31,27 @@
         android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
         android:textSize="@dimen/text_normal"
 android:layout_toRightOf="@+id/tv_developed_by" />
+
+
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you interested in other software products from me?"
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_normal"
+        android:layout_below="@+id/rl_developed_by" />
+
+    <TextView
+        android:id="@+id/tv_get_uvplayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get it Here"
+        android:layout_margin="@dimen/relative_layout_margin_horizontal"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_normal"
+        android:layout_below="@+id/tv_question" />
+
 </RelativeLayout>
