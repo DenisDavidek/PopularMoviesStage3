@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -41,6 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.denis.davidek.popularmoviesstage3.App;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.aboutapp.AboutAppActivity;
 import sk.denis.davidek.popularmoviesstage3.adapters.MoviesAdapter;
 import sk.denis.davidek.popularmoviesstage3.data.Constants;
 import sk.denis.davidek.popularmoviesstage3.data.LoaderConstants;
@@ -290,7 +290,8 @@ public class MainFragment extends Fragment implements MainContract.View,
                 break;
 
             case R.id.action_about_app:
-                Toast.makeText(mContext,"A new screen will launch.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, AboutAppActivity.class);
+                startActivity(intent);
         }
 
 

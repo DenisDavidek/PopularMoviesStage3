@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity"
-            android:launchMode="singleTop"
-     >
+        <activity
+            android:name=".main.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +29,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
-            android:authorities="sk.denis.davidek.popularmoviesstage3"
             android:name=".data.contentprovider.MovieContentProvider"
+            android:authorities="sk.denis.davidek.popularmoviesstage3"
             android:exported="false" />
+
+        <activity android:name=".aboutapp.AboutAppActivity"></activity>
     </application>
 
 </manifest>
