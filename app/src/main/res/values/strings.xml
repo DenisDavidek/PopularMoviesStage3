@@ -55,4 +55,11 @@
     <string name="movie_basic_info_user_rating">User Rating:\u0020</string>
     <string name="movie_basic_info_user_rating_max_rank" translatable="false">/10</string>
 
+    <!--About app activity texts-->
+    <string name="developed_by">Developed By</string>
+    <string name="app_creator_name">Denis Dávidek</string>
+    <string name="interested_in_other_products">Interested in our other software products?</string>
+
+    <string name="get_other_products">Get it Here</string>
+    <string name="data_source">Data for this app comes from The Movie Database</string>
 </resources>
