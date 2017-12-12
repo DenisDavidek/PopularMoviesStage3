@@ -19,6 +19,7 @@ import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailActivity;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailFragment;
 import sk.denis.davidek.popularmoviesstage3.moviedetail.MovieDetailPresenter;
 import sk.denis.davidek.popularmoviesstage3.utils.AdUtils;
+import sk.denis.davidek.popularmoviesstage3.utils.GetOtherSoftwareProductsUtils;
 
 /**
  * Created by denis on 15.11.2017.
@@ -53,4 +54,6 @@ public interface AppComponent {
     void inject(MovieDetailPresenter movieDetailPresenter);
 
     void inject(AdUtils adUtils);
+
+    void inject(GetOtherSoftwareProductsUtils getOtherSoftwareProductsUtils);
 }

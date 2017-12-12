@@ -1,6 +1,5 @@
 package sk.denis.davidek.popularmoviesstage3.aboutapp;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sk.denis.davidek.popularmoviesstage3.R;
+import sk.denis.davidek.popularmoviesstage3.utils.GetOtherSoftwareProductsUtils;
 
 public class AboutAppActivity extends AppCompatActivity implements AboutAppContract.View {
 
@@ -23,14 +23,17 @@ public class AboutAppActivity extends AppCompatActivity implements AboutAppContr
     @OnClick(R.id.tv_get_uvplayer)
     public void getProductsClicked(){
 
-        openGPlus("communities/109333228263928350527");
+        aboutAppPresenter.prepareGetOtherProductsPage("communities/109333228263928350527");
     }
+
+    private GetOtherSoftwareProductsUtils getOtherSoftwareProductsUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
         aboutAppPresenter = new AboutAppPresenter(this);
+        getOtherSoftwareProductsUtils = new GetOtherSoftwareProductsUtils();
         ButterKnife.bind(this);
         tmdbLogoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,17 +45,6 @@ public class AboutAppActivity extends AppCompatActivity implements AboutAppContr
 
     }
 
-    public void openGPlus(String profile) {
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClassName("com.google.android.apps.plus",
-                    "com.google.android.apps.plus.phone.UrlGatewayActivity");
-            intent.putExtra("customAppUri", profile);
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + profile)));
-        }
-    }
 
     @Override
     public void setPresenter(AboutAppContract.Presenter presenter) {
@@ -64,5 +56,10 @@ public class AboutAppActivity extends AppCompatActivity implements AboutAppContr
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);
+    }
+
+    @Override
+    public void openGetOtherProductsPage(String url) {
+        getOtherSoftwareProductsUtils.openGPlus(url);
     }
 }

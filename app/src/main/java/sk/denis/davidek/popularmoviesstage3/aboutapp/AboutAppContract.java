@@ -13,13 +13,14 @@ public interface AboutAppContract {
     interface View extends BaseView<Presenter> {
 
         void openTMDbWebPage(String url);
-
+        void openGetOtherProductsPage(String url);
     }
 
     interface Presenter extends BasePresenter {
 
 
         void loadUrl();
+        void prepareGetOtherProductsPage(String url);
 
     }
 

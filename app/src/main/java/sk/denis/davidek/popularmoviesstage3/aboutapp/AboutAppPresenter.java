@@ -22,4 +22,9 @@ public class AboutAppPresenter implements AboutAppContract.Presenter {
     public void loadUrl() {
         aboutAppView.openTMDbWebPage("https://www.themoviedb.org/");
     }
+
+    @Override
+    public void prepareGetOtherProductsPage(String url) {
+        aboutAppView.openGetOtherProductsPage(url);
+    }
 }
