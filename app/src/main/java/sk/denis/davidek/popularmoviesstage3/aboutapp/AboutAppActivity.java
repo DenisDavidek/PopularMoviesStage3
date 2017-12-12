@@ -21,7 +21,7 @@ public class AboutAppActivity extends AppCompatActivity implements AboutAppContr
     ImageView tmdbLogoImageView;
 
     @OnClick(R.id.tv_get_uvplayer)
-    public void getProductsClicked(){
+    public void getProductsClicked() {
 
         aboutAppPresenter.prepareGetOtherProductsPage(getString(R.string.uvplayer_gplus_community));
     }

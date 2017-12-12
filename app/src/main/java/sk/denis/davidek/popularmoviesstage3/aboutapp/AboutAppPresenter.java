@@ -10,8 +10,8 @@ public class AboutAppPresenter implements AboutAppContract.Presenter {
     private final String tmdbUrlPage = "https://www.themoviedb.org/";
 
     public AboutAppPresenter(AboutAppContract.View view) {
-    this.aboutAppView = view;
-    aboutAppView.setPresenter(this);
+        this.aboutAppView = view;
+        aboutAppView.setPresenter(this);
     }
 
     @Override

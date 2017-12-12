@@ -487,7 +487,7 @@ public class MainFragment extends Fragment implements MainContract.View,
             moviesRecyclerView.setAdapter(null);
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
-           moviesRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+            moviesRecyclerView.getLayoutManager().onRestoreInstanceState(state);
         } else {
             mainPresenter.prepareInternetErrorLoadingMessage();
         }
@@ -503,14 +503,14 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
-Log.e("LOADER RESET MF","CALLED");
+        Log.e("LOADER RESET MF", "CALLED");
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
-      //  state = layoutManager.onSaveInstanceState();
+        //  state = layoutManager.onSaveInstanceState();
 
 
     }

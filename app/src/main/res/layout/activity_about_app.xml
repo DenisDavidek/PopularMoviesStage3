@@ -2,83 +2,84 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sk.denis.davidek.popularmoviesstage3.aboutapp.AboutAppActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/rl_developed_by"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="sk.denis.davidek.popularmoviesstage3.aboutapp.AboutAppActivity">
 
-        <TextView
-            android:id="@+id/tv_developed_by"
+        <RelativeLayout
+            android:id="@+id/rl_developed_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/developed_by"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/relative_layout_margin_horizontal">
+
+            <TextView
+                android:id="@+id/tv_developed_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/developed_by"
+                android:textSize="@dimen/text_normal_24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_developer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
+                android:layout_toRightOf="@+id/tv_developed_by"
+                android:text="@string/app_creator_name"
+                android:textSize="@dimen/text_normal" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_developed_by"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/relative_layout_margin_horizontal"
+            android:text="@string/interested_in_other_products"
+            android:textSize="@dimen/text_normal" />
+
+        <TextView
+            android:id="@+id/tv_get_uvplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_question"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/relative_layout_margin_horizontal"
+            android:text="@string/get_other_products"
             android:textSize="@dimen/text_normal_24sp"
+            android:clickable="true"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_developer"
+            android:id="@+id/tv_app_uses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/textview_margin_horizontal_8dp"
-            android:layout_toRightOf="@+id/tv_developed_by"
-            android:text="@string/app_creator_name"
+            android:layout_below="@+id/tv_get_uvplayer"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/relative_layout_margin_horizontal"
+            android:text="@string/data_source"
             android:textSize="@dimen/text_normal" />
 
+        <ImageView
+            android:id="@+id/iv_tmdb_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_app_uses"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/relative_layout_margin_horizontal"
+            android:src="@drawable/tmdb_logo"
+            tools:src="@drawable/tmdb_logo" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_developed_by"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
-        android:text="@string/interested_in_other_products"
-        android:textSize="@dimen/text_normal" />
-
-    <TextView
-        android:id="@+id/tv_get_uvplayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_question"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
-        android:text="@string/get_other_products"
-        android:textSize="@dimen/text_normal_24sp"
-        android:clickable="true"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tv_app_uses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_get_uvplayer"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
-        android:text="@string/data_source"
-        android:textSize="@dimen/text_normal" />
-
-    <ImageView
-        android:id="@+id/iv_tmdb_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_app_uses"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/relative_layout_margin_horizontal"
-        android:src="@drawable/tmdb_logo"
-        tools:src="@drawable/tmdb_logo"/>
-
-</RelativeLayout>
 </ScrollView>
