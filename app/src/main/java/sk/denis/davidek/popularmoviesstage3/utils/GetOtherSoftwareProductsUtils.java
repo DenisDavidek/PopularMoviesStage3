@@ -29,9 +29,10 @@ public class GetOtherSoftwareProductsUtils {
             intent.setClassName("com.google.android.apps.plus",
                     "com.google.android.apps.plus.phone.UrlGatewayActivity");
             intent.putExtra("customAppUri", profile);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + profile)));
+            mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/" + profile)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }
