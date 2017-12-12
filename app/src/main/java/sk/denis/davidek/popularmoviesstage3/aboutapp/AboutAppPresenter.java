@@ -7,6 +7,7 @@ package sk.denis.davidek.popularmoviesstage3.aboutapp;
 public class AboutAppPresenter implements AboutAppContract.Presenter {
 
     private AboutAppContract.View aboutAppView;
+    private final String tmdbUrlPage = "https://www.themoviedb.org/";
 
     public AboutAppPresenter(AboutAppContract.View view) {
     this.aboutAppView = view;
@@ -20,7 +21,7 @@ public class AboutAppPresenter implements AboutAppContract.Presenter {
 
     @Override
     public void loadUrl() {
-        aboutAppView.openTMDbWebPage("https://www.themoviedb.org/");
+        aboutAppView.openTMDbWebPage(tmdbUrlPage);
     }
 
     @Override

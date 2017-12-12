@@ -23,7 +23,7 @@ public class AboutAppActivity extends AppCompatActivity implements AboutAppContr
     @OnClick(R.id.tv_get_uvplayer)
     public void getProductsClicked(){
 
-        aboutAppPresenter.prepareGetOtherProductsPage("communities/109333228263928350527");
+        aboutAppPresenter.prepareGetOtherProductsPage(getString(R.string.uvplayer_gplus_community));
     }
 
     private GetOtherSoftwareProductsUtils getOtherSoftwareProductsUtils;
