@@ -413,7 +413,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-            Log.e("onLoadReset TU ", "called");
+         //   Log.e("onLoadReset TU ", "called");
         }
 
     }

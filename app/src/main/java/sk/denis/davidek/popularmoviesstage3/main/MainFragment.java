@@ -339,6 +339,7 @@ public class MainFragment extends Fragment implements MainContract.View,
     public void onResume() {
         super.onResume();
         mainPresenter.start();
+        Log.e("ON RESUME ", "called");
         if (NetworkUtils.checkInternetConnection(mContext)) {
 
             if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
@@ -356,6 +357,13 @@ public class MainFragment extends Fragment implements MainContract.View,
                 mainPresenter.prepareInternetErrorLoadingMessage();
             }
 
+        }
+        Log.e("MOVIES_CURRENT_FILTER ", MOVIES_CURRENT_FILTER);
+        if (MOVIES_CURRENT_FILTER.equals(Constants.getMoviesFavorites())) {
+
+            getMoviesCursorLocalData();
+        } else {
+            getMoviesData(MOVIES_CURRENT_FILTER);
         }
     }
 
@@ -466,7 +474,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public Loader<ArrayList<Movie>> onCreateLoader(int id, Bundle args) {
-        return new MainLoader(mContext, args, this);
+        return new MainLoader(getContext(), args, this);
     }
 
     @Override
@@ -479,7 +487,7 @@ public class MainFragment extends Fragment implements MainContract.View,
             moviesRecyclerView.setAdapter(null);
             moviesAdapter = new MoviesAdapter(mContext, data, (MainPresenter) mainPresenter);
             moviesRecyclerView.setAdapter(moviesAdapter);
-            moviesRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+           moviesRecyclerView.getLayoutManager().onRestoreInstanceState(state);
         } else {
             mainPresenter.prepareInternetErrorLoadingMessage();
         }
@@ -495,7 +503,7 @@ public class MainFragment extends Fragment implements MainContract.View,
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movie>> loader) {
-
+Log.e("LOADER RESET MF","CALLED");
     }
 
 

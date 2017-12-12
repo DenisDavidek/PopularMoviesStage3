@@ -56,6 +56,11 @@ class MainLoader extends AsyncTaskLoader<ArrayList<Movie>> {
 
     @Override
     public ArrayList<Movie> loadInBackground() {
+
+        if (!movies.isEmpty()) {
+
+            movies.clear();
+        }
         String movieFilter = bundle.getString(QUERY_MOVIE_FILTER);
 
         final String apiKey = BuildConfig.API_KEY;
