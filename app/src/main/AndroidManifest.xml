@@ -33,8 +33,9 @@
             android:authorities="sk.denis.davidek.popularmoviesstage3"
             android:exported="false" />
 
-        <activity android:name=".aboutapp.AboutAppActivity"
-            android:parentActivityName=".main.MainActivity"></activity>
+        <activity
+            android:name=".aboutapp.AboutAppActivity"
+            android:parentActivityName=".main.MainActivity" />
     </application>
 
 </manifest>

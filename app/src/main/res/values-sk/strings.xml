@@ -31,6 +31,7 @@
     <!--content description messages-->
     <string name="cd_movie_poster">Filmový plagát</string>
     <string name="cd_movie_background">Filmové pozadie</string>
+    <string name="cd_tmdb_page">The Movie Database logo</string>
 
 
     <!--Toolbar titles-->
@@ -50,6 +51,7 @@
 
     <string name="get_other_products">Získajte ich tu</string>
     <string name="data_source">Údaje pre túto aplikáciu pochádzajú z The Movie Database</string>
+
 
 
 </resources>
