@@ -43,4 +43,14 @@
     <string name="movie_basic_info_release_date">Dátum vydania:\u0020</string>
     <string name="movie_basic_info_user_rating">Hodnotenie:\u0020</string>
 
+    <!--About app activity texts-->
+    <string name="developed_by">Vyvinuté</string>
+    <string name="app_creator_name">Denisom Dávidekom</string>
+    <string name="interested_in_other_products">Máte záujem o naše ostatné softvérové produkty?</string>
+
+    <string name="get_other_products">Získajte ich tu</string>
+    <string name="data_source">Údaje pre túto aplikáciu pochádzajú z The Movie Database</string>
+
+
+
 </resources>

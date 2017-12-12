@@ -63,6 +63,6 @@
     <string name="get_other_products">Get it Here</string>
     <string name="data_source">Data for this app comes from The Movie Database</string>
 
-    <string name="uvplayer_gplus_community">communities/109333228263928350527</string>
+    <string name="uvplayer_gplus_community" translatable="false">communities/109333228263928350527</string>
 
 </resources>
