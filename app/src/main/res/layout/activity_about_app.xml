@@ -59,7 +59,8 @@
             android:text="@string/get_other_products"
             android:textSize="@dimen/text_normal_24sp"
             android:clickable="true"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/tv_app_uses"
@@ -79,7 +80,8 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/relative_layout_margin_horizontal"
             android:src="@drawable/tmdb_logo"
-            tools:src="@drawable/tmdb_logo" />
+            tools:src="@drawable/tmdb_logo"
+            android:contentDescription="@string/cd_tmdb_page"/>
 
     </RelativeLayout>
 </ScrollView>

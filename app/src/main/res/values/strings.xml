@@ -42,6 +42,7 @@
     <!--content description messages-->
     <string name="cd_movie_poster">Movie poster</string>
     <string name="cd_movie_background">Movie background</string>
+    <string name="cd_tmdb_page">The Movie Database logo</string>
 
 
     <!--Toolbar titles-->
