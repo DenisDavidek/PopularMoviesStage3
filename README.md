@@ -8,3 +8,10 @@ Simple movie listing Android app allowing users to discover movies. Filter betwe
 - Watch movie trailers
 - Read movie reviews from other users
 - Mark movies as your favorites and learn about them offline
+
+## Used Libraries inside this project
+- [Picasso](https://github.com/square/picasso)
+- [ButterKnife](https://github.com/JakeWharton/butterknife)
+- [EventBus](https://github.com/greenrobot/EventBus)
+- [Admob](https://github.com/googleads/googleads-mobile-android-examples/tree/master/admob)
+- [Dagger 2](https://github.com/google/dagger)
