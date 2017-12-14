@@ -3,8 +3,8 @@ Simple movie listing Android app allowing users to discover movies. Filter betwe
 
 ## Features:
 - Discover top rated and popular movies
-- Basic UI optimizations for phones and tablets
-- Master Detail flow for better usage of device's screen space
+- UI optimizations for phones and tablets
+- Master-Detail flow for better usage of device's screen space
 - UI designed using Material Design
 - Watch movie trailers
 - Read movie reviews from other users
